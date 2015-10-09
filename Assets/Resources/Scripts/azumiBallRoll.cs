@@ -60,7 +60,7 @@ public class azumiBallRoll : MonoBehaviour {
 				//0 out the velocity of the ball
 				//			getBall.velocity = new Vector2(0, 0);
 
-				Vector2 tapPos = Input.mousePosition;
+			Vector2 tapPos = Camera.main.ScreenToWorldPoint( Input.mousePosition);
 				print ("ilugliugsfliugasdilfgalsidugflaisudgfliasdufglaisdufg");
 				print(tapPos);
 				//get the position of the tap and the ball
