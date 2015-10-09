@@ -48,6 +48,8 @@ public class azumiBallRoll : MonoBehaviour {
 
 	void FixedUpdate() {
 
+		//this is something new dfgadgasdg
+
 		// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
 		myRb.velocity = Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
 
