@@ -18,17 +18,7 @@ public class collisionBall : MonoBehaviour {
 	
 	}
 
-
-	//	void OnCollisionEnter(Collision coll){
-	//		if (coll.collider.tag == "Wall") {
-	//			gm.incBounces ();
-	//			gm.getBounces ();
-	//		} else if (coll.collider.tag == "success") {
-	//			gm.getSuccess();
-	//			Destroy(this.gameObject);
-	//		}
-	//	}
-	
+	// Particle Effect on Collision
 	void OnCollisionEnter2D(Collision2D coll){
 		if (coll.transform.tag == "Block") {
 			print ("Yes its a block");

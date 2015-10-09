@@ -4,7 +4,7 @@ using System.Collections;
 public class azumiBallRoll : MonoBehaviour {
 
 	private GameObject theBall;
-	private GameObject theDoor;
+//	private GameObject theDoor;
 	
 //	public mmGameManagerController gm;
 	private Rigidbody2D myRb;
@@ -22,9 +22,7 @@ public class azumiBallRoll : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		// find the ball and door to move from door on click in fixedUpdate.
 		theBall = GameObject.Find ("Ball");
-		theDoor = GameObject.Find ("Door");
 
 		//make sure particle is off to start
 //		gameObject.GetComponent<ParticleSystem> ().enableEmission = false;
@@ -53,6 +51,7 @@ public class azumiBallRoll : MonoBehaviour {
 		// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
 		myRb.velocity = Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
 
+		// find pos of ball and mouseclick and move ball away from the mouseclick.
 		if (Input.GetMouseButtonDown (0)) {
 				//get the rigidbody og the ball
 				Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
@@ -60,16 +59,21 @@ public class azumiBallRoll : MonoBehaviour {
 				float theMag = getBall.velocity.magnitude;
 				//0 out the velocity of the ball
 				//			getBall.velocity = new Vector2(0, 0);
-				//get the position of the door and the ball
-				Vector2 doorPos = theDoor.transform.position;
-				Vector2 ballPos = getBall.transform.position;
-				//get the Trajectory of the ball to the door
-				Vector2 ballTraj = ballPos - doorPos;
-				//normalize it
-				Vector2 ballTrajN = ballTraj.normalized;
-				//give the ball its new trajectory to the door
-				getBall.velocity = ballTrajN * theMag;
 
+				Vector2 tapPos = Input.mousePosition;
+				print ("ilugliugsfliugasdilfgalsidugflaisudgfliasdufglaisdufg");
+				print(tapPos);
+				//get the position of the tap and the ball
+				Vector2 ballPos = getBall.transform.position;
+				//get the Trajectory of the ball to the tap
+				Vector2 ballTraj = ballPos - tapPos;
+				//normalize it 
+				Vector2 ballTrajN = ballTraj.normalized;
+				//give the ball its new trajectory away from tap
+//				getBall.velocity = ballTrajN * theMag;
+				Vector2 theForce = ballTrajN * theMag;
+				getBall.AddForce(theForce * onTapSpeed);
+				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
 //				myRb.AddForce (transform.up * onTapSpeed);
 		}
 	}
