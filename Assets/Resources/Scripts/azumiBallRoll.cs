@@ -14,10 +14,10 @@ public class azumiBallRoll : MonoBehaviour {
 	public float startSpeed = 200f;
 
 	// speed that is added upon a click/tap
-	public float onTapSpeed = 300f;
+	public float onTapSpeed = 100f;
 
 	// velocity clamp
-	public float clampSpeed = 10f;
+	public float clampSpeed = 6f;
 
 	// Use this for initialization
 	void Start () {
@@ -48,11 +48,6 @@ public class azumiBallRoll : MonoBehaviour {
 
 	void FixedUpdate() {
 
-		//this is something new dfgadgasdg
-
-		// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
-		myRb.velocity = Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
-
 		// find pos of ball and mouseclick and move ball away from the mouseclick.
 		if (Input.GetMouseButtonDown (0)) {
 				//get the rigidbody og the ball
@@ -62,7 +57,7 @@ public class azumiBallRoll : MonoBehaviour {
 				//0 out the velocity of the ball
 				//			getBall.velocity = new Vector2(0, 0);
 
-			Vector2 tapPos = Camera.main.ScreenToWorldPoint( Input.mousePosition);
+				Vector2 tapPos = Camera.main.ScreenToWorldPoint( Input.mousePosition);
 				print ("ilugliugsfliugasdilfgalsidugflaisudgfliasdufglaisdufg");
 				print(tapPos);
 				//get the position of the tap and the ball
@@ -75,9 +70,13 @@ public class azumiBallRoll : MonoBehaviour {
 //				getBall.velocity = ballTrajN * theMag;
 				Vector2 theForce = ballTrajN * theMag;
 				getBall.AddForce(theForce * onTapSpeed);
-				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
+//				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
 //				myRb.AddForce (transform.up * onTapSpeed);
+				
 		}
+
+		// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
+		myRb.velocity = Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
 	}
 
 
