@@ -12,6 +12,8 @@ namespace com.dogOnaHorse
 	public class ModalWindow : MonoBehaviour
 	{
 		public  WindowState myWindowState = WindowState.closed;
+		public ButtonID buttonID;
+
 		// Use this for initialization
 		void Awake ()
 		{
@@ -27,7 +29,23 @@ namespace com.dogOnaHorse
 			}
 		}
 
-		//
+
+		public void DoButtonAction (ButtonAction buttonAction)
+		{
+			switch (buttonAction) {
+			case ButtonAction.OpenModal:
+				Open ();
+				break;
+			case ButtonAction.CloseModal:
+				Close ();
+				break;
+			 default:
+				break;
+			
+			}
+		}
+
+
 		public void Open ()
 		{
 			myWindowState = WindowState.open;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using MonsterLove.StateMachine;
@@ -28,8 +28,8 @@ namespace com.dogOnaHorse
 		public UIMessageBehavior TitleText;
 		public bool developMode = false;
 		public InputManager inputManager;
-
-
+		public  Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow>();
+		
 		//public Dictionary<int, StudentName> students = new Dictionary<int, StudentName>()
 			
 		void Awake ()
@@ -39,6 +39,14 @@ namespace com.dogOnaHorse
 
 
 		void Start () {
+
+			Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
+			
+			ModalWindow[] modals =  canvas.GetComponentsInChildren<ModalWindow>(true);
+			for(int i=0;i<modals.Length; i++){
+				modalWindowDictionary.Add(modals[i].buttonID, modals[i]);
+			}
+
 
 			inputManager = GameObject.Find("GameScripts").GetComponent<InputManager>();
 			inputManager.RegisterCurrentSceneManager(this);
@@ -61,18 +69,20 @@ namespace com.dogOnaHorse
 
 
 
-		public void ModalOpen(ButtonAction ModalName)
+		public void ButtonClicked(ButtonID buttonID, ButtonAction buttonAction) 
 		{
-			ChangeState(SceneState.Modal);
-			AboutPangolinsWindow.Open();
+			if (buttonAction == ButtonAction.OpenModal){
+				ChangeState(SceneState.Modal);
+				modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
+			} else if (buttonAction == ButtonAction.CloseModal){
+				ChangeState(SceneState.Ready);
+				modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
+			} else if (buttonAction == ButtonAction.NextScreen){
+				ChangeState(SceneState.Closing);
+				GameManager.ChangeScene( buttonID,  buttonAction);
+			}
 		}
 
-		public void ModalClose()
-		{
-			ChangeState(SceneState.Ready);
-			AboutPangolinsWindow.Close();
-			
-		}
 
 
 		#region State methods
@@ -95,41 +105,6 @@ namespace com.dogOnaHorse
 		}
 		#endregion
 
-
-		/// <summary>
-		/// Receives user input.
-		/// </summary>
-		/// 
-		///Receives user input from Input Manager and relays it to the appropriate objects. 
-	/*	public void DoUserInput (UserAction newAction) 
-		{
-			if (!gameIsPaused) 
-			{
-					//do something to dog or horse
-				if (newAction == UserAction.accelerate){
-				//	horse.Accelerate();
-				// 	dog.Accelerate();
-				} else if (newAction == UserAction.decelerate){
-				//	horse.Decelerate();
-				// 	dog.Decelerate();
-				} else if (newAction == UserAction.horsejump){
-				//	horse.Jump();
-				} else if (newAction == UserAction.dogjump){
-				//	dog.Jump();
-				} else if (newAction == UserAction.anykey){
-					IdleText.StartExit();
-					IdleText.onExitActionFinished += Idle_ExitCallback;
-				
-				}
-			} else 
-				//don't do anything
-			{
-
-
-		
-			}
-
-		}*/
 
 	}
 

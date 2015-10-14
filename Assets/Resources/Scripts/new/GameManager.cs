@@ -49,25 +49,41 @@ namespace com.dogOnaHorse
 		void Start () {
 			ChangeState(GameState.Init);
 		}
+
 		public static GameState GetCurrentState() {
-
-			return  (GameState)Enum.Parse(typeof(GameState), instance.GetState().ToString());
-			
+			return (GameState)Enum.Parse(typeof(GameState), instance.GetState().ToString());		
 		}
-		public static void ChangeScene(GameState newScene) {
-			if (newScene != GameState.GameLevel){
-				Application.LoadLevel(newScene.ToString());
-				Instance.ChangeState(newScene);
-			} else {
-				//somethimg else
+	
+		public static void ChangeScene(ButtonID buttonID, ButtonAction buttonAction) {
+			GameState currentState = GetCurrentState();
+			GameState newState;
+			switch (currentState ) {
+			case GameState.Title:
+				newState = GameState.Progress;
+				Application.LoadLevel(newState.ToString());
+				Instance.ChangeState(newState);
+				break;
+
+			case GameState.Progress:
+				newState = GameState.Progress;
+				Application.LoadLevel(newState.ToString());
+				Instance.ChangeState(newState);
+				break;
+
+			case GameState.GameLevel:
+				newState = GameState.Progress;
+				Application.LoadLevel(newState.ToString());
+				Instance.ChangeState(newState);
+				break;
+
+			default:
+				break;
+				
 			}
-			
+
 		}
 
-		public static void ChangeLevel(string newLevelName) {
 
-			
-		}
 		#region State methods
 		//Enter Actions
 		void Init_Enter()
