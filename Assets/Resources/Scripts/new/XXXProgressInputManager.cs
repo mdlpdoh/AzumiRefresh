@@ -10,22 +10,22 @@ namespace com.dogOnaHorse
 	 */
 	public class ProgressInputManager : MonoBehaviour
 	{
-
-		public ProgressSceneManager sceneManager;
-
+		//private GameManager gameManager;
+		private ProgressSceneManager sceneManager;
+		//private bool inputLocked = true;
 
 
 		// Use this for initialization
 		void Awake () {
-			sceneManager =GetComponent<ProgressSceneManager>();
+			sceneManager = GetComponent<ProgressSceneManager>();
+			//gameManager  = GameObject.Find ("GameScripts").GetComponent<GameManager>();
 		}
 
 
 		public void LevelButtonClicked (String levelName)
 		{
 			if (sceneManager.GetCurrentState () == ProgressSceneState.Ready) {
-				print (levelName + "Button Clicked");
-				Application.LoadLevel("Level_00" + levelName);
+				GameManager.ChangeLevel(levelName);
 			}
 		}
 
