@@ -20,7 +20,8 @@ namespace com.dogOnaHorse
 	{
 		Unassigned,
 		MainWindowButton, 
-		ModalWindowButton
+		ModalWindowButton,
+		LevelButton
 	}
 
 	public enum ButtonAction
@@ -38,16 +39,16 @@ namespace com.dogOnaHorse
 		public ButtonAction buttonAction;
 		public ButtonType buttonType;
 
-		private Button button;
+		public Button button;
 		// Use this for initialization
-		void Start ()
+		public virtual void Start ()
 		{
 			button = GetComponent<Button>();
 			button.onClick.AddListener(delegate { DoButtonAction(); });
 		}
 	
 		// Update is called once per frame
-		void DoButtonAction ()
+		public virtual void DoButtonAction ()
 		{	if (buttonType== ButtonType.MainWindowButton) {
 				InputManager.Instance.MainButtonClicked(buttonID, buttonAction);
 			} else if  (buttonType== ButtonType.ModalWindowButton) {

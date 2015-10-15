@@ -63,13 +63,13 @@ namespace com.dogOnaHorse
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
 				break;
-
+				/*
 			case GameState.Progress:
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
 				break;
-
+			*/
 			case GameState.GameLevel:
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
@@ -82,6 +82,33 @@ namespace com.dogOnaHorse
 			}
 
 		}
+
+		public static bool ChangeScene(int levelNumber, int chapterNumber) {
+			GameState currentState = GetCurrentState();
+			if (currentState == GameState.Progress){
+				string levelName = "Level_"+padWithZeroes(chapterNumber.ToString()) + padWithZeroes(levelNumber.ToString());;
+			
+				if (Application.CanStreamedLevelBeLoaded(levelName)) {
+
+					Application.LoadLevel(levelName);
+					Instance.ChangeState(GameState.GameLevel);
+					return true;
+				} else {
+					print ("ERROR: Can't find level " + levelName);
+			
+				}
+			}
+			return false;
+		}
+		  static string padWithZeroes(string numberString){
+			if (numberString.Length < 2){
+				return "0" + numberString;
+					
+			}
+			return  numberString;
+		}
+
+
 
 
 		#region State methods
