@@ -40,6 +40,8 @@ namespace com.dogOnaHorse
 
 		void Start () {
 
+			if (Application.loadedLevelName == "Title" || Application.loadedLevelName == "Progress"){
+		
 			Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
 			
 			ModalWindow[] modals =  canvas.GetComponentsInChildren<ModalWindow>(true);
@@ -47,6 +49,7 @@ namespace com.dogOnaHorse
 				modalWindowDictionary.Add(modals[i].buttonID, modals[i]);
 			}
 
+			}
 
 			inputManager = GameObject.Find("GameScripts").GetComponent<InputManager>();
 			inputManager.RegisterCurrentSceneManager(this);
