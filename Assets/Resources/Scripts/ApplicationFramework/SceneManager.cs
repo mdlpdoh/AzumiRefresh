@@ -82,7 +82,12 @@ namespace com.dogOnaHorse
 				GameManager.ChangeScene( buttonID,  buttonAction);
 			}
 		}
-
+		public void LevelButtonClicked(int levelNumber, int chapterNumber) 
+		{
+			if (GameManager.ChangeScene( levelNumber,  chapterNumber)){
+				ChangeState(SceneState.Closing);
+			};
+		}
 
 
 		#region State methods

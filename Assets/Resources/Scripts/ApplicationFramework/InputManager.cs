@@ -60,6 +60,15 @@ namespace com.dogOnaHorse
 			}
 		}
 
+		public void LevelButtonClicked (int LevelNumber, int chapterNumber)
+		{
+			if (sceneManager.GetCurrentState () == SceneState.Ready) {
+				sceneManager.LevelButtonClicked (LevelNumber, chapterNumber);
+				
+			}
+		}
+		
+		
 		#endregion
 	}
 }
