@@ -82,6 +82,12 @@ namespace com.dogOnaHorse
 			}
 
 		}
+		public static void ReturnToProgressScreen(){
+			Instance.ChangeState (GameState.Progress );
+			Application.LoadLevel("Progress");
+			
+		}
+
 
 		public static bool ChangeScene(int levelNumber, int chapterNumber) {
 			GameState currentState = GetCurrentState();
