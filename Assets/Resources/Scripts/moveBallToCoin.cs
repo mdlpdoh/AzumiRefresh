@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class moveBallToCoin : MonoBehaviour {
+public class moveBallToCoin : MonoBehaviour
+{
 
 	private GameObject theBall;
 	private GameObject theCoin;
 	public static bool theSwitch;
 	
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 		// get the rigidbody
 		theBall = GameObject.Find ("Ball");
@@ -19,11 +21,13 @@ public class moveBallToCoin : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		
 	}
 	
-	void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerEnter2D (Collider2D col)
+	{
 		if (col.gameObject.name == "Ball") {
 			//get the rigidbody og the ball
 			Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
@@ -43,7 +47,7 @@ public class moveBallToCoin : MonoBehaviour {
 
 			if (theSwitch == true) {
 				theBall.gameObject.transform.localScale = new Vector3 (1F, 1F, 0);
-				Destroy(gameObject);
+				Destroy (gameObject);
 			} else {
 				//make the ball small so it can get to gold 
 				theBall.gameObject.transform.localScale = new Vector3 (0.2F, 0.2F, 0);
