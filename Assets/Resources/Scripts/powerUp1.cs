@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class powerUp1 : MonoBehaviour {
+public class powerUp1 : MonoBehaviour
+{
 
 	private GameObject theBall;
 	private GameObject theDoor;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 
 		// get the rigidbody
 		theBall = GameObject.Find ("Ball");
@@ -16,16 +18,16 @@ public class powerUp1 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 	
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if(col.gameObject.name == "Ball")
-		{
+		if (col.gameObject.name == "Ball") {
 			//get the rigidbody og the ball
-			Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D>();
+			Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
 			//find the magnitude of the ball
 			float theMag = getBall.velocity.magnitude;
 			//0 out the velocity of the ball
@@ -43,12 +45,12 @@ public class powerUp1 : MonoBehaviour {
 
 
 //			getBall.AddForce(transform.up * 500f);
-			print("Ball has been Moved To Opening");
-			print(theMag);
-			print(doorPos);
-			print(ballPos);
-			print(ballTraj);
-			print(ballTrajN);
+			print ("Ball has been Moved To Opening");
+			print (theMag);
+			print (doorPos);
+			print (ballPos);
+			print (ballTraj);
+			print (ballTrajN);
 		}
 	}
 
