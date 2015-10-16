@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using com.dogOnaHorse;
 
 public class Door : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -20,6 +22,7 @@ public class Door : MonoBehaviour {
 		{
 			Destroy(col.gameObject);
 			print("Ball has been destroyed");
+			GameManager.ReturnToProgressScreen();
 		}
 	}
 
