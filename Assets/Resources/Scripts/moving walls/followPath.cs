@@ -10,7 +10,7 @@ public class followPath : MonoBehaviour {
 	}
 
 	public FollowType Type = FollowType.MoveTowards;
-	public wallMovement Path;
+	public wallMovePingPong Path;
 	public float Speed = 1;
 	public float MaxDistanceToGoal = .1f;
 
