@@ -3,28 +3,11 @@ using System.Collections;
 
 namespace com.dogOnaHorse
 {
-	public class coin : MonoBehaviour
+	public class Coin : Collectible
 	{
 
 		// Use this for initialization
-		void Start ()
-		{
-	
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
 
-		void OnTriggerEnter2D (Collider2D col)
-		{
-			if (col.gameObject.name == "Ball") {
-				Destroy (this.gameObject);
-				print ("Coin has been pocketed");
-			}
-		}
 
 	}//end class
 }

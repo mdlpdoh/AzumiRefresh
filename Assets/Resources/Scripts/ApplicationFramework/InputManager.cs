@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 
@@ -16,17 +17,22 @@ namespace com.dogOnaHorse
 		public SceneManager sceneManager;
 
 
-		
+		//Internal reference to Notifications Manager instance (singleton design pattern)
 		private static InputManager instance = null;
-		// Use this for initialization
+
+		//private  EventManager eventManager;
+
 		public static InputManager Instance { 
-			// return reference to private instance 
+			// return public reference to private instance 
 			
 			get { 
 				return instance; 
 			}
 		}
-		void Awake ()
+
+
+
+			void Awake ()
 		{
 			// Check if existing instance of class exists in scene 35 
 			// If so, then destroy this instance
@@ -39,9 +45,32 @@ namespace com.dogOnaHorse
 			DontDestroyOnLoad (gameObject);
 		}
 
-		public void RegisterCurrentSceneManager (SceneManager newSceneManager)
+		void Start ()
 		{
-			sceneManager = newSceneManager;
+			sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
+		}
+		//public static void nukeOldSceneManager()
+		//{
+		//	print ("*************Old Scene Manager is Nuked");
+		//	Instance.sceneManager = null;
+		//}
+		//public void RegisterCurrentSceneManager (SceneManager newSceneManager)
+	//	{
+		//	sceneManager = newSceneManager;
+		//}
+		void Update ()
+		{
+			if (Input.GetMouseButtonDown (0)) {
+
+				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
+
+					sceneManager.StartGamePlay();
+					EventManager.PostEvent(AzumiEventType.GameTap, this, null);
+				} else if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing){
+					///communicate with ball
+					EventManager.PostEvent(AzumiEventType.GameTap, this, null);
+				}
+			}	
 		}
 
 		#region Button Input
@@ -54,7 +83,9 @@ namespace com.dogOnaHorse
 		}
 		public void ModalButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{
-			if (sceneManager.GetCurrentState () == SceneState.Modal) {
+			SceneState sceneState = sceneManager.GetCurrentState ();
+			if (sceneState == SceneState.Modal || sceneState ==SceneState.GameOver) {
+
 				sceneManager.ButtonClicked ( buttonID, buttonAction);
 				
 			}
@@ -67,8 +98,6 @@ namespace com.dogOnaHorse
 				
 			}
 		}
-		
-		
 		#endregion
 	}
 }

@@ -47,13 +47,15 @@ namespace com.dogOnaHorse
 
 
 //			getBall.AddForce(transform.up * 500f);
+				/*
 				print ("Ball has been Moved To Opening");
 				print (theMag);
 				print (doorPos);
 				print (ballPos);
 				print (ballTraj);
 				print (ballTrajN);
-			}
+*/
+}
 		}
 
 	}//end class

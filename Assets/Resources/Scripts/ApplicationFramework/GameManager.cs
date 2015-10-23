@@ -13,8 +13,7 @@ namespace com.dogOnaHorse
 		Title,
 		Progress,
 		GameLevel,
-		Win,
-		Lose
+		EndGame
 	}
 	public class GameManager : StateBehaviour
 	{
@@ -31,6 +30,7 @@ namespace com.dogOnaHorse
 		}
 
 		public  GameState defaultState;
+		public  SceneManager sceneManager;
 
 		void Awake ()
 		{
@@ -47,7 +47,9 @@ namespace com.dogOnaHorse
 		}
 
 		void Start () {
+			sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
 			ChangeState(GameState.Init);
+			Instance.sceneManager.InitScene();
 		}
 
 		public static GameState GetCurrentState() {
@@ -59,9 +61,11 @@ namespace com.dogOnaHorse
 			GameState newState;
 			switch (currentState ) {
 			case GameState.Title:
+				//EventManager.ClearGameLevelListeners();
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
+			//	Instance.sceneManager.InitScene();
 				break;
 				/*
 			case GameState.Progress:
@@ -71,9 +75,11 @@ namespace com.dogOnaHorse
 				break;
 			*/
 			case GameState.GameLevel:
+				//EventManager.ClearGameLevelListeners();
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
+				//Instance.sceneManager.InitScene();
 				break;
 
 			default:
@@ -82,12 +88,14 @@ namespace com.dogOnaHorse
 			}
 
 		}
-		public static void ReturnToProgressScreen(){
-			Instance.ChangeState (GameState.Progress );
-			Application.LoadLevel("Progress");
-			
-		}
 
+		public static void ReloadScene() {
+			print ("************");
+			Application.LoadLevel(Application.loadedLevel);
+			print ("##########");
+			Instance.ChangeState(GameState.GameLevel);
+
+		}
 
 		public static bool ChangeScene(int levelNumber, int chapterNumber) {
 			GameState currentState = GetCurrentState();
@@ -95,10 +103,12 @@ namespace com.dogOnaHorse
 				string levelName = "Level_"+padWithZeroes(chapterNumber.ToString()) + padWithZeroes(levelNumber.ToString());;
 			
 				if (Application.CanStreamedLevelBeLoaded(levelName)) {
-
+					//EventManager.ClearGameLevelListeners();
 					Application.LoadLevel(levelName);
 					Instance.ChangeState(GameState.GameLevel);
+					//Instance.sceneManager.InitScene();
 					return true;
+
 				} else {
 					print ("ERROR: Can't find level " + levelName);
 			
@@ -114,27 +124,50 @@ namespace com.dogOnaHorse
 			return  numberString;
 		}
 
-
-
-
+		public static void ReturnToProgressScreen(){
+			//EventManager.ClearGameLevelListeners();
+			Instance.ChangeState (GameState.Progress );
+			Application.LoadLevel("Progress");
+			
+		}
+		public static void GameOver(){
+			Instance.ChangeState(GameState.EndGame);
+		}
+		
 		#region State methods
 		//Enter Actions
 		void Init_Enter()
 		{
-			Debug.Log("Game Manager is now Inited");
+			Debug.Log("Game Manager:  Inited");
 			ChangeState(defaultState);
 		}
 		
 		void Title_Enter()
 		{
-			Debug.Log("Game Manager is ready for Title Screen");
+			Instance.sceneManager.InitScene();
+			Debug.Log("Game Manager: Title Screen");
 		}
 		
 		void Progress_Enter()
 		{
-			Debug.Log("Game Manager is ready for Progress Screen");
+			Instance.sceneManager.InitScene();
+			Debug.Log("Game Manager: Progress Screen");
 			
 		}
+		void GameLevel_Enter()
+		{
+			Instance.sceneManager.InitScene();
+			Debug.Log("Game Manager: GameLevel");
+			
+		}
+
+		void EndGame_Enter()
+		{
+
+			Debug.Log("Game Manager: Game is Over");
+			
+		}
+	
 		#endregion
 	}
 }
