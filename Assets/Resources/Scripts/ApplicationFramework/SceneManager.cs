@@ -74,8 +74,8 @@ namespace com.dogOnaHorse
 				ChangeState (SceneState.Init);
 			}
 			EventManager.ListenForEvent (AzumiEventType.HitDoor, OnHitDoorEvent);
+			EventManager.ListenForEvent (AzumiEventType.OutOfBounces, OnOutOfBouncesEvent);
 		}
-
 		void OnLevelWasLoaded ()
 		{
 		
@@ -119,11 +119,14 @@ namespace com.dogOnaHorse
 				ChangeState (SceneState.Closing);
 			}
 		}
-
 		public void OnHitDoorEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 			ChangeState(SceneState.GameOver);
-			
+		}
+
+			public void OnOutOfBouncesEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+			ChangeState(SceneState.GameOver);
 		}
 
 		#region State methods
@@ -151,8 +154,6 @@ namespace com.dogOnaHorse
 			EventManager.ClearGameLevelListeners ();
 			GameManager.GameOver();
 			modalWindowDictionary [ButtonID.LevelResults].DoButtonAction (ButtonAction.OpenModal);
-			//Debug.Log("Game is Over");
-			//GameManager.ReturnToProgressScreen ();
 		}
 
 		void Modal_Enter ()

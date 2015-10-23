@@ -10,8 +10,6 @@ namespace com.dogOnaHorse
 	{
 		public string TypeOfAnimal = "Drop Bear";
 		public int maxBounces = 400;
-		public int OneStarBouncelevel = 100;
-		public int OneStarCoinBonus = 5;
 		public int TwoStarBouncelevel = 200;
 		public int TwoStarCoinBonus = 10;
 		public int ThreeStarBouncelevel = 300;
@@ -41,7 +39,7 @@ namespace com.dogOnaHorse
 					return 3;
 				} else if (bouncesRemaining > TwoStarBouncelevel){
 					return 2;
-				} else if (bouncesRemaining > OneStarBouncelevel){
+				} else if (bouncesRemaining > 0){
 					return 1;
 				} else {
 					return 0;
@@ -89,8 +87,10 @@ namespace com.dogOnaHorse
 				if (bouncesRemaining >= 0 ) { 
 					bouncesRemaining--;
 				}
-
-
+				if (bouncesRemaining == 0 ) { 
+					EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+				}
+				
 				EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
 			}
 		}
