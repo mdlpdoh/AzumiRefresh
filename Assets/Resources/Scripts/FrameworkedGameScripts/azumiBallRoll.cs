@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace com.dogOnaHorse
 {
-	public class azumiBallRoll : MonoBehaviour
+	public class AzumiBallRoll : MonoBehaviour
 	{
 
 		private GameObject theBall;
@@ -40,9 +40,9 @@ namespace com.dogOnaHorse
 			// start ball rolling by adding force started at 500f but much better with a slower ball.
 			myRb.AddForce (transform.right * startSpeed);
 
-			// get the game manager script
-//		gm = GameObject.Find("GameManager").GetComponent<mmGameManagerController>();
-
+			// Listen For Input
+//
+			EventManager.ListenForEvent(AzumiEventType.GameTap, OnGameTap);
 		}
 	
 		// Update is called once per frame
@@ -53,38 +53,38 @@ namespace com.dogOnaHorse
 
 		void FixedUpdate ()
 		{
-
-			// find pos of ball and mouseclick and move ball away from the mouseclick.
-			if (Input.GetMouseButtonDown (0)) {
-				//get the rigidbody og the ball
-				Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
-				//find the magnitude of the ball
-				float theMag = getBall.velocity.magnitude;
-				//0 out the velocity of the ball
-				//			getBall.velocity = new Vector2(0, 0);
-
-				Vector2 tapPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-				print ("ilugliugsfliugasdilfgalsidugflaisudgfliasdufglaisdufg");
-				print (tapPos);
-				//get the position of the tap and the ball
-				Vector2 ballPos = getBall.transform.position;
-				//get the Trajectory of the ball to the tap
-				Vector2 ballTraj = ballPos - tapPos;
-				//normalize it 
-				Vector2 ballTrajN = ballTraj.normalized;
-				//give the ball its new trajectory away from tap
-//				getBall.velocity = ballTrajN * theMag;
-				Vector2 theForce = ballTrajN * theMag;
-				getBall.AddForce (theForce * onTapSpeed);
-//				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
-//				myRb.AddForce (transform.up * onTapSpeed);
-				
-			}
-
 			// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
 			myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
 		}
 
+		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+			// find pos of ball and mouseclick and move ball away from the mouseclick.
+		
+			//get the rigidbody og the ball
+			Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
+			//find the magnitude of the ball
+			float theMag = getBall.velocity.magnitude;
+			//0 out the velocity of the ball
+			//			getBall.velocity = new Vector2(0, 0);
+
+			Vector2 tapPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				
+			//print (tapPos);
+			//get the position of the tap and the ball
+			Vector2 ballPos = getBall.transform.position;
+			//get the Trajectory of the ball to the tap
+			Vector2 ballTraj = ballPos - tapPos;
+			//normalize it 
+			Vector2 ballTrajN = ballTraj.normalized;
+			//give the ball its new trajectory away from tap
+//				getBall.velocity = ballTrajN * theMag;
+			Vector2 theForce = ballTrajN * theMag;
+			getBall.AddForce (theForce * onTapSpeed);
+//				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
+//				myRb.AddForce (transform.up * onTapSpeed);
+				
+		}
 
 	}// end class
 }

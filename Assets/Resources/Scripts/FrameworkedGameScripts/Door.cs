@@ -5,27 +5,13 @@ namespace com.dogOnaHorse
 {
 	public class Door : MonoBehaviour
 	{
-
-
-
-		// Use this for initialization
-		void Start ()
+		void OnTriggerEnter2D (Collider2D coll)
 		{
-
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
-
-		void OnTriggerEnter2D (Collider2D col)
-		{
-			if (col.gameObject.name == "Ball") {
-				Destroy (col.gameObject);
-				print ("Ball has been destroyed");
-				GameManager.ReturnToProgressScreen ();
+			if (coll.gameObject.name == "Ball") {
+				EventManager.PostEvent(AzumiEventType.HitDoor, this, coll);
+				//Destroy (coll.gameObject);
+				//print ("Ball has been destroyed");
+				//GameManager.ReturnToProgressScreen ();
 			}
 		}
 

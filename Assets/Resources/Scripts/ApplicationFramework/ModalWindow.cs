@@ -14,6 +14,8 @@ namespace com.dogOnaHorse
 		public  WindowState myWindowState = WindowState.closed;
 		public ButtonID buttonID;
 
+
+
 		// Use this for initialization
 		void Awake ()
 		{
@@ -22,6 +24,7 @@ namespace com.dogOnaHorse
 
 		void implementCurrentWindowState ()
 		{
+			print ("implementCurrentWindowState");
 			if (myWindowState == WindowState.closed) {
 				gameObject.SetActive (false);
 			} else {
@@ -44,12 +47,15 @@ namespace com.dogOnaHorse
 			
 			}
 		}
-
-
+		public virtual void InitWindow ()
+		{
+		}
 		public void Open ()
 		{
+	
 			myWindowState = WindowState.open;
 			implementCurrentWindowState ();
+			InitWindow();
 		}
 
 		public void Close ()

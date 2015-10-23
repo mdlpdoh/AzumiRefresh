@@ -14,7 +14,8 @@ namespace com.dogOnaHorse
 		LeaderBoards,
 		Settings,
 		PowerUps,
-		Connect
+		Connect,
+		LevelResults
 	}
 	public enum ButtonType
 	{
@@ -31,7 +32,8 @@ namespace com.dogOnaHorse
 		CloseModal,
 		Select,
 		Buy,
-		NextScreen
+		NextScreen,
+		ResetLevel
 	}
 	public class ButtonBehavior : MonoBehaviour
 	{
