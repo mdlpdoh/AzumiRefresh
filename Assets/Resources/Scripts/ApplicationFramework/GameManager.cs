@@ -61,26 +61,10 @@ namespace com.dogOnaHorse
 			GameState newState;
 			switch (currentState ) {
 			case GameState.Title:
-				//EventManager.ClearGameLevelListeners();
-				newState = GameState.Progress;
-				Application.LoadLevel(newState.ToString());
-				Instance.ChangeState(newState);
-			//	Instance.sceneManager.InitScene();
-				break;
-				/*
-			case GameState.Progress:
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
 				break;
-			*/
-		/*	case GameState.GameLevel:
-				//EventManager.ClearGameLevelListeners();
-				newState = GameState.Progress;
-				Application.LoadLevel(newState.ToString());
-				Instance.ChangeState(newState);
-				//Instance.sceneManager.InitScene();
-				break;*/
 			case GameState.EndGame:
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());

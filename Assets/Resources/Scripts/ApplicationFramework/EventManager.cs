@@ -15,11 +15,10 @@ namespace com.dogOnaHorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
-		//Game Events
 		GameTap,
 		SetCoins,
 		SetBounces,
-		GameOver
+		OutOfBounces
 
 
 	}
@@ -126,7 +125,7 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.GameTap);
 		Instance.RemoveEvent(AzumiEventType.SetCoins);
 		Instance.RemoveEvent(AzumiEventType.SetBounces);
-		Instance.RemoveEvent(AzumiEventType.GameOver);
+		Instance.RemoveEvent(AzumiEventType.OutOfBounces);
 		Instance.RemoveEvent(AzumiEventType.HitWall);
 		Instance.RemoveEvent(AzumiEventType.HitCollectible);
 		Instance.RemoveEvent(AzumiEventType.HitPowerUp);

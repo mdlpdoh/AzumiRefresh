@@ -9,9 +9,7 @@ namespace com.dogOnaHorse
 		{
 			if (coll.gameObject.name == "Ball") {
 				EventManager.PostEvent(AzumiEventType.HitDoor, this, coll);
-				//Destroy (coll.gameObject);
-				//print ("Ball has been destroyed");
-				//GameManager.ReturnToProgressScreen ();
+
 			}
 		}
 
