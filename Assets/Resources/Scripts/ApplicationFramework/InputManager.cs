@@ -83,6 +83,7 @@ namespace com.dogOnaHorse
 		}
 		public void ModalButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{
+
 			SceneState sceneState = sceneManager.GetCurrentState ();
 			if (sceneState == SceneState.Modal || sceneState ==SceneState.GameOver) {
 

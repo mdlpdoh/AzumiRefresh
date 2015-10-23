@@ -105,7 +105,7 @@ namespace com.dogOnaHorse
 			} else if (buttonAction == ButtonAction.NextScreen) {
 				ChangeState (SceneState.Closing);
 				GameManager.ChangeScene (buttonID, buttonAction);
-
+			
 			} else if (buttonAction == ButtonAction.ResetLevel) {	
 				ChangeState (SceneState.Ready);
 				modalWindowDictionary[buttonID].DoButtonAction (ButtonAction.CloseModal);
