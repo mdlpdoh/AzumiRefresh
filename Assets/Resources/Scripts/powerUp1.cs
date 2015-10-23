@@ -3,6 +3,8 @@ using System.Collections;
 
 public class powerUp1 : MonoBehaviour
 {
+	//***** This script moves the ball toward the door when it hits gameobject that has this script on it (for ex a power-up).
+
 
 	private GameObject theBall;
 	private GameObject theDoor;
