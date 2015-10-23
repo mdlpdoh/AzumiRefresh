@@ -74,15 +74,20 @@ namespace com.dogOnaHorse
 				Instance.ChangeState(newState);
 				break;
 			*/
-			case GameState.GameLevel:
+		/*	case GameState.GameLevel:
 				//EventManager.ClearGameLevelListeners();
 				newState = GameState.Progress;
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
 				//Instance.sceneManager.InitScene();
+				break;*/
+			case GameState.EndGame:
+				newState = GameState.Progress;
+				Application.LoadLevel(newState.ToString());
+				Instance.ChangeState(newState);
+				//Instance.sceneManager.InitScene();
 				break;
-
-			default:
+				default:
 				break;
 				
 			}
@@ -103,10 +108,10 @@ namespace com.dogOnaHorse
 				string levelName = "Level_"+padWithZeroes(chapterNumber.ToString()) + padWithZeroes(levelNumber.ToString());;
 			
 				if (Application.CanStreamedLevelBeLoaded(levelName)) {
-					//EventManager.ClearGameLevelListeners();
+		
 					Application.LoadLevel(levelName);
 					Instance.ChangeState(GameState.GameLevel);
-					//Instance.sceneManager.InitScene();
+	
 					return true;
 
 				} else {
