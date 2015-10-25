@@ -62,9 +62,9 @@ namespace com.dogOnaHorse
 			// find pos of ball and mouseclick and move ball away from the mouseclick.
 		
 			//get the rigidbody og the ball
-			Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
+			//Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
 			//find the magnitude of the ball
-			float theMag = getBall.velocity.magnitude;
+			float theMag = myRb.velocity.magnitude;
 			//0 out the velocity of the ball
 			//			getBall.velocity = new Vector2(0, 0);
 
@@ -72,7 +72,7 @@ namespace com.dogOnaHorse
 				
 			//print (tapPos);
 			//get the position of the tap and the ball
-			Vector2 ballPos = getBall.transform.position;
+			Vector2 ballPos = myRb.transform.position;
 			//get the Trajectory of the ball to the tap
 			Vector2 ballTraj = ballPos - tapPos;
 			//normalize it 
@@ -80,7 +80,7 @@ namespace com.dogOnaHorse
 			//give the ball its new trajectory away from tap
 //				getBall.velocity = ballTrajN * theMag;
 			Vector2 theForce = ballTrajN * theMag;
-			getBall.AddForce (theForce * onTapSpeed);
+			myRb.AddForce (theForce * onTapSpeed);
 //				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
 //				myRb.AddForce (transform.up * onTapSpeed);
 				
