@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 444524}
+  - 114: {fileID: 11461298}
   m_Layer: 0
   m_Name: SlugWall2_short
   m_TagString: Wall
@@ -73,8 +74,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .155000001, y: -.0329999924, z: -.0449340679}
-  m_LocalScale: {x: 1.51999998, y: 1, z: 1}
+  m_LocalPosition: {x: -5.62100029, y: -.0329999924, z: -.0449340679}
+  m_LocalScale: {x: 2.00633025, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 444524}
   m_RootOrder: 1
@@ -85,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .597000003, y: -.0329999924, z: -.0449340679}
+  m_LocalPosition: {x: -4.98000002, y: -.0329999924, z: -.0449340679}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 444524}
@@ -97,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.171, y: .957000017, z: .0449340679}
+  m_LocalPosition: {x: 6.63999987, y: 4.43490267, z: .0449340679}
   m_LocalScale: {x: .75, y: .75, z: 1}
   m_Children:
   - {fileID: 449170}
@@ -112,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0659999996, y: -.0329999886, z: 0}
+  m_LocalPosition: {x: -6.26200008, y: -.0379999988, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 444524}
@@ -140,7 +141,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.349999994, y: .0250000004}
+  m_Offset: {x: 0, y: .0250000004}
   serializedVersion: 2
   m_Radius: .300000012
 --- !u!61 &6110974
@@ -156,6 +157,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: .0250000004}
   serializedVersion: 2
   m_Size: {x: .639999986, y: .600000024}
+--- !u!114 &11461298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8237bea7915214da4bae004ecba0f304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Slug01: {fileID: 449170}
+  Slug02: {fileID: 404326}
+  Slug03: {fileID: 418116}
+  fudge: 1.56500006
 --- !u!212 &21215302
 SpriteRenderer:
   m_ObjectHideFlags: 1

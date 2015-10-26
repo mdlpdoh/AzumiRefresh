@@ -59,6 +59,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 410380}
+  - 114: {fileID: 11405422}
   m_Layer: 0
   m_Name: SlugWall2
   m_TagString: Wall
@@ -73,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.219999999, y: -.0329999924, z: -.0449340679}
+  m_LocalPosition: {x: -.899999976, y: -.0329999924, z: -.0449340679}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410380}
@@ -85,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.22799993, y: -.0329999924, z: -.0449340679}
+  m_LocalPosition: {x: 3, y: -.0329999924, z: -.0449340679}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410380}
@@ -97,8 +98,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .00700000022, y: -.0329999924, z: -.0449340679}
-  m_LocalScale: {x: 3.83999991, y: 1, z: 1}
+  m_LocalPosition: {x: 1.04999995, y: -.0329999924, z: -.0449340679}
+  m_LocalScale: {x: 6.10350037, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410380}
   m_RootOrder: 1
@@ -109,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .219999999, y: -1.59000003, z: .0449340679}
+  m_LocalPosition: {x: 2.00999999, y: 5.35472775, z: .0449340679}
   m_LocalScale: {x: .75, y: .75, z: 1}
   m_Children:
   - {fileID: 400734}
@@ -140,7 +141,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.99000001, y: .0250000004}
+  m_Offset: {x: 0, y: .0250000004}
   serializedVersion: 2
   m_Radius: .300000012
 --- !u!61 &6147170
@@ -156,6 +157,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: .0250000004}
   serializedVersion: 2
   m_Size: {x: .639999986, y: .600000024}
+--- !u!114 &11405422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8237bea7915214da4bae004ecba0f304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Slug01: {fileID: 400734}
+  Slug02: {fileID: 409424}
+  Slug03: {fileID: 403606}
+  fudge: 1.56500006
 --- !u!212 &21221638
 SpriteRenderer:
   m_ObjectHideFlags: 1
