@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace com.dogOnaHorse
 {
-	public class collisionBall : MonoBehaviour
+	public class CollisionBall : MonoBehaviour
 	{
 		public bool particlesEnabled;
 		private GameObject hits;
