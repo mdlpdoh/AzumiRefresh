@@ -24,7 +24,7 @@ public class WallStop : MonoBehaviour {
 			newPos.x = objPos.x;
 		}
 		//send the block to that position.
-		transform.position = new Vector2 (newPos.x, transform.position.y);
+		transform.position = new Vector2 (newPos.x,  transform.position.y);
 	}
 	
 	// Update is called once per frame
