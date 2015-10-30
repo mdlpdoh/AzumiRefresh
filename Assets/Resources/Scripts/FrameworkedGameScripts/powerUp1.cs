@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace com.dogOnaHorse
 {
-	public class powerUp1 : MonoBehaviour
+	public class PowerUp1 : MonoBehaviour
 	{
 
 		private GameObject theBall;
