@@ -42,7 +42,8 @@ namespace com.dogOnaHorse
 
 			// Listen For Input
 //
-			EventManager.ListenForEvent(AzumiEventType.GameTap, OnGameTap);
+			EventManager.ListenForEvent (AzumiEventType.GameTap, OnGameTap);
+			EventManager.ListenForEvent (AzumiEventType.GameSwipe, OnGameSwipe);
 		}
 	
 		// Update is called once per frame
@@ -55,6 +56,13 @@ namespace com.dogOnaHorse
 		{
 			// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
 			myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
+		}
+
+		public void OnGameSwipe (AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+
+
+			myRb.AddForce((Vector3)Param * onTapSpeed );
 		}
 
 		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)

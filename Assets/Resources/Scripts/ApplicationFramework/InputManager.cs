@@ -16,6 +16,9 @@ namespace com.dogOnaHorse
 		//public GameManager gameManager;
 		public SceneManager sceneManager;
 
+		public bool ControlIsActive;
+
+		private Vector3 lastMousePosition;
 
 		//Internal reference to Notifications Manager instance (singleton design pattern)
 		private static InputManager instance = null;
@@ -58,10 +61,13 @@ namespace com.dogOnaHorse
 	//	{
 		//	sceneManager = newSceneManager;
 		//}
+
+	
+		/*  OLD UPDATE
 		void Update ()
 		{
-			if (Input.GetMouseButtonDown (0)) {
-
+			if (Input.GetMouseButtonDown (0)  && !ControlIsActive) {
+			
 				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
 
 					sceneManager.StartGamePlay();
@@ -71,6 +77,30 @@ namespace com.dogOnaHorse
 					EventManager.PostEvent(AzumiEventType.GameTap, this, null);
 				}
 			}	
+		}
+	*/
+		void Update ()
+		{
+			if (Input.GetMouseButtonDown (0)  && !ControlIsActive) {
+				lastMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
+					sceneManager.StartGamePlay();
+				}
+			}
+
+			if (Input.GetMouseButton(0) && !ControlIsActive) {
+				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
+					Vector3 newMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+					if (lastMousePosition != newMousePosition){
+						EventManager.PostEvent(AzumiEventType.GameSwipe, this, newMousePosition-lastMousePosition);
+
+						//print (newMousePosition);
+						lastMousePosition = newMousePosition;
+					}
+	
+				}
+
+			}
 		}
 
 		#region Button Input
@@ -99,6 +129,14 @@ namespace com.dogOnaHorse
 				
 			}
 		}
+
+		public void ControlActive(){
+			ControlIsActive = true;
+		}
+		public void ControlNotActive(){
+			ControlIsActive = false;
+		}
+
 		#endregion
 	}
 }

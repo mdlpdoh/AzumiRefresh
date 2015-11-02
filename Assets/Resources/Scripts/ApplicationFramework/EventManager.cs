@@ -16,6 +16,7 @@ namespace com.dogOnaHorse
 		HitTrigger,
 		HitDoor, 
 		GameTap,
+		GameSwipe,
 		SetCoins,
 		SetBounces,
 		OutOfBounces
@@ -123,6 +124,7 @@ public class EventManager : MonoBehaviour
 	public static void	ClearGameLevelListeners(){
 		print ("Clearing Game Listeners");
 		Instance.RemoveEvent(AzumiEventType.GameTap);
+		Instance.RemoveEvent(AzumiEventType.GameSwipe);
 		Instance.RemoveEvent(AzumiEventType.SetCoins);
 		Instance.RemoveEvent(AzumiEventType.SetBounces);
 		Instance.RemoveEvent(AzumiEventType.OutOfBounces);
