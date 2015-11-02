@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace com.dogOnaHorse
 {
@@ -35,7 +36,7 @@ namespace com.dogOnaHorse
 		NextScreen,
 		ResetLevel
 	}
-	public class ButtonBehavior : MonoBehaviour
+	public class ButtonBehavior : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{
 		public ButtonID buttonID;
 		public ButtonAction buttonAction;
@@ -49,6 +50,16 @@ namespace com.dogOnaHorse
 			button.onClick.AddListener(delegate { DoButtonAction(); });
 		}
 	
+		public void OnPointerDown (PointerEventData eventData) {
+			InputManager.Instance.ControlActive();
+
+		}
+
+		public void OnPointerUp (PointerEventData eventData)  {
+			InputManager.Instance.ControlNotActive();
+		}
+
+
 		// Update is called once per frame
 		public virtual void DoButtonAction ()
 		{	if (buttonType== ButtonType.MainWindowButton) {
