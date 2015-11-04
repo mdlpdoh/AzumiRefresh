@@ -50,7 +50,7 @@ public class azumiBallRoll : MonoBehaviour {
 
 		// find pos of ball and mouseclick and move ball away from the mouseclick.
 		if (Input.GetMouseButtonDown (0)) {
-				//get the rigidbody og the ball
+				//get the rigidbody of the ball
 				Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
 				//find the magnitude of the ball
 				float theMag = getBall.velocity.magnitude;
