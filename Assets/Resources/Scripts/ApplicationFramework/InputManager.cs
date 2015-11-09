@@ -108,6 +108,7 @@ namespace com.dogOnaHorse
 		void Update ()
 		{
 			if (smushEnabled) {
+
 				if (Input.GetMouseButtonDown (0) && !ControlIsActive) {
 					lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
 					if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {

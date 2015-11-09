@@ -48,6 +48,7 @@ namespace com.dogOnaHorse
 		public void SetStartValue(float startvalue)
 		{
 		
+
 			isFloat = true;
 
 			currentLevelFloat = startvalue;
@@ -59,7 +60,7 @@ namespace com.dogOnaHorse
 
 		public void  SetStartValue(int startvalue)
 		{
-
+			print (" )))) " + gameObject.name);
 			isFloat = false;	
 			currentLevelInt = startvalue;
 			minLevelInt =  int.Parse(minLevelText.text);
