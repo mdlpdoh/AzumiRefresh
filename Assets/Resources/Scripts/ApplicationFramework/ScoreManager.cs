@@ -8,15 +8,16 @@ namespace com.dogOnaHorse
 
 	public class ScoreManager : MonoBehaviour
 	{
-		public string TypeOfAnimal = "Drop Bear";
-		public int maxBounces = 400;
-		public int TwoStarBouncelevel = 200;
-		public int TwoStarCoinBonus = 10;
-		public int ThreeStarBouncelevel = 300;
-		public int ThreeStarCoinBonus = 20;
+		public string ChapterAnimalName = "Drop Bear";
+		public int MaxTaps = 400;
+		public int TwoStarLevel = 200;
+		public int TwoStarBonus = 10;
+		public int ThreeStarLevel = 300;
+		public int ThreeStarBonus = 20;
 		private int bouncesRemaining;
 		private int coinsEarned = 0;
-		//private int numberOfStars = 0;
+		private bool hitWallsCostsPoints = true;
+		private bool playerActionsCostPoints = true;
 
 		public  int numberOfBounces  { 
 			// return reference to private instance 
@@ -35,9 +36,9 @@ namespace com.dogOnaHorse
 		public int NumberOfStars  { 
 			// return reference to private instance 
 			get { 
-				if (bouncesRemaining > ThreeStarBouncelevel){
+				if (bouncesRemaining > ThreeStarLevel){
 					return 3;
-				} else if (bouncesRemaining > TwoStarBouncelevel){
+				} else if (bouncesRemaining > TwoStarLevel){
 					return 2;
 				} else if (bouncesRemaining > 0){
 					return 1;
@@ -53,48 +54,83 @@ namespace com.dogOnaHorse
 
 		private SceneManager sceneManager;
 
-		void Awake ()
+		public void ChangeMaxScore (int newScore)
 		{
-			//initialize tracking variables
-			bouncesRemaining = maxBounces;
+			MaxTaps = newScore;
+			bouncesRemaining = newScore;
+			EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
 		}
 
 		void Start ()
 		{
+			LevelManager.InitializateLevelValues(this);
 			sceneManager = GameObject.Find ("SceneScripts").GetComponent<SceneManager>();
 			EventManager.ListenForEvent(AzumiEventType.HitWall, OnHitWallEvent);
-			EventManager.ListenForEvent(AzumiEventType.GameTap, OnHitWallEvent);
+			EventManager.ListenForEvent(AzumiEventType.GameSwipe, OnPlayerActionEvent);
 			EventManager.ListenForEvent(AzumiEventType.HitCollectible, OnHitCollectibleEvent);
 			EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
-			InitScoreParameters();
+			InitScoreUI();
+			bouncesRemaining = MaxTaps;
 		}
 
-		void InitScoreParameters ()
+		//#if UNITY_EDITOR
+		/*
+		void OnEnable (){
+			print ("OnEnable Called: " +  Application.isPlaying);
+		}
+		void OnValidate ()
+		{
+			print ("OnValidate Called: " +  Application.isPlaying);
+			//LevelManager.UpdateLevelValues(this);
+		}
+*/
+
+
+		void InitScoreUI ()
 		{
 			ScoreCounter scoreCounter = GameObject.Find("ScoreNumber").GetComponent<ScoreCounter>();
 			CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
-			scoreCounter.SetStartingAmount(maxBounces);
+			scoreCounter.SetStartingAmount(MaxTaps);
 			coinCounter.SetStartingAmount(0);// <--need to get from account
 		}
-		public void getLevelResults ()
+		public void SetHitWallsCostsPoints (bool newValue)
 		{
-
+			hitWallsCostsPoints = newValue;
+		}
+		public void PlayerActionsCostPoints(bool newValue)
+		{
+			playerActionsCostPoints = newValue;
 		}
 		public void OnHitWallEvent(AzumiEventType Event_Type, Component Sender, object Param = null){
 
 			if (sceneManager.GetCurrentState() == SceneState.Playing){
-				//print ("Event_Type: "+Event_Type + ", Sender: "+Sender + ", Param: "+Param);
-				if (bouncesRemaining >= 0 ) { 
-					bouncesRemaining--;
-				}
-				if (bouncesRemaining == 0 ) { 
-					EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
-				}
-				
-				EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+				if (hitWallsCostsPoints) {
+					if (bouncesRemaining >= 0 ) { 
+						bouncesRemaining--;
+					}
+					if (bouncesRemaining == 0 ) { 
+						EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+					}
+					
+					EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+					}
 			}
 		}
+		public void OnPlayerActionEvent(AzumiEventType Event_Type, Component Sender, object Param = null){
+			if (sceneManager.GetCurrentState() == SceneState.Playing){
+				if (playerActionsCostPoints) {
+					if (bouncesRemaining >= 0 ) { 
+						bouncesRemaining--;
+					}
+					if (bouncesRemaining == 0 ) { 
+						EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+					}
+					
+					EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+				}
+			}
 
+		}
 		public void OnHitCollectibleEvent(AzumiEventType Event_Type, Component Sender, object Param = null){
 			if (sceneManager.GetCurrentState() == SceneState.Playing){
 				coinsEarned++;
@@ -104,7 +140,7 @@ namespace com.dogOnaHorse
 
 		public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null){
 			if (sceneManager.GetCurrentState() == SceneState.Playing){
-				print ("Event_Type: "+Event_Type + ", Sender: "+Sender + ", Param: "+Param);
+				//print ("Event_Type: "+Event_Type + ", Sender: "+Sender + ", Param: "+Param);
 			}
 		}
 	}
