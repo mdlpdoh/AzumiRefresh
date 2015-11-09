@@ -41,7 +41,7 @@ namespace com.dogOnaHorse
 		public bool developMode = false;
 		public InputManager inputManager;
 		public  Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow> ();
-		
+		public GameObject devSettingsPanel;
 		//public Dictionary<int, StudentName> students = new Dictionary<int, StudentName>()
 			
 		void Awake ()
@@ -58,14 +58,14 @@ namespace com.dogOnaHorse
 
 		public void InitScene ()
 		{
-			print ("InitScene");
-				Canvas canvas = GameObject.FindObjectOfType (typeof(Canvas)) as Canvas;
 
-				ModalWindow[] modals = canvas.GetComponentsInChildren<ModalWindow> (true);
-				modalWindowDictionary.Clear();
-				for (int i=0; i<modals.Length; i++) {
-					modalWindowDictionary.Add (modals [i].buttonID, modals [i]);
-				}
+			Canvas canvas = GameObject.FindObjectOfType (typeof(Canvas)) as Canvas;
+			devSettingsPanel = GameObject.Find("DevelopmentSettings");
+			ModalWindow[] modals = canvas.GetComponentsInChildren<ModalWindow> (true);
+			modalWindowDictionary.Clear ();
+			for (int i=0; i<modals.Length; i++) {
+				modalWindowDictionary.Add (modals [i].buttonID, modals [i]);
+			}
 			inputManager = GameObject.Find ("GameScripts").GetComponent<InputManager> ();
 			//	inputManager.RegisterCurrentSceneManager(this);
 			if (developMode) {
@@ -76,11 +76,7 @@ namespace com.dogOnaHorse
 			EventManager.ListenForEvent (AzumiEventType.HitDoor, OnHitDoorEvent);
 			EventManager.ListenForEvent (AzumiEventType.OutOfBounces, OnOutOfBouncesEvent);
 		}
-		void OnLevelWasLoaded ()
-		{
-		
-	
-		}
+
 
 		public SceneState GetCurrentState ()
 		{
@@ -108,8 +104,8 @@ namespace com.dogOnaHorse
 			
 			} else if (buttonAction == ButtonAction.ResetLevel) {	
 				ChangeState (SceneState.Ready);
-				modalWindowDictionary[buttonID].DoButtonAction (ButtonAction.CloseModal);
-				GameManager.ReloadScene();
+				modalWindowDictionary [buttonID].DoButtonAction (ButtonAction.CloseModal);
+				GameManager.ReloadScene ();
 			}
 		}
 
@@ -119,14 +115,15 @@ namespace com.dogOnaHorse
 				ChangeState (SceneState.Closing);
 			}
 		}
+
 		public void OnHitDoorEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-			ChangeState(SceneState.GameOver);
+			ChangeState (SceneState.GameOver);
 		}
 
-			public void OnOutOfBouncesEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
+		public void OnOutOfBouncesEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-			ChangeState(SceneState.GameOver);
+			ChangeState (SceneState.GameOver);
 		}
 
 		#region State methods
@@ -140,6 +137,7 @@ namespace com.dogOnaHorse
 		void Ready_Enter ()
 		{
 			Debug.Log ("Scene Manager: Ready");
+	
 		}
 
 		void Playing_Enter ()
@@ -152,14 +150,15 @@ namespace com.dogOnaHorse
 		{
 			Debug.Log ("Scene Manager: GameOver");
 			EventManager.ClearGameLevelListeners ();
-			GameManager.GameOver();
+			GameManager.GameOver ();
+			devSettingsPanel.SetActive(false);
 			modalWindowDictionary [ButtonID.LevelResults].DoButtonAction (ButtonAction.OpenModal);
+
 		}
 
 		void Modal_Enter ()
 		{
 			Debug.Log ("Modal open");
-		
 		}
 
 		void DebugMode_Enter ()

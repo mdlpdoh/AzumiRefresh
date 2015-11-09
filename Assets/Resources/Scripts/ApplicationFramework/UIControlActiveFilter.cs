@@ -12,9 +12,8 @@ namespace com.dogOnaHorse
 		{
 		
 			InputManager.Instance.ControlActive ();
-			print("Power twonds Activate");
+		
 		}
-	
 		public void OnPointerUp (PointerEventData eventData)
 		{
 
