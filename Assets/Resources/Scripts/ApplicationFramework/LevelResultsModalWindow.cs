@@ -24,7 +24,7 @@ namespace com.dogOnaHorse
 			int numberOfStars = scoreManager.NumberOfStars;
 			int numberOfBounces = scoreManager.numberOfBounces;
 			int numberOfCoins  = scoreManager.numberOfCoins;
-			string typeOfAnimal = scoreManager.TypeOfAnimal;;
+			string typeOfAnimal = scoreManager.ChapterAnimalName;;
 			string resultsMessage;
 
 			if (numberOfStars < 1) {

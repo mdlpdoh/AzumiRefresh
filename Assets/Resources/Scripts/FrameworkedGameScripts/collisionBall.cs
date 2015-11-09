@@ -7,10 +7,7 @@ namespace com.dogOnaHorse
 	{
 		public bool particlesEnabled;
 		private GameObject hits;
-	
-
 		// Use this for initialization
-
 	
 		void Start ()
 		{

@@ -15,11 +15,13 @@ namespace com.dogOnaHorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
+		PlayerAction,
 		GameTap,
 		GameSwipe,
 		SetCoins,
 		SetBounces,
-		OutOfBounces
+		OutOfBounces,
+
 
 
 	}

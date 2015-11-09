@@ -15,6 +15,8 @@ namespace com.dogOnaHorse
 		GameLevel,
 		EndGame
 	}
+
+
 	public class GameManager : StateBehaviour
 	{
 
@@ -79,9 +81,7 @@ namespace com.dogOnaHorse
 		}
 
 		public static void ReloadScene() {
-			print ("************");
 			Application.LoadLevel(Application.loadedLevel);
-			print ("##########");
 			Instance.ChangeState(GameState.GameLevel);
 
 		}
@@ -95,7 +95,7 @@ namespace com.dogOnaHorse
 		
 					Application.LoadLevel(levelName);
 					Instance.ChangeState(GameState.GameLevel);
-	
+					LevelManager.SetLevelIDNumbers ( chapterNumber,  levelNumber);
 					return true;
 
 				} else {
@@ -143,8 +143,8 @@ namespace com.dogOnaHorse
 			Debug.Log("Game Manager: Progress Screen");
 			
 		}
-		void GameLevel_Enter()
-		{
+		void GameLevel_Enter() {
+	
 			Instance.sceneManager.InitScene();
 			Debug.Log("Game Manager: GameLevel");
 			
