@@ -31,7 +31,7 @@ namespace com.dogOnaHorse
 			Vector2 vectorDirection = Vector3.Normalize (handle01pos - handle02pos);
 			float angle = Vector3.Angle (vectorDirection, Vector2.up);
 			wallSegment.localPosition = new Vector2 (handle01pos.x + (handle02pos.x - handle01pos.x) / 2, handle01pos.y + (handle02pos.y - handle01pos.y) / 2);
-			wallSegment.localScale = new Vector2 ((handle01pos - handle02pos).magnitude * fudge, 1);
+			wallSegment.localScale = new Vector2 ((handle01pos - handle02pos).magnitude * fudge, wallSegment.localScale.y);
 
 			if (handle01pos.x < handle02pos.x) {
 				wallSegment.rotation = Quaternion.Euler (0, 0, angle + 90);

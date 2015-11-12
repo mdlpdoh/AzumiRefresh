@@ -15,15 +15,14 @@ namespace com.dogOnaHorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
-		PlayerAction,
 		GameTap,
+		GamePress,
+		GameShift,
+		GameRelease,
 		GameSwipe,
 		SetCoins,
 		SetBounces,
-		OutOfBounces,
-
-
-
+		OutOfBounces
 	}
 //-----------------------------------------------------------
 //Singleton EventManager to send events to listeners
@@ -135,10 +134,13 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.HitPowerUp);
 		Instance.RemoveEvent(AzumiEventType.HitTrigger);
 		Instance.RemoveEvent(AzumiEventType.HitDoor);
+		Instance.RemoveEvent(AzumiEventType.GameTap);
+		Instance.RemoveEvent(AzumiEventType.GamePress);
+		Instance.RemoveEvent(AzumiEventType.GameShift);
+		Instance.RemoveEvent(AzumiEventType.GameRelease);
 	}
 
-
-	//-----------------------------------------------------------
+	//---------------------------------------------------------
 	//Remove event type entry from dictionary, including all listeners
 	public void RemoveEvent(AzumiEventType AzumiEventType)
 	{

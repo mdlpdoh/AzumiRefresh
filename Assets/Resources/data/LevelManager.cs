@@ -125,6 +125,8 @@ namespace com.dogOnaHorse
 			//if both numbers are zero it means level is being tested from within the editor
 			//in this case the scoremanager shoud go with the ScoreManager's inspector values
 			if (lastChapterNumber != 0 && lastLevelNumber != 0) {
+	
+				print (Instance.ChapterInitList.Count);
 				LevelInitData currentLevel = Instance.ChapterInitList[lastChapterNumber-1].LevelInitList[lastLevelNumber-1];
 
 				newScoreManager.ChapterAnimalName  = currentLevel.ChapterAnimalName;
@@ -139,7 +141,7 @@ namespace com.dogOnaHorse
 		void SetUpChapters (string chapterInfo)
 		{
 			JSONNode json = JSONNode.Parse (chapterInfo);
-			//print(json["ChapterAnimalName"]);
+			print("chapterInfo " + chapterInfo);
 			for (int i = 0; i < json.Count; i++) {
 				//print(json[i]["ChapterAnimalName"]);
 				ChapterInitData nextChapter = new ChapterInitData ();

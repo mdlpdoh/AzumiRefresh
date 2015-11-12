@@ -41,11 +41,14 @@ namespace com.dogOnaHorse
 		private bool hitWallsCostsPoints;
 		private bool actionsCostPoints;
 
-		// Use this for initialization
-		void Start ()
-		{
-		//	PlayerPrefs.DeleteAll();
+
+
 	
+		// Use this for initialization
+		 void Start ()
+		{
+
+
 			if (!PlayerPrefs.HasKey("smushEnabled")){
 				smushEnabled = true;
 				PlayerPrefs.SetString("smushEnabled",Convert.ToString(smushEnabled));
@@ -99,6 +102,7 @@ namespace com.dogOnaHorse
 				MaxTaps = scoreManager.MaxTaps;
 			}
 			SetUpUI ();
+
 		}
 		public void ResetPhysics ()
 		{
@@ -119,6 +123,7 @@ namespace com.dogOnaHorse
 
 		public void ResetGamePlays ()
 		{
+	
 			//PlayerPrefs.DeleteAll();
 			smushEnabled = true;
 			PlayerPrefs.SetString("smushEnabled",Convert.ToString(smushEnabled));
@@ -146,6 +151,7 @@ namespace com.dogOnaHorse
 		// Update is called once per frame
 		void SetUpUI ()
 		{
+	
 			forceSlider.onFloatChanged += onForceChanged;
 			pointsSlider.onIntChanged += onPointsChanged;
 			massSlider.onFloatChanged += onMassChanged;
@@ -170,19 +176,21 @@ namespace com.dogOnaHorse
 				swipeToggle.isOn = true;
 
 			}
-			InputManager.smushEnabled =smushEnabled;
+			InputManager.MainDirectionSelected =smushEnabled;
+
+			print ("InputManager.MainDirectionSelected "+ InputManager.MainDirectionSelected);
 		}
 
 		public void onSmushSelected ()
 		{ 
 			smushEnabled = true;
-			InputManager.smushEnabled =smushEnabled;
+			InputManager.MainDirectionSelected =smushEnabled;
 		}
 
 		public void onSwipeSelected ()
 		{ 
 			smushEnabled = false;
-			InputManager.smushEnabled =smushEnabled;
+			InputManager.MainDirectionSelected =smushEnabled;
 		}
 
 		public void onHittingWallsSelected ()

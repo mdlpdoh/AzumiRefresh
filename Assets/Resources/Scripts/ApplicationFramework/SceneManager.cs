@@ -42,7 +42,9 @@ namespace com.dogOnaHorse
 		public InputManager inputManager;
 		public  Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow> ();
 		public GameObject devSettingsPanel;
-		//public Dictionary<int, StudentName> students = new Dictionary<int, StudentName>()
+	
+		private SceneState lastState;
+
 			
 		void Awake ()
 		{
@@ -92,11 +94,28 @@ namespace com.dogOnaHorse
 		public void ButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{
 			if (buttonAction == ButtonAction.OpenModal) {
+
 				ChangeState (SceneState.Modal);
 				modalWindowDictionary [buttonID].DoButtonAction (buttonAction);
-			} else if (buttonAction == ButtonAction.CloseModal) {
+				//pause Game if opening modal while game is running re ready to start
+				if (GameManager.GetCurrentState () == GameState.GameLevel && (GetCurrentState () ==  SceneState.Ready ||  GetCurrentState () == SceneState.Playing)) {
+					Time.timeScale = 0;
+					lastState = GetCurrentState ();
+				}
+				
 
-				ChangeState (SceneState.Ready);
+
+			} else if (buttonAction == ButtonAction.CloseModal) {
+				if (GameManager.GetCurrentState () == GameState.GameLevel ) {
+					Time.timeScale = 1;
+				
+					ChangeState (lastState);
+				} else {
+					ChangeState (SceneState.Ready);
+
+				}
+
+
 				modalWindowDictionary [buttonID].DoButtonAction (buttonAction);
 			} else if (buttonAction == ButtonAction.NextScreen) {
 				ChangeState (SceneState.Closing);
@@ -151,7 +170,7 @@ namespace com.dogOnaHorse
 			Debug.Log ("Scene Manager: GameOver");
 			EventManager.ClearGameLevelListeners ();
 			GameManager.GameOver ();
-			devSettingsPanel.SetActive(false);
+			//devSettingsPanel.SetActive(false);
 			modalWindowDictionary [ButtonID.LevelResults].DoButtonAction (ButtonAction.OpenModal);
 
 		}
