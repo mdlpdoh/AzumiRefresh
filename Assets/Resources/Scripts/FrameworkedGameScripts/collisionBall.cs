@@ -11,11 +11,8 @@ namespace com.dogOnaHorse
 	
 		void Start ()
 		{
-
-
 			// get the particle system child object of the ball
 			hits = GameObject.Find ("hitParticles");
-	
 		}
 	
 		// Update is called once per frame
