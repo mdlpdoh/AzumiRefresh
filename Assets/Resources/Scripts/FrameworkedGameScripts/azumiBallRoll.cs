@@ -23,6 +23,11 @@ namespace com.dogOnaHorse
 		public float clampSpeed = 6f;
 
 		// Use this for initialization
+
+		private bool gamePointerDown = false;
+
+
+
 		void Start ()
 		{
 
@@ -44,6 +49,7 @@ namespace com.dogOnaHorse
 //
 			EventManager.ListenForEvent (AzumiEventType.GameTap, OnGameTap);
 			EventManager.ListenForEvent (AzumiEventType.GameSwipe, OnGameSwipe);
+			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 		}
 	
 		// Update is called once per frame
@@ -60,10 +66,20 @@ namespace com.dogOnaHorse
 
 		public void OnGameSwipe (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-
-
-			myRb.AddForce((Vector3)Param * onTapSpeed );
+			if (gamePointerDown){
+				myRb.AddForce((Vector3)Param * onTapSpeed );
+				gamePointerDown = false;
+			}
 		}
+		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+			gamePointerDown = true;
+		}
+
+
+
+
+
 
 		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{

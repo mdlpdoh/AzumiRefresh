@@ -16,7 +16,8 @@ namespace com.dogOnaHorse
 		Settings,
 		PowerUps,
 		Connect,
-		LevelResults
+		LevelResults,
+		DevelopmentSettings
 	}
 	public enum ButtonType
 	{
