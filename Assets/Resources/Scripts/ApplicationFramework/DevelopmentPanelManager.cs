@@ -47,8 +47,13 @@ namespace com.dogOnaHorse
 		// Use this for initialization
 		 void Start ()
 		{
+		
+			Init ();
+		}
 
-
+		
+		public void Init ()
+		{
 			if (!PlayerPrefs.HasKey("smushEnabled")){
 				smushEnabled = true;
 				PlayerPrefs.SetString("smushEnabled",Convert.ToString(smushEnabled));
@@ -102,7 +107,6 @@ namespace com.dogOnaHorse
 				MaxTaps = scoreManager.MaxTaps;
 			}
 			SetUpUI ();
-
 		}
 		public void ResetPhysics ()
 		{
@@ -178,7 +182,7 @@ namespace com.dogOnaHorse
 			}
 			InputManager.MainDirectionSelected =smushEnabled;
 
-			print ("InputManager.MainDirectionSelected "+ InputManager.MainDirectionSelected);
+			//print ("InputManager.MainDirectionSelected "+ InputManager.MainDirectionSelected);
 		}
 
 		public void onSmushSelected ()

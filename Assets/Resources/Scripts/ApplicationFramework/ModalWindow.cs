@@ -17,14 +17,14 @@ namespace com.dogOnaHorse
 
 
 		// Use this for initialization
-		void Awake ()
+		void Start ()
 		{
 			implementCurrentWindowState ();
 		}
 
 		void implementCurrentWindowState ()
 		{
-			print ("implementCurrentWindowState");
+			//print ("implementCurrentWindowState");
 			if (myWindowState == WindowState.closed) {
 				gameObject.SetActive (false);
 			} else {
