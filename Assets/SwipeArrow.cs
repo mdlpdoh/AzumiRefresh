@@ -40,11 +40,13 @@ namespace com.dogOnaHorse
 				ArrowSpriteRenderer.sprite = AltSprite;
 			}
 			startLocation =  Camera.main.ViewportToWorldPoint( FixCoordinates((Vector3)Param));
+		
 			transform.position = startLocation;
 		
 		}
 		public void OnGameShift (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
+
 			if (!ArrowSpriteRenderer.enabled) {
 				ArrowSpriteRenderer.enabled = true;
 			}
