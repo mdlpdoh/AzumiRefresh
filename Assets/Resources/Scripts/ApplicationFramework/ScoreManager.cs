@@ -118,7 +118,7 @@ namespace com.dogOnaHorse
 		}
 		public void OnPlayerActionEvent(AzumiEventType Event_Type, Component Sender, object Param = null){
 			if (sceneManager.GetCurrentState() == SceneState.Playing){
-				if (playerActionsCostPoints) {
+				//if (playerActionsCostPoints) {
 					if (bouncesRemaining >= 0 ) { 
 						bouncesRemaining--;
 					}
@@ -127,7 +127,7 @@ namespace com.dogOnaHorse
 					}
 					
 					EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
-				}
+				//}
 			}
 
 		}
