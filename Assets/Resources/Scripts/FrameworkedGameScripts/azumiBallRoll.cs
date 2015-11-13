@@ -76,11 +76,6 @@ namespace com.dogOnaHorse
 			gamePointerDown = true;
 		}
 
-
-
-
-
-
 		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 			// find pos of ball and mouseclick and move ball away from the mouseclick.

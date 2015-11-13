@@ -63,13 +63,18 @@ namespace com.dogOnaHorse
 
 			Canvas canvas = GameObject.FindObjectOfType (typeof(Canvas)) as Canvas;
 			devSettingsPanel = GameObject.Find("DevelopmentSettings");
+			//print ("a " + devSettingsPanel);
+			//print (" b "+ devSettingsPanel.GetComponent<DevelopmentPanelManager>() );
+			if (GameManager.GetCurrentState() == GameState.GameLevel){
+				//devSettingsPanel.GetComponent<DevelopmentPanelManager>().Init();
+			}
 			ModalWindow[] modals = canvas.GetComponentsInChildren<ModalWindow> (true);
 			modalWindowDictionary.Clear ();
 			for (int i=0; i<modals.Length; i++) {
 				modalWindowDictionary.Add (modals [i].buttonID, modals [i]);
 			}
 			inputManager = GameObject.Find ("GameScripts").GetComponent<InputManager> ();
-			//	inputManager.RegisterCurrentSceneManager(this);
+
 			if (developMode) {
 				ChangeState (SceneState.DebugMode);
 			} else {

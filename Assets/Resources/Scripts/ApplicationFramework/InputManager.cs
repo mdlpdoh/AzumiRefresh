@@ -108,16 +108,19 @@ namespace com.dogOnaHorse
 		void Update ()
 		{
 
-		
+
 			if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
 
 				//start game if it hasn't already started kejf
 				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
 					sceneManager.StartGamePlay ();
+				
 				}
 				//prepare Arrow for activation
-				lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-				EventManager.PostEvent (AzumiEventType.GamePress, this, lastMousePosition);
+				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
+					lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+					EventManager.PostEvent (AzumiEventType.GamePress, this, lastMousePosition);
+				}
 			}
 
 			//Update active arrow
