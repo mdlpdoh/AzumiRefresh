@@ -50,7 +50,7 @@ namespace com.dogonahorse
 
 		void drawMarker (Vector2 markerLocation)
 		{
-			DebugDraw.DrawMarker (markerLocation, 3, Color.red, 1);
+//			DebugDraw.DrawMarker (markerLocation, 3, Color.red, 1);
 		}
 
 		void snapHandle (Transform handle)
