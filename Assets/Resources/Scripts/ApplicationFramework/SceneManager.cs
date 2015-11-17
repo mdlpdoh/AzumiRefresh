@@ -5,7 +5,7 @@ using MonsterLove.StateMachine;
 using UnityEngine.UI;
 using System;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public enum SceneState
 	{

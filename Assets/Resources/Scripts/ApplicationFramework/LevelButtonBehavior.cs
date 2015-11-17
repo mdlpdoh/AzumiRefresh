@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 
 	public class LevelButtonBehavior : ButtonBehavior

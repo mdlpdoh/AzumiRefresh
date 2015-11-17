@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using com.dogOnaHorse;
+
+
+
+
 
 public class Door : MonoBehaviour {
 
@@ -22,8 +25,7 @@ public class Door : MonoBehaviour {
 		{
 			Destroy(col.gameObject);
 			print("Ball has been destroyed");
-			GameManager.ReturnToProgressScreen();
+			//GameManager.ReturnToProgressScreen();
 		}
 	}
-
-}//end class
+	}

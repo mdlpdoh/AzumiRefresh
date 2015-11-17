@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	/**
 	 *  Manages all player input. InputManager controls any touch, keyboard or mouse input by the user, and passes it on to the current scene manager for interpretation.
@@ -110,18 +110,18 @@ namespace com.dogOnaHorse
 
 
 			if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
-				lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+				lastMousePosition =  Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 				//start game if it hasn't already started kejf
 				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
 
 					//lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
 					sceneManager.StartGamePlay ();
-					EventManager.PostEvent (AzumiEventType.GamePress, this, lastMousePosition);
+					EventManager.PostEvent (AzumiEventType.GamePress, this,lastMousePosition);
 				}
 				//prepare Arrow for activation
 				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
-					lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-					EventManager.PostEvent (AzumiEventType.GamePress, this, lastMousePosition);
+					lastMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
+					EventManager.PostEvent (AzumiEventType.GamePress, this,  lastMousePosition);
 				}
 			}
 
@@ -130,7 +130,7 @@ namespace com.dogOnaHorse
 			if (Input.GetMouseButton (0) && !UIControlIsActive) {
 			
 				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
-					newMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+					newMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 					if (lastMousePosition != newMousePosition) {
 						EventManager.PostEvent (AzumiEventType.GameShift, this, newMousePosition);
 					}
@@ -142,7 +142,7 @@ namespace com.dogOnaHorse
 			if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
 			
 				if (Input.GetMouseButtonUp (0) && !UIControlIsActive) {
-					newMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+					newMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 					EventManager.PostEvent (AzumiEventType.GameRelease, this, newMousePosition);
 					if (MainDirectionSelected) {
 						EventManager.PostEvent (AzumiEventType.GameSwipe, this, lastMousePosition - newMousePosition);
@@ -151,8 +151,14 @@ namespace com.dogOnaHorse
 					}
 				}
 			}
+		
+		}
+	
 
-			/*
+		Vector3 FixCoordinates (Vector3 screenCoordinates){
+			return new Vector3(screenCoordinates.x, screenCoordinates.y, 10);
+		}
+		/*
 			if (MainDirectionSelected) {
 
 				if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
@@ -201,7 +207,7 @@ namespace com.dogOnaHorse
 				}
 
 			}*/
-		}
+		//
 		#region Button Input
 		public void MainButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{

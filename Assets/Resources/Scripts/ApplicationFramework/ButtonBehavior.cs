@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public enum ButtonID
 	{

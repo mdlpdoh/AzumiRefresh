@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class CoinCounter : MonoBehaviour
 	{

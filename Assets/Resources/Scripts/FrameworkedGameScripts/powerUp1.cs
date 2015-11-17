@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class PowerUp1 : MonoBehaviour
 	{

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 using UnityEngine.EventSystems;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class UIControlActiveFilter : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{

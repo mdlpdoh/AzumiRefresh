@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace com.dogOnaHorse
 {
-	public class DragObjects : MonoBehaviour
+	public class dogonahorse : MonoBehaviour
 	{
 
 		void OnMouseDrag ()
