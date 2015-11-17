@@ -2,7 +2,7 @@
 using System.Collections;
 using MonsterLove.StateMachine;
 using System;
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 
 	public enum GameState

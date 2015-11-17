@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 //-----------------------------------------------------------
 //Enum defining all possible game events

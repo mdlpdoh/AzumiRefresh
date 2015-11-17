@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using SimpleJSON;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class LevelInitData
 	{

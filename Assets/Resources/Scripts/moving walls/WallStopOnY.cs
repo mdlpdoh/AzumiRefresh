@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+namespace com.dogonahorse
+{
 public class WallStopOnY : MonoBehaviour {
 
 	public float farUp = 4.25f;
@@ -11,7 +14,15 @@ public class WallStopOnY : MonoBehaviour {
 	
 	}
 
-	void OnMouseDrag() {
+	void OnMouseDown() 
+	{
+		InputManager.Instance.ControlActive();
+	}
+	void OnMouseUp() 
+	{
+		InputManager.Instance.ControlNotActive();
+	}
+		void OnMouseDrag() {
 		Vector2 newPos = transform.position;
 		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
 		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
@@ -31,4 +42,5 @@ public class WallStopOnY : MonoBehaviour {
 	void Update () {
 	
 	}
+}
 }

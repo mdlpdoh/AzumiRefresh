@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class AzumiBallRoll : MonoBehaviour
 	{
@@ -28,6 +28,13 @@ namespace com.dogOnaHorse
 
 
 
+		public float MinimumVelocity  = 0f;
+		public float MaximumVelocity = 3f;
+
+		public float MinimumMagnitude = 0.5f;
+		public float MaximumMagnitude = 5f;
+		public float VelocityMultiplier = 5f;
+
 		void Start ()
 		{
 
@@ -47,7 +54,7 @@ namespace com.dogOnaHorse
 
 			// Listen For Input
 //
-			EventManager.ListenForEvent (AzumiEventType.GameTap, OnGameTap);
+			//EventManager.ListenForEvent (AzumiEventType.GameTap, OnGameTap);
 			EventManager.ListenForEvent (AzumiEventType.GameSwipe, OnGameSwipe);
 			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 		}
@@ -55,20 +62,34 @@ namespace com.dogOnaHorse
 		// Update is called once per frame
 		void Update ()
 		{
-
+			
+			//myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
 		}
 
 		void FixedUpdate ()
 		{
 			// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
-			myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
+			//myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
 		}
 
 		public void OnGameSwipe (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-			if (gamePointerDown){
+			Vector3 directionVector = (Vector3)Param;
+		
+			if (gamePointerDown && directionVector.magnitude != 0f){
+
+				float currentMagnitude = Mathf.Clamp( directionVector.magnitude,  MinimumMagnitude,  MaximumMagnitude); 
+				float normalMagnitude = currentMagnitude/MaximumMagnitude;
+				Vector3 normalVector = directionVector.normalized;
+
+				//print ("vel " + Mathf.Clamp((normalMagnitude * MaximumVelocity), MinimumVelocity, MaximumVelocity));
+
+				myRb.velocity = normalVector *  Mathf.Clamp((normalMagnitude * MaximumVelocity), MinimumVelocity, MaximumVelocity);
+				/*
 				myRb.AddForce((Vector3)Param * onTapSpeed );
+				myRb.velocity =Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
 				gamePointerDown = false;
+				*/
 			}
 		}
 		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
@@ -76,6 +97,11 @@ namespace com.dogOnaHorse
 			gamePointerDown = true;
 		}
 
+
+
+
+
+		/*
 		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 			// find pos of ball and mouseclick and move ball away from the mouseclick.
@@ -100,10 +126,11 @@ namespace com.dogOnaHorse
 //				getBall.velocity = ballTrajN * theMag;
 			Vector2 theForce = ballTrajN * theMag;
 			myRb.AddForce (theForce * onTapSpeed);
+
 //				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
 //				myRb.AddForce (transform.up * onTapSpeed);
 				
-		}
+		}*/
 
 	}// end class
 }

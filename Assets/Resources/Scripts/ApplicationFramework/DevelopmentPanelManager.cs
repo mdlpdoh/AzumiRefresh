@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-namespace com.dogOnaHorse
+namespace com.dogonahorse
 {
 	public class DevelopmentPanelManager : MonoBehaviour
 	{

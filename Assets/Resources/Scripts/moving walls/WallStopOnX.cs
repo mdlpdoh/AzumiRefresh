@@ -12,7 +12,16 @@ namespace com.dogonahorse
 		// Use this for initialization
 		void Start () {
 		}
-		
+
+
+		void OnMouseDown() 
+		{
+			InputManager.Instance.ControlActive();
+		}
+		void OnMouseUp() 
+		{
+			InputManager.Instance.ControlNotActive();
+		}
 		void OnMouseDrag() 
 		{
 			//		this.GetComponent<Rigidbody2D> ().isKinematic = false;
@@ -30,7 +39,7 @@ namespace com.dogonahorse
 			//send the block to that position.
 			transform.position = new Vector2 (newPos.x, transform.position.y);
 		}
-		
+
 		
 		// Update is called once per frame
 		void Update () {
