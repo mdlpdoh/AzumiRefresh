@@ -16,10 +16,10 @@ namespace com.dogonahorse
 		public int TwoStarBonus;
 		public int ThreeStarLevel;
 		public int ThreeStarBonus;
-		private float swipeForce;
+		private float minVelocity;
 		private float ballMass;
 		private float ballDrag;
-		private float ballClamp;
+		private float maxVelocity;
 		public DevSlider forceSlider;
 		public DevSlider pointsSlider;
 		public DevSlider massSlider;
@@ -54,8 +54,9 @@ namespace com.dogonahorse
 		
 		public void Init ()
 		{
+		
 			if (!PlayerPrefs.HasKey("smushEnabled")){
-				smushEnabled = true;
+				smushEnabled = false;
 				PlayerPrefs.SetString("smushEnabled",Convert.ToString(smushEnabled));
 			} else {
 				smushEnabled = Convert.ToBoolean(PlayerPrefs.GetString("smushEnabled"));
@@ -75,11 +76,11 @@ namespace com.dogonahorse
 				actionsCostPoints = Convert.ToBoolean(PlayerPrefs.GetString("actionsCostPoints"));
 			}
 
-			if (!PlayerPrefs.HasKey("swipeForce")){
-				swipeForce = 2000F;
-				PlayerPrefs.SetFloat("swipeForce",swipeForce);
+			if (!PlayerPrefs.HasKey("maxVelocity")){
+				maxVelocity = 3F;
+				PlayerPrefs.SetFloat("maxVelocity",maxVelocity);
 			} else {
-				swipeForce = PlayerPrefs.GetFloat("swipeForce");
+				maxVelocity = PlayerPrefs.GetFloat("maxVelocity");
 			}
 			if (!PlayerPrefs.HasKey("ballMass")){
 				ballMass = 1f;
@@ -93,11 +94,11 @@ namespace com.dogonahorse
 			} else {
 				ballDrag = PlayerPrefs.GetFloat("ballDrag");
 			}
-			if (!PlayerPrefs.HasKey("ballClamp")){
-				ballClamp = 3F;
-				PlayerPrefs.SetFloat("ballClamp",ballClamp);
+			if (!PlayerPrefs.HasKey("minVelocity")){
+				minVelocity = 0.5F;
+				PlayerPrefs.SetFloat("minVelocity",minVelocity);
 			} else {
-				ballClamp = PlayerPrefs.GetFloat("ballClamp");
+				minVelocity = PlayerPrefs.GetFloat("minVelocity");
 			}
 			ball = GameObject.Find ("Ball");
 			LevelManager.InitializateDevPanelValues (this);
@@ -112,15 +113,15 @@ namespace com.dogonahorse
 		{
 			//PlayerPrefs.DeleteAll();
 			
-			swipeForce = 2000F;
-			PlayerPrefs.SetFloat("swipeForce",swipeForce);
+			minVelocity = 2000F;
+			PlayerPrefs.SetFloat("minVelocity",minVelocity);
 			ballMass = 1f;
 			PlayerPrefs.SetFloat("ballMass",ballMass);
 			ballDrag = 0F;
 			PlayerPrefs.SetFloat("ballDrag",ballDrag);
-			ballClamp = 3F;
+			maxVelocity = 3F;
 
-			PlayerPrefs.SetFloat("ballClamp",ballClamp);
+			PlayerPrefs.SetFloat("ballClamp",maxVelocity);
 
 			SetUpUI ();
 		}
@@ -143,10 +144,10 @@ namespace com.dogonahorse
 		}
 		void OnDestroy(){
 			LevelManager.Instance.WriteLevelSettings();
-			PlayerPrefs.SetFloat("swipeForce",swipeForce);
+			PlayerPrefs.SetFloat("minVelocity",minVelocity);
 			PlayerPrefs.SetFloat("ballMass",ballMass);
 			PlayerPrefs.SetFloat("ballDrag",ballDrag);
-			PlayerPrefs.SetFloat("ballClamp",ballClamp);
+			PlayerPrefs.SetFloat("maxVelocity",maxVelocity);
 			PlayerPrefs.SetString("smushEnabled",Convert.ToString(smushEnabled));
 			PlayerPrefs.SetString("hitWallsCostsPoints",Convert.ToString(hitWallsCostsPoints));	
 			PlayerPrefs.SetString("actionsCostPoints",Convert.ToString(actionsCostPoints));
@@ -155,18 +156,19 @@ namespace com.dogonahorse
 		// Update is called once per frame
 		void SetUpUI ()
 		{
-	
 			forceSlider.onFloatChanged += onForceChanged;
+			clampSlider.onFloatChanged += onClampChanged;
+
 			pointsSlider.onIntChanged += onPointsChanged;
 			massSlider.onFloatChanged += onMassChanged;
 			dragSlider.onFloatChanged += onDragChanged;
-			clampSlider.onFloatChanged += onClampChanged;
 
-			forceSlider.SetStartValue (swipeForce);
+
+			forceSlider.SetStartValue (minVelocity);
 			pointsSlider.SetStartValue (MaxTaps);
 			massSlider.SetStartValue (ballMass);
 			dragSlider.SetStartValue (ballDrag);
-			clampSlider.SetStartValue (ballClamp);
+			clampSlider.SetStartValue (maxVelocity);
 			hitWallsCostsPointsToggle.isOn = hitWallsCostsPoints;
 			actionsCostPointsToggle.isOn = actionsCostPoints;
 			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
@@ -199,23 +201,20 @@ namespace com.dogonahorse
 
 		public void onHittingWallsSelected ()
 		{ 
-			 
-		//	print ("onHittingWallsSelected " + hitWallsCostsPointsToggle.isOn );
 			hitWallsCostsPoints = hitWallsCostsPointsToggle.isOn;
 			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
 		}
 		
 		public void onPlayerActionsCostPointsSelected ()
 		{ 
-		//	print ("onPlayerActionsCostPointsSelected "+ ActionsCostPointsToggle.isOn);
 			actionsCostPoints = actionsCostPointsToggle.isOn;
 			scoreManager.PlayerActionsCostPoints(actionsCostPoints);
 		}
 
 		public void onForceChanged (float newValue)
 		{ 
-			swipeForce = newValue;
-			ball.GetComponent<AzumiBallRoll>().onTapSpeed = swipeForce;
+			minVelocity = newValue;
+			ball.GetComponent<AzumiBallRoll>().MinimumVelocity = minVelocity;
 		}
 		public void onPointsChanged (int newValue)
 		{
@@ -235,8 +234,8 @@ namespace com.dogonahorse
 		}
 		public void onClampChanged (float newValue)
 		{
-			ballClamp = newValue;
-			ball.GetComponent<AzumiBallRoll>().clampSpeed = ballClamp;
+			maxVelocity = newValue;
+			ball.GetComponent<AzumiBallRoll>().MaximumVelocity = maxVelocity;
 		}
 	}
 }

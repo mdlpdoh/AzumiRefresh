@@ -15,7 +15,7 @@ namespace com.dogonahorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
-		GameTap,
+//		GameTap,
 		GamePress,
 		GameShift,
 		GameRelease,
@@ -124,7 +124,7 @@ public class EventManager : MonoBehaviour
 
 	public static void	ClearGameLevelListeners(){
 		print ("Clearing Game Listeners");
-		Instance.RemoveEvent(AzumiEventType.GameTap);
+//		Instance.RemoveEvent(AzumiEventType.GameTap);
 		Instance.RemoveEvent(AzumiEventType.GameSwipe);
 		Instance.RemoveEvent(AzumiEventType.SetCoins);
 		Instance.RemoveEvent(AzumiEventType.SetBounces);
@@ -134,7 +134,7 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.HitPowerUp);
 		Instance.RemoveEvent(AzumiEventType.HitTrigger);
 		Instance.RemoveEvent(AzumiEventType.HitDoor);
-		Instance.RemoveEvent(AzumiEventType.GameTap);
+	//	Instance.RemoveEvent(AzumiEventType.GameTap);
 		Instance.RemoveEvent(AzumiEventType.GamePress);
 		Instance.RemoveEvent(AzumiEventType.GameShift);
 		Instance.RemoveEvent(AzumiEventType.GameRelease);

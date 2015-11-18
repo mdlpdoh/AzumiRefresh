@@ -219,10 +219,8 @@ namespace com.dogonahorse
 
 		public void ModalButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{
-
 			SceneState sceneState = sceneManager.GetCurrentState ();
 			if (sceneState == SceneState.Modal || sceneState == SceneState.GameOver) {
-
 				sceneManager.ButtonClicked (buttonID, buttonAction);
 				
 			}
@@ -238,13 +236,13 @@ namespace com.dogonahorse
 
 		public void ControlActive ()
 		{
-			print ("ControlActive");
+			//print ("ControlActive");
 			UIControlIsActive = true;
 		}
 
 		public void ControlNotActive ()
 		{
-			print ("ControlNotActive");
+			//print ("ControlNotActive");
 			UIControlIsActive = false;
 		}
 

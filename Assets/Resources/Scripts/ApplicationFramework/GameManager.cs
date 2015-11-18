@@ -13,7 +13,8 @@ namespace com.dogonahorse
 		Title,
 		Progress,
 		GameLevel,
-		EndGame
+		EndGame,
+		Reset
 	}
 
 
@@ -81,8 +82,9 @@ namespace com.dogonahorse
 		}
 
 		public static void ReloadScene() {
-			Application.LoadLevel(Application.loadedLevel);
-			Instance.ChangeState(GameState.GameLevel);
+
+			Instance.ChangeState(GameState.Reset);
+		
 
 		}
 
@@ -100,7 +102,6 @@ namespace com.dogonahorse
 
 				} else {
 					print ("ERROR: Can't find level " + levelName);
-			
 				}
 			}
 			return false;
@@ -114,7 +115,7 @@ namespace com.dogonahorse
 		}
 
 		public static void ReturnToProgressScreen(){
-			//EventManager.ClearGameLevelListeners();
+			EventManager.ClearGameLevelListeners();
 			Instance.ChangeState (GameState.Progress );
 			Application.LoadLevel("Progress");
 			
@@ -122,7 +123,7 @@ namespace com.dogonahorse
 		public static void GameOver(){
 			Instance.ChangeState(GameState.EndGame);
 		}
-		
+
 		#region State methods
 		//Enter Actions
 		void Init_Enter()
@@ -144,9 +145,9 @@ namespace com.dogonahorse
 			
 		}
 		void GameLevel_Enter() {
-	
-			Instance.sceneManager.InitScene();
 			Debug.Log("Game Manager: GameLevel");
+			Instance.sceneManager.InitScene();
+
 			
 		}
 
@@ -156,7 +157,15 @@ namespace com.dogonahorse
 			Debug.Log("Game Manager: Game is Over");
 			
 		}
-	
+		void Reset_Enter()
+		{
+			EventManager.ClearGameLevelListeners ();
+			Application.LoadLevel(Application.loadedLevel);
+
+			Debug.Log("Game Manager: Reset_Enter");
+			Instance.ChangeState(GameState.GameLevel);
+		}
+
 		#endregion
 	}
 }

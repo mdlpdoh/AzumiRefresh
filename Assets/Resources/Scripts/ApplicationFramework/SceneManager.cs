@@ -17,7 +17,9 @@ namespace com.dogonahorse
 		Modal,
 		Locked,
 		GameOver,
-		Closing
+		Closing,
+		Resetting
+
 	}
 
 	/**
@@ -109,24 +111,21 @@ namespace com.dogonahorse
 				}
 				
 
-
 			} else if (buttonAction == ButtonAction.CloseModal) {
 				if (GameManager.GetCurrentState () == GameState.GameLevel ) {
 					Time.timeScale = 1;
-				
 					ChangeState (lastState);
 				} else {
 					ChangeState (SceneState.Ready);
 
 				}
-
-
 				modalWindowDictionary [buttonID].DoButtonAction (buttonAction);
 			} else if (buttonAction == ButtonAction.NextScreen) {
 				ChangeState (SceneState.Closing);
 				GameManager.ChangeScene (buttonID, buttonAction);
 			
 			} else if (buttonAction == ButtonAction.ResetLevel) {	
+				Time.timeScale = 1;
 				ChangeState (SceneState.Ready);
 				modalWindowDictionary [buttonID].DoButtonAction (ButtonAction.CloseModal);
 				GameManager.ReloadScene ();
@@ -170,12 +169,18 @@ namespace com.dogonahorse
 		
 		}
 
+
+
+	void LevelReset(){
+		EventManager.ClearGameLevelListeners ();
+	}
 		void GameOver_Enter ()
 		{
 			Debug.Log ("Scene Manager: GameOver");
-			EventManager.ClearGameLevelListeners ();
+			//LevelReset();
 			GameManager.GameOver ();
-			//devSettingsPanel.SetActive(false);
+	
+				//devSettingsPanel.SetActive(false);
 			modalWindowDictionary [ButtonID.LevelResults].DoButtonAction (ButtonAction.OpenModal);
 
 		}
