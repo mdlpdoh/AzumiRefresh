@@ -6,7 +6,7 @@ namespace com.dogonahorse
 	public class AzumiBallRoll : MonoBehaviour
 	{
 
-		private GameObject theBall;
+		//private GameObject theBall;
 //	private GameObject theDoor;
 	
 //	public mmGameManagerController gm;
@@ -17,28 +17,25 @@ namespace com.dogonahorse
 		public float startSpeed = 200f;
 
 		// speed that is added upon a click/tap
-		public float onTapSpeed = 100f;
+		//public float onTapSpeed = 100f;
 
 		// velocity clamp
-		public float clampSpeed = 6f;
+		//public float clampSpeed = 6f;
 
 		// Use this for initialization
 
 		private bool gamePointerDown = false;
-
-
-
 		public float MinimumVelocity  = 0f;
 		public float MaximumVelocity = 3f;
 
 		public float MinimumMagnitude = 0.5f;
 		public float MaximumMagnitude = 5f;
-		public float VelocityMultiplier = 5f;
+
 
 		void Start ()
 		{
-
-			theBall = GameObject.Find ("Ball");
+			print ("AzumiBallRoll start ");
+			//theBall = GameObject.Find ("Ball");
 
 			//make sure particle is off to start
 //		gameObject.GetComponent<ParticleSystem> ().enableEmission = false;
@@ -77,7 +74,7 @@ namespace com.dogonahorse
 			Vector3 directionVector = (Vector3)Param;
 		
 			if (gamePointerDown && directionVector.magnitude != 0f){
-
+				//print ("OnGameSwipe " + directionVector);
 				float currentMagnitude = Mathf.Clamp( directionVector.magnitude,  MinimumMagnitude,  MaximumMagnitude); 
 				float normalMagnitude = currentMagnitude/MaximumMagnitude;
 				Vector3 normalVector = directionVector.normalized;
@@ -85,6 +82,8 @@ namespace com.dogonahorse
 				//print ("vel " + Mathf.Clamp((normalMagnitude * MaximumVelocity), MinimumVelocity, MaximumVelocity));
 
 				myRb.velocity = normalVector *  Mathf.Clamp((normalMagnitude * MaximumVelocity), MinimumVelocity, MaximumVelocity);
+		
+
 				/*
 				myRb.AddForce((Vector3)Param * onTapSpeed );
 				myRb.velocity =Vector2.ClampMagnitude(myRb.velocity, clampSpeed);
@@ -94,6 +93,7 @@ namespace com.dogonahorse
 		}
 		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
+			print ("OnGamePress");
 			gamePointerDown = true;
 		}
 

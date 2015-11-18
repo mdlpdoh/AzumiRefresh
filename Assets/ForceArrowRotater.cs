@@ -34,9 +34,10 @@ namespace com.dogonahorse
 			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 			EventManager.ListenForEvent (AzumiEventType.GameShift, OnGameShift);
 			EventManager.ListenForEvent (AzumiEventType.GameRelease, OnGameRelease);
+
 			ArrowSpriteRenderer.enabled = false;
 			maxFlickerSpriteNum = ArrowLights.Length-1;
-
+			print("StartArrowSpriteRenderer " +  ArrowSpriteRenderer );
 		}
 		
 		// Update is called once per frame
@@ -87,7 +88,7 @@ namespace com.dogonahorse
 		}
 		public void OnGameShift (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-			
+			//print("ArrowSpriteRenderer " +  ArrowSpriteRenderer );
 			if (!ArrowSpriteRenderer.enabled) {
 				ArrowSpriteRenderer.enabled = true;
 			}

@@ -17,7 +17,8 @@ namespace com.dogonahorse
 		PowerUps,
 		Connect,
 		LevelResults,
-		DevelopmentSettings
+		DevelopmentSettings,
+		PauseButton
 	}
 	public enum ButtonType
 	{
