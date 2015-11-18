@@ -14,6 +14,12 @@ namespace com.dogonahorse
 		public bool Snap = true;
 		public float SnapValue = 0.25f;
 
+		public  bool DrawLines = false;
+		public  float LineLength = 1f;
+		public  Color LineColor = Color.red;
+
+
+
 		void OnDrawGizmos ()
 		{
 			
@@ -50,7 +56,9 @@ namespace com.dogonahorse
 
 		void drawMarker (Vector2 markerLocation)
 		{
-//			DebugDraw.DrawMarker (markerLocation, 3, Color.red, 1);
+			if (DrawLines) { 
+				DebugDraw.DrawMarker (markerLocation, LineLength, LineColor, 1);
+			}
 		}
 
 		void snapHandle (Transform handle)
@@ -66,7 +74,7 @@ namespace com.dogonahorse
 	 
 
 			if (remainderX < SnapValue / 2) {
-				handle.position = new Vector2 ((Mathf.Abs (handle.position.x) - remainderX)* Mathf.Sign (handle.position.x), handle.position.y);
+				handle.position = new Vector2 ((Mathf.Abs (handle.position.x) - remainderX) * Mathf.Sign (handle.position.x), handle.position.y);
 			} else {
 				handle.position = new Vector2 ((Mathf.Abs (handle.position.x) + (SnapValue - remainderX)) * Mathf.Sign (handle.position.x), handle.position.y);
 			}
@@ -74,12 +82,12 @@ namespace com.dogonahorse
 			float newY;
 			if (remainderY < SnapValue / 2) {
 
-				 newY = (Mathf.Abs(handle.transform.position.y) - remainderY) * Mathf.Sign (handle.position.y);
+				newY = (Mathf.Abs (handle.transform.position.y) - remainderY) * Mathf.Sign (handle.position.y);
 				handle.position = new Vector2 (handle.position.x, newY);
 			} else {
 
-				newY =  (Mathf.Abs (handle.position.y) + (SnapValue - remainderY)) * Mathf.Sign (handle.position.y);
-				handle.position = new Vector2 (handle.position.x,newY);
+				newY = (Mathf.Abs (handle.position.y) + (SnapValue - remainderY)) * Mathf.Sign (handle.position.y);
+				handle.position = new Vector2 (handle.position.x, newY);
 			}
 		
 		}
