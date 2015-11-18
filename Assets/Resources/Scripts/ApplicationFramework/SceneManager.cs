@@ -121,8 +121,12 @@ namespace com.dogonahorse
 				}
 				modalWindowDictionary [buttonID].DoButtonAction (buttonAction);
 			} else if (buttonAction == ButtonAction.NextScreen) {
+				Time.timeScale = 1;
 				ChangeState (SceneState.Closing);
+			
+
 				GameManager.ChangeScene (buttonID, buttonAction);
+
 			
 			} else if (buttonAction == ButtonAction.ResetLevel) {	
 				Time.timeScale = 1;

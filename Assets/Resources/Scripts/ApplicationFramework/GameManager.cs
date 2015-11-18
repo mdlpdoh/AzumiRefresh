@@ -62,6 +62,8 @@ namespace com.dogonahorse
 		public static void ChangeScene(ButtonID buttonID, ButtonAction buttonAction) {
 			GameState currentState = GetCurrentState();
 			GameState newState;
+			
+
 			switch (currentState ) {
 			case GameState.Title:
 				newState = GameState.Progress;
@@ -69,10 +71,11 @@ namespace com.dogonahorse
 				Instance.ChangeState(newState);
 				break;
 			case GameState.EndGame:
+			case GameState.GameLevel:
 				newState = GameState.Progress;
+				EventManager.ClearGameLevelListeners();
 				Application.LoadLevel(newState.ToString());
 				Instance.ChangeState(newState);
-				//Instance.sceneManager.InitScene();
 				break;
 				default:
 				break;
@@ -89,7 +92,9 @@ namespace com.dogonahorse
 		}
 
 		public static bool ChangeScene(int levelNumber, int chapterNumber) {
+	
 			GameState currentState = GetCurrentState();
+
 			if (currentState == GameState.Progress){
 				string levelName = "Level_"+padWithZeroes(chapterNumber.ToString()) + padWithZeroes(levelNumber.ToString());;
 			
@@ -113,13 +118,13 @@ namespace com.dogonahorse
 			}
 			return  numberString;
 		}
-
+		/*
 		public static void ReturnToProgressScreen(){
 			EventManager.ClearGameLevelListeners();
 			Instance.ChangeState (GameState.Progress );
 			Application.LoadLevel("Progress");
 			
-		}
+		}*/
 		public static void GameOver(){
 			Instance.ChangeState(GameState.EndGame);
 		}
