@@ -20,10 +20,15 @@ namespace com.dogonahorse
 		public  Color LineColor = Color.red;
 		public  float TextureUnitScale = 0.7f;
 		public  float TextureScaleFudge = 3f;
+		private Material materialInstance;
+		
 
 		void OnDrawGizmos ()
 		{
-			
+			if ( materialInstance == null) {
+				materialInstance = new Material(WallSegmentRenderer.sharedMaterial);
+				WallSegmentRenderer.material=materialInstance;
+			}
 			if (Snap) {
 				snapHandle (handle01);
 				snapHandle (handle02);
@@ -39,7 +44,7 @@ namespace com.dogonahorse
 			float angle = Vector3.Angle (vectorDirection, Vector2.up);
 			WallSegment.localPosition = new Vector2 (handle01pos.x + (handle02pos.x - handle01pos.x) / 2, handle01pos.y + (handle02pos.y - handle01pos.y) / 2);
 			WallSegment.localScale = new Vector2 ((handle01pos - handle02pos).magnitude * fudge, WallSegment.localScale.y);
-			WallSegmentRenderer.material.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
+			materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
 
 		//	TextureUnitScale
 			if (handle01pos.x < handle02pos.x) {
