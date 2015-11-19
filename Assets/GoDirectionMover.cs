@@ -7,7 +7,7 @@ public class GoDirectionMover : MonoBehaviour
 	{
 	public Transform DirectionalArrow;
 	public Transform MoverIcon;
-	
+
 	
 	
 	void Start(){
