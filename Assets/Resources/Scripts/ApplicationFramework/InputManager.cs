@@ -14,6 +14,9 @@ namespace com.dogonahorse
 		//public GameManager gameManager;
 		public SceneManager sceneManager;
 		public bool UIControlIsActive;
+		
+		private bool InitialMouseDownIsValid = false;
+		
 		private Vector3 lastMousePosition;
 
 		//Internal reference to Notifications Manager instance (singleton design pattern)
@@ -110,6 +113,7 @@ namespace com.dogonahorse
 
 
 			if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
+				InitialMouseDownIsValid = true;
 				lastMousePosition =  Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 				//start game if it hasn't already started kejf
 				if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
@@ -141,7 +145,9 @@ namespace com.dogonahorse
 			//Release mouse 
 			if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
 			
-				if (Input.GetMouseButtonUp (0) && !UIControlIsActive) {
+				if (Input.GetMouseButtonUp (0) && !UIControlIsActive && InitialMouseDownIsValid) {
+					print ("GetMouseButtonUp");
+					InitialMouseDownIsValid = false;
 					newMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 					EventManager.PostEvent (AzumiEventType.GameRelease, this, newMousePosition);
 					if (MainDirectionSelected) {
@@ -242,7 +248,7 @@ namespace com.dogonahorse
 
 		public void ControlNotActive ()
 		{
-			//print ("ControlNotActive");
+			print ("ControlNotActive");
 			UIControlIsActive = false;
 		}
 
