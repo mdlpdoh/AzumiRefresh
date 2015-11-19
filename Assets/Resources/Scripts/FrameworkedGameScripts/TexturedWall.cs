@@ -61,6 +61,7 @@ namespace com.dogonahorse
 		{
 			if (DrawLines) { 
 				DebugDraw.DrawMarker (markerLocation, LineLength, LineColor, 1);
+			
 			}
 		}
 
