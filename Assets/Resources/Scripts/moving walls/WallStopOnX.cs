@@ -8,11 +8,10 @@ namespace com.dogonahorse
 		
 		public float farLeft = -2.75f;
 		public float farRight = 2.8f;
-		
+
 		// Use this for initialization
 		void Start () {
 		}
-
 
 		void OnMouseDown() 
 		{
