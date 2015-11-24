@@ -146,7 +146,7 @@ namespace com.dogonahorse
 			if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
 			
 				if (Input.GetMouseButtonUp (0) && !UIControlIsActive && InitialMouseDownIsValid) {
-					print ("GetMouseButtonUp");
+//					print ("GetMouseButtonUp");
 					InitialMouseDownIsValid = false;
 					newMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 					EventManager.PostEvent (AzumiEventType.GameRelease, this, newMousePosition);
