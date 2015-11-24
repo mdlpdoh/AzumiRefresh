@@ -93,7 +93,7 @@ namespace com.dogonahorse
 		}
 		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-			print ("OnGamePress");
+//			print ("OnGamePress");
 			gamePointerDown = true;
 		}
 
