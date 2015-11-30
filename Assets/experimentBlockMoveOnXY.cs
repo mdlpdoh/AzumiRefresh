@@ -4,26 +4,26 @@ using System.Collections;
 public class experimentBlockMoveOnXY : MonoBehaviour {
 	
 
-	public float farUp = 4.25f;
-	public float farDown = 2.96f;
+//	public float farUp = 4.25f;
+//	public float farDown = 2.96f;
 	
 	
 	private RaycastHit2D thisBlock;
 	//		private GameObject otherBlock;
 	
-	private GameObject otherBlock;
+//	private GameObject otherBlock;
 	
 	// Use this for initialization
 	void Start () {
 		
-		otherBlock = GameObject.Find ("Bottom black");
+//		otherBlock = GameObject.Find ("Bottom black");
 	}
 	
 	
 	void OnMouseDown() 
 	{
 		//			InputManager.Instance.ControlActive();
-		Vector2 oldPosition = transform.position;
+//		Vector2 oldPosition = transform.position;
 		//			print (oldPosition);
 	}
 	
@@ -34,9 +34,10 @@ public class experimentBlockMoveOnXY : MonoBehaviour {
 	
 	void OnMouseDrag() {
 		
-		Vector2 newPos = transform.position;
-		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
-		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
+//		Vector2 newPos = transform.position;
+//		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+//		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
+
 //		// decide where to put the block.
 //		if (objPos.y >= farUp) {
 //			newPos.y = farUp;
@@ -46,40 +47,59 @@ public class experimentBlockMoveOnXY : MonoBehaviour {
 //			newPos.y = objPos.y;
 //		}
 		//send the block to that position.
-		transform.position = new Vector2 (transform.position.x, objPos.y);
+
+//		transform.position = new Vector2 (transform.position.x, objPos.y);
 		
-		print (otherBlock.transform.position);
-		
-		if (this.GetComponent<Renderer> ().bounds.Intersects (otherBlock.GetComponent<Renderer> ().bounds)) {
-			print ("I INTERSECTED GADDAMMMITTTTTT");
-		}
-		
+//		print (otherBlock.transform.position);
+
+//		Ray2D ray = new Ray2D (transform.position, transform.forward);
+//		RaycastHit2D hit;
+//		Debug.DrawRay(transform.position, hit.point);
+//		RaycastHit2D raycast = Physics2D.BoxCast (
+//			transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
+//		);
+
+//		Physics2D.BoxCast (
+//						transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
+//					);
+//		if(raycast.collider.tag == "Player"){
+//			print("I HIT with my BOX RAY.");
+//			Debug.DrawRay(transform.position, raycast.point);
+//		}else{
+//			print("I dDI NOT HOT IT");
+//		}
+
 		RaycastHit2D raycast = Physics2D.BoxCast (
-			
-			//Starting point of box
+//						transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
+//					);			
+//			Starting point of box
 			Vector2.zero,
+//			transform.position,
 			
-			//Size of the box could also be
-			//new Vector2 (1,1),
+//			Size of the box could also be
+//			new Vector2 (1,1),
 			GetComponent<Renderer> ().bounds.size,
-			//Angle of box,
+//			Angle of box,
 			0f,
 			
-			//Direction to cast
-			Vector2.up,
+//			Direction to cast
+			Vector2.right,
 			
-			//Distance to cast
+//			Distance to cast
 			5f
 			
 			);
+
+
 		
-			print (GetComponent<Renderer> ().bounds.size);
-			if(raycast.collider.tag == "Player"){
-				print("I Hit with my ray.");
-				Debug.DrawRay(transform.position, raycast.point);
-			}else{
-				print("I dDI NOT HOT IT");
-			}
+		print (GetComponent<Renderer> ().bounds.size);
+		if(raycast.collider.tag == "Player"){
+			print("I HIT with my BOX RAY.");
+			print (raycast.transform);
+			Debug.DrawRay(transform.position, raycast.point);
+		}else{
+			print("I dDI NOT HOT IT");
+		}
 		
 		
 		
