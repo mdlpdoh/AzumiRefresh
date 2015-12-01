@@ -7,14 +7,17 @@ public class experimentBlockMoveOnXY : MonoBehaviour {
 //	public float farUp = 4.25f;
 //	public float farDown = 2.96f;
 	
+	//enum
 	
-	private RaycastHit2D thisBlock;
-	//		private GameObject otherBlock;
-	
+	private Vector3 boundsSize;
+	private Vector2 touchOffset; 
+	private Collider2D myCollider ; 	
 //	private GameObject otherBlock;
 	
 	// Use this for initialization
 	void Start () {
+		myCollider  = GetComponent<Collider2D>();
+	 boundsSize = 	 myCollider.bounds.size;
 		
 //		otherBlock = GameObject.Find ("Bottom black");
 	}
@@ -22,9 +25,9 @@ public class experimentBlockMoveOnXY : MonoBehaviour {
 	
 	void OnMouseDown() 
 	{
-		//			InputManager.Instance.ControlActive();
-//		Vector2 oldPosition = transform.position;
-		//			print (oldPosition);
+		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
+		touchOffset = (Vector2)transform.position - objPos;
 	}
 	
 	void OnMouseUp() 
@@ -35,119 +38,66 @@ public class experimentBlockMoveOnXY : MonoBehaviour {
 	void OnMouseDrag() {
 		
 //		Vector2 newPos = transform.position;
-//		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
-//		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
-
-//		// decide where to put the block.
-//		if (objPos.y >= farUp) {
-//			newPos.y = farUp;
-//		}  else if (objPos.y <= farDown) {
-//			newPos.y = farDown;
-//		}  else {
-//			newPos.y = objPos.y;
-//		}
-		//send the block to that position.
-
-//		transform.position = new Vector2 (transform.position.x, objPos.y);
+		Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
+		RaycastHit2D raycast;
+		raycast =  new RaycastHit2D();
+		Vector2 myDirection = ( objPos + touchOffset) - ((Vector2)transform.position );
 		
-//		print (otherBlock.transform.position);
-
-//		Ray2D ray = new Ray2D (transform.position, transform.forward);
-//		RaycastHit2D hit;
-//		Debug.DrawRay(transform.position, hit.point);
-//		RaycastHit2D raycast = Physics2D.BoxCast (
-//			transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
-//		);
-
-//		Physics2D.BoxCast (
-//						transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
-//					);
-//		if(raycast.collider.tag == "Player"){
-//			print("I HIT with my BOX RAY.");
-//			Debug.DrawRay(transform.position, raycast.point);
-//		}else{
-//			print("I dDI NOT HOT IT");
-//		}
-
-		RaycastHit2D raycast = Physics2D.BoxCast (
+		 raycast = Physics2D.BoxCast (
 //						transform.position, GetComponent<Renderer> ().bounds.size, 0f, -Vector2.right, 5f
 //					);			
 //			Starting point of box
-			Vector2.zero,
-//			transform.position,
+			//Vector2.zero,
+			transform.position,
 			
 //			Size of the box could also be
 //			new Vector2 (1,1),
-			GetComponent<Renderer> ().bounds.size,
+			boundsSize,
 //			Angle of box,
 			0f,
 			
 //			Direction to cast
-			Vector2.right,
+			myDirection.normalized,
 			
 //			Distance to cast
-			5f
+			10f
 			
 			);
 
-
-		
-		print (GetComponent<Renderer> ().bounds.size);
-		if(raycast.collider.tag == "Player"){
-			print("I HIT with my BOX RAY.");
-			print (raycast.transform);
-			Debug.DrawRay(transform.position, raycast.point);
-		}else{
-			print("I dDI NOT HOT IT");
-		}
-		
-		
-		
-		
-		//			RaycastHit2D hit;
-		//			Ray2D blockRay = new Ray2D (transform.position, Vector2.up);
-		//			Vector2 newPos = transform.position;
-		//			Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
-		//			Vector2 objPos = Camera.main.ScreenToWorldPoint (mousePos);
-		
-		//get direction for boxcasting
-		//			Vector2 thedir = (newPos - objPos).normalized;
-		
-		// decide where to put the block.
-		//			if (objPos.y >= farUp) {
-		//				newPos.y = farUp;
-		//			}  else if (objPos.y <= farDown) {
-		//				newPos.y = farDown;
-		//			}  else {
-		//				newPos.y = objPos.y;
-		//			}
-		//send the block to that position.
-		//			transform.position = new Vector2 (transform.position.x, objPos.y);
-		
-		//boxcasting
-		
-		//			float distance = Mathf.Infinity; 
-		//			float angle = 0f;
-		//			Vector2.Angle (thedir, transform.forward); 
-		//			int layerMask = 1;
-		//			float minDepth = -Mathf.Infinity; 
-		//			float maxDepth = Mathf.Infinity;
-		//size	    GetComponent<Renderer> ().bounds.size
-		
-		//			Debug.DrawLine(transform.position, blockRay.point);
-		//			thisBlock = Physics2D.BoxCast(transform.position, angle, thedir, distance);
-		//			if (Physics2D.Raycast(blockRay, out hit, 3f)) {
-		//				print ("YES THIS IS A HIT!!!!!!");
-		//			}	else{
-		//				print ("NOOOOOOOOOO not a hit!!!!!!!!!!");
-		//			}
-		//			 
-		
-		//			print (GetComponent<Renderer> ().bounds.size);
-		//			print (thedir);
-		//			print (thisBlock.transform);
-		//		    print ("THIS IS THE OBJECT POSITIOPN!!!!!!" + objPos);
-		
+			float mouseDistance = myDirection.magnitude;			
+			float hitDistance = (raycast.point - (Vector2)transform.position).magnitude;
+			Bounds testBounds = new Bounds();
+			testBounds.center = objPos  + touchOffset;
+			testBounds.size = boundsSize;
+			
+			//print ("testBounds " + testBounds);
+			//print ("raycast.collider.bounds " + raycast.collider.bounds);
+			if ((Vector2)transform.position != objPos + touchOffset && testBounds.Intersects(raycast.collider.bounds)){
+				//print ("Yes");
+				//test to see if there is room o move closer
+				
+			} else{
+				//test to see if mouse is on other side of object
+				
+				if (hitDistance > mouseDistance) {
+					//mouse is safely closer to block than any  outside colliders
+						transform.position = objPos + touchOffset;
+					
+				} else {
+					 RaycastHit2D newRay = Physics2D.Raycast(transform.position, (objPos - (Vector2)transform.position).normalized );
+				  		DebugDraw.DrawMarker(newRay.point,1, Color.white, 0);
+					 Debug.DrawLine((Vector2)transform.position, objPos);	
+				}
+			
+			}
+			
+			//DebugDraw.DrawMarker(myCollider.bounds.ClosestPoint(objPos + touchOffset),1, Color.red, 0);
+			  		DebugDraw.DrawMarker(raycast.point,1, Color.red, 0);
+			Debug.DrawLine(transform.position, raycast.point, Color.red);		
+			//test length			
+			
+			
 	}
 	
 	// Update is called once per frame
