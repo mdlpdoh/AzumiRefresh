@@ -44,21 +44,31 @@ namespace com.dogonahorse
 			float angle = Vector3.Angle (vectorDirection, Vector2.up);
 			WallSegment.localPosition = new Vector2 (handle01pos.x + (handle02pos.x - handle01pos.x) / 2, handle01pos.y + (handle02pos.y - handle01pos.y) / 2);
 			WallSegment.localScale = new Vector2 ((handle01pos - handle02pos).magnitude * fudge, WallSegment.localScale.y);
-			materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
+			//materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
 
 		//	TextureUnitScale
-			if (handle01pos.x < handle02pos.x) {
-				WallSegment.rotation = Quaternion.Euler (0, 0, angle + 90);
-			} else {
-				WallSegment.rotation = Quaternion.Euler (0, 0, -angle + 90);
-			}
+			float wallOrientation;
 
+			if (handle01pos.x < handle02pos.x) {
+				wallOrientation =   angle + 90;
+			} else {
+				wallOrientation =  -angle + 90;
+			}
+			WallSegment.rotation = Quaternion.Euler (0, 0, wallOrientation);
 			Vector3 difference = WallSegment.transform.position - transform.position;
 			transform.position = WallSegment.transform.position;
 
 			handle01.transform.localPosition -= difference;
 			handle02.transform.localPosition -= difference;
 			WallSegment.transform.localPosition -= difference;
+			materialInstance.SetFloat("_Rotation",  wallOrientation);
+			materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
+
+
+			//	Rotate Texture
+			 Quaternion rot = Quaternion.Euler (0, 0, angle + 90);
+       	//	 Matrix4x4 m = Matrix4x4.TRS (Vector3.zero, rot, Vector3.one);
+     	//	 materialInstance.SetMatrix ("_Rotation", m);
 
 		}
 

@@ -35,6 +35,7 @@ namespace com.dogonahorse
 		public  GameState defaultState;
 		public  SceneManager sceneManager;
 
+		public  int frameRate = 60;
 		void Awake ()
 		{
 			// Check if existing instance of class exists in scene 35 
@@ -50,6 +51,7 @@ namespace com.dogonahorse
 		}
 
 		void Start () {
+			  Application.targetFrameRate = frameRate;
 			sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
 			ChangeState(GameState.Init);
 			Instance.sceneManager.InitScene();
