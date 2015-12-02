@@ -47,7 +47,8 @@ namespace com.dogonahorse
 			myRb = gameObject.GetComponent<Rigidbody2D> ();
 
 			// start ball rolling by adding force started at 500f but much better with a slower ball.
-			myRb.AddForce (transform.right * startSpeed);
+			// team decided to not start the game with ball rolling.
+//			myRb.AddForce (transform.right * startSpeed);
 
 			// Listen For Input
 //
