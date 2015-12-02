@@ -37,6 +37,7 @@ namespace com.dogonahorse
 		// Particle Effect on Collision
 		void OnCollisionEnter2D (Collision2D coll)
 		{
+	
 			if (coll.transform.tag == "Wall") {
 				if (particlesEnabled){
 					emitParticleEffect (coll);

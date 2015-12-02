@@ -37,7 +37,7 @@ namespace com.dogonahorse
 
 			ArrowSpriteRenderer.enabled = false;
 			maxFlickerSpriteNum = ArrowLights.Length-1;
-			print("StartArrowSpriteRenderer " +  ArrowSpriteRenderer );
+			
 		}
 		
 		// Update is called once per frame
