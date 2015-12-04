@@ -21,7 +21,7 @@ namespace com.dogonahorse
 		{
 			InputManager.Instance.ControlNotActive();
 		}
-		void OnMouseDrag() 
+		public void OnMouseDrag() 
 		{
 			//		this.GetComponent<Rigidbody2D> ().isKinematic = false;
 			Vector2 newPos = transform.position;

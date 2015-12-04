@@ -44,9 +44,7 @@ namespace com.dogonahorse
 			float angle = Vector3.Angle (vectorDirection, Vector2.up);
 			WallSegment.localPosition = new Vector2 (handle01pos.x + (handle02pos.x - handle01pos.x) / 2, handle01pos.y + (handle02pos.y - handle01pos.y) / 2);
 			WallSegment.localScale = new Vector2 ((handle01pos - handle02pos).magnitude * fudge, WallSegment.localScale.y);
-			//materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
 
-		//	TextureUnitScale
 			float wallOrientation;
 
 			if (handle01pos.x < handle02pos.x) {
@@ -61,7 +59,7 @@ namespace com.dogonahorse
 			handle01.transform.localPosition -= difference;
 			handle02.transform.localPosition -= difference;
 			WallSegment.transform.localPosition -= difference;
-			materialInstance.SetFloat("_Rotation",  wallOrientation);
+			//materialInstance.SetFloat("_Rotation",  wallOrientation);
 			materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
 
 
