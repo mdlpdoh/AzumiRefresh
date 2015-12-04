@@ -248,7 +248,7 @@ namespace com.dogonahorse
 
 		public void ControlNotActive ()
 		{
-			print ("ControlNotActive");
+			//print ("ControlNotActive");
 			UIControlIsActive = false;
 		}
 
