@@ -37,7 +37,7 @@ namespace com.dogonahorse
 
         public float TextureUnitScale = 0.7f;
         public float StripeTextureScaleFudge = 3f;
-        private Material stripeMaterialInstance;
+        private Material stripeMaterialInstance = null;
         public MeshRenderer StripeSegmentRenderer;
         public Vector3 stripeYOffset;
         
@@ -69,6 +69,7 @@ namespace com.dogonahorse
 		}
         void OnDrawGizmos()
         {
+
             if (stripeMaterialInstance == null)
             {
                 stripeMaterialInstance = new Material(StripeSegmentRenderer.sharedMaterial);
@@ -106,7 +107,10 @@ namespace com.dogonahorse
             wallStripes.localScale = wallSegment.localScale - (stripeYOffset * fudge);
             TabQuad.localScale = new Vector2(TabQuad.localScale.x, wallStripes.localScale.y);
             TabDots.localScale = new Vector2(TabDots.localScale.x, wallStripes.localScale.y);
-            stripeMaterialInstance.mainTextureScale = new Vector2(TextureUnitScale, (TextureUnitScale * StripeTextureScaleFudge) * ((handle10pos - handle00pos).magnitude * fudge));
+           // stripeMaterialInstance.mainTextureScale = new Vector2(TextureUnitScale, (TextureUnitScale * StripeTextureScaleFudge) * ((handle10pos - handle00pos).magnitude * fudge));
+            
+            stripeMaterialInstance.mainTextureScale = new Vector2((TextureUnitScale * StripeTextureScaleFudge) * ((handle01pos - handle00pos).magnitude * fudge), (TextureUnitScale * StripeTextureScaleFudge) * ((handle10pos - handle00pos).magnitude * fudge));          
+            
             tabDotsMaterialInstance.mainTextureScale = new Vector2(1, (TextureUnitScale * tabDotsTextureScaleFudge) * ((handle10pos - handle00pos).magnitude * fudge));
             Vector3 difference = wallSegment.transform.position - transform.position;
             transform.position = wallSegment.transform.position;
@@ -122,7 +126,7 @@ namespace com.dogonahorse
             TabTop.position = handle01.position;
             TabBottom.position = handle11.position;
             TabQuad.position = new Vector3(handle01.position.x, TabQuad.position.y, -1);
-              TabDots.position = new Vector3(handle01.position.x - 0.25f, TabQuad.position.y, -1);
+              TabDots.position = new Vector3(handle01.position.x - 0.2f, TabQuad.position.y, -1);
         }
 
         void drawMarker(Vector2 markerLocation)
