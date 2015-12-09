@@ -9,45 +9,26 @@ public class RepelMover : MonoBehaviour
 
     // Update is called once per frame
     public float startDistance = 0f;
-    public Rigidbody2D particleRotator;
+    public Transform particleWiggler;
+    public Transform rotator;
+ float rotIndex = 0;
+     
+      float amplitudeX = 5.0f;
 
-    public float rotatorVelocity = 150;
-    
-    public float rotatorForce = 100;
-      public bool rotationIsPositive = true;
-      
-     public float rotationInterval = 0.5f;
+ float omegaX = 20.0f;
+
+ float index;
      
-     public ConstantForce2D particleRotatorForce;
-     
-    void Start()
-    {
-           particleRotatorForce.torque = -rotatorForce* 0.7f;
-          InvokeRepeating("switchDirection",rotationInterval, rotationInterval);
-          //particleRotatorForce.torque = -rotatorForce/2;
-       // particleRotator.angularVelocity = rotatorVelocity;
-       
-    }
-        void Update()
-    {
-        particleRotatorForce.torque = Mathf.Clamp(particleRotatorForce.torque,-rotatorForce,rotatorForce);
-        particleRotator.angularVelocity = Mathf.Clamp(particleRotatorForce.torque,-rotatorVelocity,rotatorVelocity);;
-    }
-    void switchDirection() {
-        if (rotationIsPositive){
-            particleRotatorForce.torque = rotatorForce;
-           //particleRotator.angularVelocity = 0;
-        } else {
-             // particleRotator.AddTorque(-rotatorForce);    
-              particleRotatorForce.torque = -rotatorForce;
-                 //particleRotator.angularVelocity = 0;
-        }
-        rotationIsPositive = !rotationIsPositive;
-    }
-    void Example() {
-      
-    }
-    
+   public void Update(){
+     index += Time.deltaTime;
+     float z = amplitudeX*Mathf.Cos (omegaX*index);
+    // float y = Mathf.Abs (amplitudeY*Mathf.Sin (omegaY*index));
+     particleWiggler.localRotation =  Quaternion.Euler(0, 0, z);
+     rotIndex-=0.3f;
+     rotator.rotation =  Quaternion.Euler(0, 0, rotIndex);
+ }
+
+
     
     
     void OnTriggerEnter2D(Collider2D col)
@@ -68,7 +49,7 @@ public class RepelMover : MonoBehaviour
             Vector2 repelNormalVector = repelVector.normalized;
 
             col.attachedRigidbody.AddForce(repelNormalVector * (RepelStrength * (currentDistance)));
-            // col.attachedRigidbody.AddForce(AttractNormalVector * (attractStrength * (currentDistance * currentDistance)));
+     
         }
     }
 }
