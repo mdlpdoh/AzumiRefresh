@@ -51,61 +51,7 @@ namespace com.dogonahorse
 		{
 			sceneManager = GameObject.Find ("SceneScripts").GetComponent<SceneManager> ();
 		}
-		//public static void nukeOldSceneManager()
-		//{
-		//	print ("*************Old Scene Manager is Nuked");
-		//	Instance.sceneManager = null;
-		//}
-		//public void RegisterCurrentSceneManager (SceneManager newSceneManager)
-		//	{
-		//	sceneManager = newSceneManager;
-		//}
-
-	
-		/*  tap version
-		void Update ()
-		{
-			if (Input.GetMouseButtonDown (0)  && !UIControlIsActive) {
-			
-				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
-
-					sceneManager.StartGamePlay();
-					EventManager.PostEvent(AzumiEventType.GameTap, this, null);
-				} else if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing){
-					///communicate with ball
-					EventManager.PostEvent(AzumiEventType.GameTap, this, null);
-				}
-			}	
-		}
-	*/
-
-		/*smush version
-		void Update ()
-		{
-			if (Input.GetMouseButtonDown (0)  && !UIControlIsActive) {
-				lastMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
-
-					sceneManager.StartGamePlay();
-				}
-			}
-
-			if (Input.GetMouseButton(0) && !UIControlIsActive) {
-			
-				if (GameManager.GetCurrentState() == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
-					Vector3 newMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-					if (lastMousePosition != newMousePosition){
-						EventManager.PostEvent(AzumiEventType.GameSwipe, this, newMousePosition-lastMousePosition);
-
-						//print (newMousePosition);
-						lastMousePosition = newMousePosition;
-					}
-	
-				}
-
-			}
-		}
-*/
+		
 
 		//swipe version
 		void Update ()
@@ -164,56 +110,7 @@ namespace com.dogonahorse
 		Vector3 FixCoordinates (Vector3 screenCoordinates){
 			return new Vector3(screenCoordinates.x, screenCoordinates.y, 10);
 		}
-		/*
-			if (MainDirectionSelected) {
-
-				if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
-					lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-					if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
-						
-						sceneManager.StartGamePlay ();
-					}
-				}
-				
-				if (Input.GetMouseButton (0) && !UIControlIsActive) {
-					
-					if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
-						Vector3 newMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-						if (lastMousePosition != newMousePosition) {
-							EventManager.PostEvent (AzumiEventType.GameSwipe, this, newMousePosition - lastMousePosition);
-							lastMousePosition = newMousePosition;
-						}
-						
-					}
-					
-				}
-
-			} else {
-				if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
-	
-					lastMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-					if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Ready) {
-						sceneManager.StartGamePlay ();
-					}
-				}
-
-				if (Input.GetMouseButtonUp (0) && !UIControlIsActive) {
-			
-					if (GameManager.GetCurrentState () == GameState.GameLevel && sceneManager.GetCurrentState () == SceneState.Playing) {
-						Vector3 newMousePosition = Camera.main.ScreenToViewportPoint (Input.mousePosition);
-						if (lastMousePosition != newMousePosition) {
-							EventManager.PostEvent (AzumiEventType.GameSwipe, this, newMousePosition - lastMousePosition);
-
-							//print (newMousePosition);
-							lastMousePosition = newMousePosition;
-						}
-	
-					}
-
-				}
-
-			}*/
-		//
+		
 		#region Button Input
 		public void MainButtonClicked (ButtonID buttonID, ButtonAction buttonAction)
 		{
