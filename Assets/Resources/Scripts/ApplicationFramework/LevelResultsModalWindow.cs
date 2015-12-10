@@ -9,7 +9,7 @@ namespace com.dogonahorse
 	public class LevelResultsModalWindow : ModalWindow
 	{
 
-		private string victoryMessage1 = "You freed the\n@A\nwith @B\nbounces left!";
+		private string victoryMessage1 = "You freed the\n@A\nwith @B\nswipes left!";
 		private string victoryMessage2 = "You also got\n@C Coins!";
 		private string failureMessage1 = "Oh No!\nYou weren't able\nto free the\n@A!";
 		private string failureMessage2 = "But at least\nyou got @C coins!";
@@ -24,7 +24,7 @@ namespace com.dogonahorse
 			int numberOfStars = scoreManager.NumberOfStars;
 			int numberOfBounces = scoreManager.numberOfBounces;
 			int numberOfCoins  = scoreManager.numberOfCoins;
-			string typeOfAnimal = scoreManager.ChapterAnimalName;;
+			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 
 			if (numberOfStars < 1) {

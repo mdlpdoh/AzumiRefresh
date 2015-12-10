@@ -204,7 +204,7 @@ namespace com.dogonahorse
 			//LevelReset();
 			GameManager.GameOver ();
 	
-				//devSettingsPanel.SetActive(false);
+			//devSettingsPanel.SetActive(false);
 			modalWindowDictionary [ButtonID.LevelResults].DoButtonAction (ButtonAction.OpenModal);
 
 		}

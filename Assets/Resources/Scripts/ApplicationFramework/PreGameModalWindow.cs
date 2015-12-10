@@ -6,27 +6,32 @@ namespace com.dogonahorse
 {
 
 
-	public class PreGameModallWindow : ModalWindow
+	public class PreGameModalWindow : MonoBehaviour
 	{
 
-		private string beginLevelMessage = "Eat as Many ants as you can before leaving the room.\nYou have @B\nswipes to free the captive\n@A!";
+		private string beginLevelMessage = "Eat as many ants as you can before leaving the room.\nYou have @B\nswipes to free the captive\n@A!";
 
+		public Text titleText;
 
 		private ScoreManager scoreManager;
 
 
 
-	
-		override public void InitWindow() {
+		void Start(){
+			InitWindow();
+
+		}
+
+			public void InitWindow() {
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 			int numberOfBounces = scoreManager.numberOfBounces;
-			string typeOfAnimal = scoreManager.ChapterAnimalName;;
+			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 
 			resultsMessage = ParseMessageString(beginLevelMessage,numberOfBounces,typeOfAnimal);
 
-			Text messageText = GetComponentInChildren<Text>();
-		//	print (messageText);
+			Text messageText = titleText;
+//			print (messageText);
 			messageText.text = resultsMessage;
 
 		}
@@ -37,6 +42,6 @@ namespace com.dogonahorse
 			rawMessage = rawMessage.Replace("@B", numberOfBounces.ToString()); 
 			return rawMessage ;
 		}
-		
+
 	}
 }
