@@ -100,7 +100,8 @@ GameObject:
   - 224: {fileID: 22447252}
   - 222: {fileID: 22231484}
   - 114: {fileID: 11469448}
-  - 114: {fileID: 11431042}
+  - 114: {fileID: 11402920}
+  - 114: {fileID: 11411164}
   m_Layer: 5
   m_Name: PreGameModal
   m_TagString: Untagged
@@ -2304,6 +2305,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11402920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5de8f25451064af08c59e44ad06b0d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWindowState: 0
+  buttonID: 12
 --- !u!114 &11402986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2589,6 +2603,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11411164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d54454c1a8954dc4945cb82df84bc94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 11498298}
 --- !u!114 &11411706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3419,19 +3445,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myWindowState: 0
   buttonID: 10
---- !u!114 &11431042
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5de8f25451064af08c59e44ad06b0d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myWindowState: 0
-  buttonID: 12
 --- !u!114 &11431690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3783,7 +3796,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "You freed the \n[Animal Name]!\nwith [number] \nbounces left!\nYou also
+  m_Text: "You freed the \n[Animal Name]!\nwith [number] \nswipes left!\nYou also
     got \n[number] Coins!"
 --- !u!114 &11436226
 MonoBehaviour:
