@@ -42,24 +42,47 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-                if (bouncesRemaining > ThreeStarLevel)
-                {
-                    return 3;
-                }
-                else if (bouncesRemaining > TwoStarLevel)
-                {
-                    return 2;
-                }
-                else if (bouncesRemaining > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
+				if (bouncesRemaining <= ThreeStarLevel)
+				{
+					return 3;	
+				} 
+				else if()
+				{
+					return 2;
+				}
+				else if()
+				{
+					return 1;
+				}
+				else if ()
+				{
+					return 0;
+				}
+
+			} // end Get
+
+//******************** Old Way ************ 				
+//                if (bouncesRemaining > ThreeStarLevel)
+//                {
+//                    return 3;
+//                }
+//                else if (bouncesRemaining > TwoStarLevel)
+//                {
+//                    return 2;
+//                }
+//                else if (bouncesRemaining > 0)
+//                {
+//                    return 1;
+//                }
+//                else
+//                {
+//                    return 0;
+//                }
+//            }
+//****************** End Old Way ***********
+
+
+       
 
         //private float elapsedTime;
         private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
