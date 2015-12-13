@@ -15,6 +15,7 @@ namespace com.dogonahorse
         public int ThreeStarLevel = 300;
         public int ThreeStarBonus = 20;
         private int bouncesRemaining;
+        public int CoinsInLevel = 0;
         private int coinsEarned = 0;
         private bool hitWallsCostsPoints = true;
         private bool playerActionsCostPoints = true;
@@ -28,7 +29,7 @@ namespace com.dogonahorse
             }
         }
 
-        public int numberOfCoins
+        public int CoinsEarned
         {
             // return reference to private instance 
             get
@@ -36,6 +37,7 @@ namespace com.dogonahorse
                 return coinsEarned;
             }
         }
+     
 
         public int NumberOfStars
         {

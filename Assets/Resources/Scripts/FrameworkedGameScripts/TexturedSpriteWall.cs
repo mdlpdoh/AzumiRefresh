@@ -3,14 +3,14 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
-	public class TexturedWall: MonoBehaviour
+	public class TexturedSpriteWall: MonoBehaviour
 	{
 
 
 		public Transform handle01;
 		public Transform handle02;
 		public Transform WallSegment;
-		public MeshRenderer WallSegmentRenderer;
+		public SpriteRenderer WallSegmentRenderer;
 		public float fudge = 2;
 		public bool Snap = true;
 		public float SnapValue = 0.25f;
@@ -26,7 +26,6 @@ namespace com.dogonahorse
 		void OnDrawGizmos ()
 		{
 			
-		
 			if ( materialInstance == null) {
 				materialInstance = new Material(WallSegmentRenderer.sharedMaterial);
 				WallSegmentRenderer.material=materialInstance;

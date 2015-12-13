@@ -76,10 +76,7 @@ namespace com.dogonahorse
 
 		void Start ()
 		{
-			//print (datapath);
-	
 
-			//ChangeState(GameState.Init);
 			string chapters;
 			if (File.Exists ( datapath + "/leveldata.json")){
 				 chapters = System.IO.File.ReadAllText (datapath + "/leveldata.json");
@@ -87,7 +84,7 @@ namespace com.dogonahorse
 				TextAsset jsonAsset = Resources.Load("data/leveldata") as TextAsset;
 				 chapters = jsonAsset.text;
 			}
-			//string bindata = Resources.Load("data/leveldata") as TextAsset;
+
 
 			SetUpChapters (chapters);
 
@@ -134,6 +131,8 @@ namespace com.dogonahorse
 				newScoreManager.TwoStarLevel  = currentLevel.TwoStarLevel;
 				newScoreManager.TwoStarBonus  = currentLevel.TwoStarBonus;
 				newScoreManager.ThreeStarLevel  = currentLevel.ThreeStarBonus;
+				newScoreManager.CoinsInLevel  = currentLevel.CoinsInLevel;
+				
 			}
 
 		}
@@ -141,7 +140,7 @@ namespace com.dogonahorse
 		void SetUpChapters (string chapterInfo)
 		{
 			JSONNode json = JSONNode.Parse (chapterInfo);
-			print("chapterInfo " + chapterInfo);
+			//print("chapterInfo " + chapterInfo);
 			for (int i = 0; i < json.Count; i++) {
 				//print(json[i]["ChapterAnimalName"]);
 				ChapterInitData nextChapter = new ChapterInitData ();
@@ -215,7 +214,7 @@ namespace com.dogonahorse
 				newNode["TwoStarLevel"].AsInt = currentLevel.TwoStarLevel;
 				newNode["ThreeStarBonus"].AsInt = currentLevel.ThreeStarBonus;
 				newNode["TwoStarBonus"].AsInt = currentLevel.TwoStarBonus;
-				newNode["coinsInLevel"].AsInt = currentLevel.CoinsInLevel;
+				newNode["CoinsInLevel"].AsInt = currentLevel.CoinsInLevel;
 				newArray.Add (newNode);
 			}
 			return newArray;
