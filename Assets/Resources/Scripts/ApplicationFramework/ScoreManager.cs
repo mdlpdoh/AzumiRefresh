@@ -40,48 +40,49 @@ namespace com.dogonahorse
         public int NumberOfStars
         {
             // return reference to private instance 
-            get
-            {
+            get {
 // ************** Maria working on New way *************
-//				if (bouncesRemaining <= ThreeStarLevel)
-//				{
-//					return 3;	
-//				} 
-//				else if (bouncesRemaining <= T)
-//				{
-//					return 2;
-//				}
-//				else if ()
-//				{
-//					return 1;
-//				}
-//				else ()
-//				{
-//					return 0;
-//				}
+				if (bouncesRemaining > ThreeStarLevel)
+				{
+					return 3;
+				}
+				else if (bouncesRemaining > TwoStarLevel)
+				{
+					return 2;
+				}
+				else if (bouncesRemaining > MaxTaps)
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+//			
 // ****************************************
 			
 //******************** Old Way ************ 				
-                if (bouncesRemaining > ThreeStarLevel)
-                {
-                    return 3;
-                }
-                else if (bouncesRemaining > TwoStarLevel)
-                {
-                    return 2;
-                }
-                else if (bouncesRemaining > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+//                if (bouncesRemaining > ThreeStarLevel)
+//                {
+//                    return 3;
+//                }
+//                else if (bouncesRemaining > TwoStarLevel)
+//                {
+//                    return 2;
+//                }
+//                else if (bouncesRemaining > 0)
+//                {
+//                    return 1;
+//                }
+//                else
+//                {
+//                    return 0;
+//                }
+//            }
 //****************** End Old Way ***********
 
-			} // end Get
+		} // end
 
        
 
