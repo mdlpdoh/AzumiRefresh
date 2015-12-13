@@ -22,10 +22,10 @@ namespace com.dogonahorse
 
 		}
 
-			public void InitWindow() {
+		public void InitWindow() {
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 			int numberOfBounces = scoreManager.numberOfBounces;
-			int numberOfCoins  = scoreManager.numberOfCoins;
+			int numberOfCoins  = scoreManager.CoinsInLevel;
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 
