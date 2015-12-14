@@ -20,6 +20,7 @@ namespace com.dogonahorse
 		}
 		public void SetStartingAmount(int startingAmount){
 			myText.text = startingAmount.ToString();
+			print (startingAmount);
 		}
 		void OnSetBouncesEvent (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{

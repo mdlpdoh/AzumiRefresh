@@ -73,8 +73,8 @@ namespace com.dogonahorse
 				float ninetyPercent = 0.9f * CoinsInLevel;
 				int threeStar = (int) Math.Round (ninetyPercent);
 
-				print ("COINS EARNED" + coinsEarned);
-				print ("THIS IS ONESTAR" +oneStar);
+//				print ("COINS EARNED" + coinsEarned);
+//				print ("THIS IS ONESTAR" +oneStar);
 
 				if (coinsEarned >= threeStar) 
 				{

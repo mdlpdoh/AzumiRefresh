@@ -23,7 +23,7 @@ namespace com.dogonahorse
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 			int numberOfStars = scoreManager.NumberOfStars;
 			int numberOfBounces = scoreManager.numberOfBounces;
-			int numberOfCoins  = scoreManager.CoinsInLevel;
+			int numberOfCoins  = scoreManager.CoinsEarned;
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 
