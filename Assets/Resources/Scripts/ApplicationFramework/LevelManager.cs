@@ -52,7 +52,6 @@ namespace com.dogonahorse
 
 		public static LevelManager Instance { 
 		// return reference to private instance 
-		
 			get { 
 				return instance; 
 			} 
@@ -84,14 +83,26 @@ namespace com.dogonahorse
 				TextAsset jsonAsset = Resources.Load("data/leveldata") as TextAsset;
 				 chapters = jsonAsset.text;
 			}
-
-
 			SetUpChapters (chapters);
-
-			
-
 		}
 
+
+		public static int GetMaxTaps (int chapterNumber, int levelNumber)
+		{
+			LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber-1].LevelInitList[levelNumber-1];
+			return currentLevel.MaxTaps;
+		}
+
+		public static int GetCoinsInLevel (int chapterNumber, int levelNumber)
+		{
+			LevelInitData currentLevel =  Instance.ChapterInitList[chapterNumber-1].LevelInitList[levelNumber-1];
+			return currentLevel.CoinsInLevel;	
+		}
+		public static string GetChapterAnimalName (int chapterNumber, int levelNumber)
+		{
+			LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber-1].LevelInitList[levelNumber-1];
+			return currentLevel.ChapterAnimalName;
+		}
 		public static void SetLevelIDNumbers (int chapterNumber, int levelNumber)
 		{
 			lastChapterNumber = chapterNumber;
