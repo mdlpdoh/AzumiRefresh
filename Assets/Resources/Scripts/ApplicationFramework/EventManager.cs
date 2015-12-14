@@ -8,8 +8,15 @@ namespace com.dogonahorse
 //Enum defining all possible game events
 //More events should be added to the list
 	public enum AzumiEventType 	{
-		//Level events
+		
+	
+		//Application Events
 		unassigned,
+		
+		OpenModal,
+		CloseModal,
+		ScreenShotReady,	
+		//Level events
 		HitWall,
 		HitCollectible,
 		HitPowerUp,

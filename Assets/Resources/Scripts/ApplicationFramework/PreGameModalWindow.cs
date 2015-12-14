@@ -9,31 +9,36 @@ namespace com.dogonahorse
 	public class PreGameModalWindow : MonoBehaviour
 	{
 
-		private string beginLevelMessage = "Eat as many ants as you can before leaving the room.\nYou have @B swipes and \n@C ants to eat \nto free the captive\n@A!";
+		private string beginLevelMessage = "You have @B swipes \nand @C ants to eat \nto free the captive\n@A!";
 
 		public Text titleText;
-
-		private ScoreManager scoreManager;
-
-
-
-		void Start(){
+		public Text AnimalNameText;
+		
+		public Text ChapterNumberText;
+		public Text LevelNumberText;
+		
+		void OnEnable(){
 			InitWindow();
 
 		}
 
 		public void InitWindow() {
-			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-			int numberOfBounces = scoreManager.numberOfBounces;
-			int numberOfCoins  = scoreManager.CoinsInLevel;
-			string typeOfAnimal = scoreManager.ChapterAnimalName;
+			
+			int nextChapter = SceneManager.NextChapter;
+			int nextLevel = SceneManager.NextLevel;
+			
+			int numberOfBounces = LevelManager.GetMaxTaps(nextChapter, nextLevel);
+			int numberOfCoins  = LevelManager.GetCoinsInLevel(nextChapter, nextLevel);
+			string typeOfAnimal = LevelManager.GetChapterAnimalName(nextChapter, nextLevel);
 			string resultsMessage;
 
 			resultsMessage = ParseMessageString(beginLevelMessage,numberOfBounces,numberOfCoins,typeOfAnimal);
 
-			Text messageText = titleText;
-//			print (messageText);
-			messageText.text = resultsMessage;
+			//Text messageText = titleText;
+			AnimalNameText.text = typeOfAnimal;
+			ChapterNumberText.text = nextChapter.ToString();
+			LevelNumberText.text = nextLevel.ToString();
+			titleText.text = resultsMessage;
 
 		}
 
