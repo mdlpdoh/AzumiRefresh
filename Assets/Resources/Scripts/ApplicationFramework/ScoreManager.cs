@@ -35,6 +35,7 @@ namespace com.dogonahorse
             get
             {
                 return coinsEarned;
+
             }
         }
      
@@ -63,25 +64,27 @@ namespace com.dogonahorse
 //                }
 //***************End basd on swipes
 
-				float onestar = 0.2f * CoinsInLevel;
-				double twentyPercent = Math.Round(onestar);
+				float twentyPercent = 0.2f * CoinsInLevel;
+				int oneStar = (int) Math.Round (twentyPercent);					
 
-				float twostar = (int)0.6f * CoinsInLevel;
-				double sixtyPercent = Math.Round(twostar);
+				float sixtyPercent = 0.6f * CoinsInLevel;
+				int twoStar = (int) Math.Round (sixtyPercent);
 
-				float threestar = (int) 0.8f * CoinsInLevel;
-				double eightyPercent = Math.Round(threestar);
-				print (coinsEarned);
+				float ninetyPercent = 0.9f * CoinsInLevel;
+				int threeStar = (int) Math.Round (ninetyPercent);
 
-				if (coinsEarned == eightyPercent) 
+				print ("COINS EARNED" + coinsEarned);
+				print ("THIS IS ONESTAR" +oneStar);
+
+				if (coinsEarned >= threeStar) 
 				{
 					return 3;
 				} 
-				else if (coinsEarned == sixtyPercent) 
+				else if (coinsEarned >= twoStar) 
 				{
 					return 2;
 				} 
-				else if (coinsEarned == twentyPercent) 
+				else if (coinsEarned >= oneStar) 
 				{
 					return 1;
 				} 
