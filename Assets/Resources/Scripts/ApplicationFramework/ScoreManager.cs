@@ -44,22 +44,52 @@ namespace com.dogonahorse
             // return reference to private instance 
             get {
 				
-                if (bouncesRemaining > ThreeStarLevel)
-                {
-                    return 3;
-                }
-                else if (bouncesRemaining > TwoStarLevel)
-                {
-                    return 2;
-                }
-                else if (bouncesRemaining > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+//***************OLD CODE Based on Swipes:
+//                if (bouncesRemaining > ThreeStarLevel)
+//                {
+//                    return 3;
+//                }
+//                else if (bouncesRemaining > TwoStarLevel)
+//                {
+//                    return 2;
+//                }
+//                else if (bouncesRemaining > 0)
+//                {
+//                    return 1;
+//                }
+//                else
+//                {
+//                    return 0;
+//                }
+//***************End basd on swipes
+
+				float onestar = 0.2f * CoinsInLevel;
+				double twentyPercent = Math.Round(onestar);
+
+				float twostar = (int)0.6f * CoinsInLevel;
+				double sixtyPercent = Math.Round(twostar);
+
+				float threestar = (int) 0.8f * CoinsInLevel;
+				double eightyPercent = Math.Round(threestar);
+				print (coinsEarned);
+
+				if (coinsEarned == eightyPercent) 
+				{
+					return 3;
+				} 
+				else if (coinsEarned == sixtyPercent) 
+				{
+					return 2;
+				} 
+				else if (coinsEarned == twentyPercent) 
+				{
+					return 1;
+				} 
+				else 
+				{
+					return 0;
+				}
+
             }
 
 
