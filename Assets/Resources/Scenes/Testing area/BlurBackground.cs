@@ -6,54 +6,64 @@ namespace com.dogonahorse
 
     public class BlurBackground : MonoBehaviour
     {
-       
+
 
         public ScreenshotCamera renderCamera;
         // Use this for initialization
-            public Image myImage;
-        
-       void Start(){
-            EventManager.ListenForEvent(AzumiEventType.OpenModal, DisplayBlurBackgroundEvent);
-             EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, enableBlurBackGround);
-             EventManager.ListenForEvent(AzumiEventType.CloseModal, disableBlurBackGround);
-               renderCamera.ScreenReadyEvent += GetScreen;
-               myImage = GetComponent<Image>();
-        }
-         void DisplayBlurBackgroundEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        public Image myImage;
+        public int blurPixels = 10;
+        void Start()
         {
-       
-              
-                renderCamera.TakeScreenshot(0, 0, Screen.width, Screen.height);
-       
+            EventManager.ListenForEvent(AzumiEventType.OpenModal, DisplayBlurBackgroundEvent);
+            EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, enableBlurBackGround);
+            EventManager.ListenForEvent(AzumiEventType.BlurFadeOutComplete, disableBlurBackGround);
+            
+            renderCamera = GameObject.Find("RenderCamera").GetComponent<ScreenshotCamera>();
+            // renderCamera.ScreenReadyEvent += GetScreen;
+            myImage = GetComponent<Image>();
+        }
+        void DisplayBlurBackgroundEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            print("DisplayBlurBackgroundEventDisplayBlurBackgroundEvent");
+
+            renderCamera.TakeScreenshot(0, 0, Screen.width, Screen.height);
+
         }
 
         // Update is called once per frame
         void GetScreen()
         {
 
-           // Image myImage = GetComponent<Image>();
+            // Image myImage = GetComponent<Image>();
 
             LinearBlur myBlur = new LinearBlur();
-            Texture2D blurTexture = myBlur.Blur(renderCamera.screenshot, 20, 2);
+            //Texture2D
+            Texture2D blurTexture = renderCamera.screenshot;
+
+            TextureScale.Bilinear(blurTexture, blurTexture.width / 2, blurTexture.height / 2);
+            blurTexture = myBlur.Blur(blurTexture, blurPixels, 2);
             blurTexture.Apply();
             myImage.material.mainTexture = blurTexture;
 
         }
-        
-          void enableBlurBackGround(AzumiEventType Event_Type, Component Sender, object Param = null)
+
+        void enableBlurBackGround(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-             GetScreen();
-                myImage.enabled = true;
+
+
+            GetScreen();
+            myImage.enabled = true;
         }
-        
-         void disableBlurBackGround(AzumiEventType Event_Type, Component Sender, object Param = null )
+
+        void disableBlurBackGround(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-                myImage.enabled = false;
+            myImage.enabled = false;
         }
-        void OnDestroy(){
+        void OnDestroy()
+        {
             EventManager.Instance.RemoveEvent(AzumiEventType.OpenModal);
-                 EventManager.Instance.RemoveEvent(AzumiEventType.ScreenShotReady);
-                      EventManager.Instance.RemoveEvent(AzumiEventType.CloseModal);
+            EventManager.Instance.RemoveEvent(AzumiEventType.ScreenShotReady);
+            EventManager.Instance.RemoveEvent(AzumiEventType.BlurFadeOutComplete);
         }
     }
 }

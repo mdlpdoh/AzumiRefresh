@@ -15,7 +15,8 @@ namespace com.dogonahorse
 		
 		OpenModal,
 		CloseModal,
-		ScreenShotReady,	
+		ScreenShotReady,
+		BlurFadeOutComplete,	
 		//Level events
 		HitWall,
 		HitCollectible,

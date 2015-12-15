@@ -6,9 +6,9 @@ namespace com.dogonahorse
     public class ScreenshotCamera : MonoBehaviour
     {
 
-        public delegate void ScreenReadyEventDelegate();
+    //    public delegate void ScreenReadyEventDelegate();
 
-        public event ScreenReadyEventDelegate ScreenReadyEvent;
+      //  public event ScreenReadyEventDelegate ScreenReadyEvent;
 
         public Texture2D screenshot { get; private set; }
 
@@ -43,15 +43,15 @@ namespace com.dogonahorse
                 screenshot.ReadPixels(captureRect, 0, 0, false);
                 screenshot.Apply();
 
-                capturing = false;
+              
 
                 QualitySettings.antiAliasing = oldAntiAliasingSettings;
 
-                if (ScreenReadyEvent != null)
+                if (capturing)
                 {
                     EventManager.PostEvent(AzumiEventType.ScreenShotReady, this, null);
                 }
-
+                 capturing = false;
                 //ScreenReadyEvent ();
             }
         }

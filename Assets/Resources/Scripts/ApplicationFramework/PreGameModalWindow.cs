@@ -17,9 +17,9 @@ namespace com.dogonahorse
 		public Text ChapterNumberText;
 		public Text LevelNumberText;
 		
+
 		void OnEnable(){
 			InitWindow();
-
 		}
 
 		public void InitWindow() {

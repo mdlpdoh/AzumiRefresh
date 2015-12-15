@@ -19,6 +19,7 @@ namespace com.dogonahorse
 		// Use this for initialization
 		void Start ()
 		{
+			EventManager.ListenForEvent(AzumiEventType.BlurFadeOutComplete, Close);
 			implementCurrentWindowState ();
 		}
 
@@ -40,7 +41,7 @@ namespace com.dogonahorse
 				Open ();
 				break;
 			case ButtonAction.CloseModal:
-				Close ();
+				//Close ();
 				break;
 			 default:
 				break;
@@ -58,12 +59,15 @@ namespace com.dogonahorse
 			InitWindow();
 		}
 
-		public void Close ()
+		public void Close (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 
 			myWindowState = WindowState.closed;
 			implementCurrentWindowState ();
 		}
-			
+		void OnDestroy(){
+
+		 EventManager.Instance.RemoveEvent(AzumiEventType.BlurFadeOutComplete);
+        }
 	}
 }
