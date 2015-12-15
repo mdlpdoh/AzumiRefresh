@@ -76,15 +76,15 @@ namespace com.dogonahorse
 //				print ("COINS EARNED" + coinsEarned);
 //				print ("THIS IS ONESTAR" +oneStar);
 
-				if (coinsEarned >= threeStar) 
+				if (coinsEarned >= threeStar && bouncesRemaining > 1) 
 				{
 					return 3;
 				} 
-				else if (coinsEarned >= twoStar) 
+				else if (coinsEarned >= twoStar && bouncesRemaining > 1) 
 				{
 					return 2;
 				} 
-				else if (coinsEarned >= oneStar) 
+				else if (coinsEarned >= oneStar && bouncesRemaining > 1) 
 				{
 					return 1;
 				} 

@@ -9,10 +9,11 @@ namespace com.dogonahorse
 	public class LevelResultsModalWindow : ModalWindow
 	{
 
-		private string victoryMessage1 = "You freed the\n@A\nwith @B\nswipes left!";
+		private string victoryMessage1 = "You freed the\n@A\nwith @B\nenergy left!";
 		private string victoryMessage2 = "You also got\n@C Coins!";
 		private string failureMessage1 = "Oh No!\nYou weren't able\nto free the\n@A!";
 		private string failureMessage2 = "But at least\nyou got @C coins!";
+		private string failureMessage3 = "Aargh!\nRan out of energy!\nThe animals need you!\nTry again?";
 
 		private ScoreManager scoreManager;
 
@@ -26,8 +27,11 @@ namespace com.dogonahorse
 			int numberOfCoins  = scoreManager.CoinsEarned;
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
-
-			if (numberOfStars < 1) {
+				//Players ran out of swipes - No coins, No nothin', Try again!
+			if (numberOfBounces < 1) {
+				resultsMessage = ParseMessageString(failureMessage3,numberOfBounces,numberOfCoins,typeOfAnimal);
+			}
+			else if (numberOfStars < 1) {
 				//Players lost
 				resultsMessage = ParseMessageString(failureMessage1,numberOfBounces,numberOfCoins,typeOfAnimal);
 				if (numberOfCoins > 0) {
