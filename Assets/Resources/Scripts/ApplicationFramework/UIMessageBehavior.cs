@@ -49,7 +49,6 @@ namespace com.dogonahorse
 				StartCoroutine(FadeIn(0f, 1f, entryTime, entryCurve));
 				break;
 			case TransitionStyle.Countdown:
-			
 				StartCoroutine(Countdown());
 				myText.enabled = true;
 				break;
