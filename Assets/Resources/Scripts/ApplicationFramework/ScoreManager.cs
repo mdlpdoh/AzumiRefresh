@@ -41,28 +41,10 @@ namespace com.dogonahorse
      
 
         public int NumberOfStars
+		// number of stars given based on percentage of ants(coins) cleared in level
         {
             // return reference to private instance 
             get {
-				
-//***************OLD CODE Based on Swipes:
-//                if (bouncesRemaining > ThreeStarLevel)
-//                {
-//                    return 3;
-//                }
-//                else if (bouncesRemaining > TwoStarLevel)
-//                {
-//                    return 2;
-//                }
-//                else if (bouncesRemaining > 0)
-//                {
-//                    return 1;
-//                }
-//                else
-//                {
-//                    return 0;
-//                }
-//***************End basd on swipes
 
 				float twentyPercent = 0.2f * CoinsInLevel;
 				int oneStar = (int) Math.Round (twentyPercent);					
@@ -72,9 +54,6 @@ namespace com.dogonahorse
 
 				float ninetyPercent = 0.9f * CoinsInLevel;
 				int threeStar = (int) Math.Round (ninetyPercent);
-
-//				print ("COINS EARNED" + coinsEarned);
-//				print ("THIS IS ONESTAR" +oneStar);
 
 				if (coinsEarned >= threeStar && bouncesRemaining > 1) 
 				{
@@ -92,11 +71,8 @@ namespace com.dogonahorse
 				{
 					return 0;
 				}
-
-            }
-
-
-		} // end
+            } // end get
+		} // end method
 
        
 
