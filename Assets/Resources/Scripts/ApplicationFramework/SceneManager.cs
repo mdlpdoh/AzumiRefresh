@@ -133,6 +133,7 @@ namespace com.dogonahorse
             }
             else if (buttonAction == ButtonAction.CloseModal)
             {
+                print ("foo");
               EventManager.PostEvent(AzumiEventType.CloseModal, this, null);
                  Time.timeScale = 1;
 				
@@ -202,9 +203,14 @@ namespace com.dogonahorse
         }
         void PreGame_Enter()
         {
-            ChangeState(SceneState.Ready);
+            if (modalWindowDictionary.ContainsKey(ButtonID.Instructions)){
+                nextState = SceneState.Ready;
+                 ChangeState(SceneState.Modal);
+                 modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
+            } else {
+                  ChangeState(SceneState.Ready);
       
-
+            }
         }
         void Ready_Enter()
         {

@@ -125,7 +125,7 @@ namespace com.dogonahorse
 			SceneState sceneState = sceneManager.GetCurrentState ();
 			if (sceneState == SceneState.Modal || sceneState == SceneState.GameOver) {
 				sceneManager.ButtonClicked (buttonID, buttonAction);
-				
+			
 			}
 		}
 
