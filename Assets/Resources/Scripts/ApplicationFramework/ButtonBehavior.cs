@@ -20,7 +20,9 @@ namespace com.dogonahorse
 		DevelopmentSettings,
 		PauseButton,
 		
-		PreGameModal
+		PreGameModal,
+		
+		Instructions
 	}
 	public enum ButtonType
 	{
