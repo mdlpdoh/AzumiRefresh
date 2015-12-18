@@ -22,7 +22,7 @@ namespace com.dogonahorse
 
         public int shapesPerWU = 2;
 		
-
+        public GameObject HeartsContainer;
         public GameObject SpritePrefab;
         //private Material materialInstance;
         public bool SpritesNeedAdjustment = false;
@@ -40,7 +40,7 @@ namespace com.dogonahorse
             }
             Vector2 handle01pos = handle01.transform.localPosition;
             Vector2 handle02pos = handle02.transform.localPosition;
-            Vector2 wallSegmentPos = handle02.transform.localPosition;
+      
 
             drawMarker(handle01.transform.position);
             drawMarker(handle02.transform.position);
@@ -72,15 +72,15 @@ namespace com.dogonahorse
             SecondaryWallSegment.localPosition = PrimaryWallSegment.localPosition;
             SecondaryWallSegment.localScale = PrimaryWallSegment.localScale;
             SecondaryWallSegment.rotation = PrimaryWallSegment.rotation;
-
-
-            adjustNumberOfSprites(HowManySprites(PrimaryWallSegment.localScale.x));
-
+            int correctSpriteNumber = HowManySprites(PrimaryWallSegment.localScale.x);
+;
+            adjustNumberOfSprites(correctSpriteNumber);
+           
             if (SpritesNeedAdjustment)
             {
                 AdjustSpritePlacement();
             }
-
+            checkForExcessSprites(correctSpriteNumber);
         }
         void AdjustSpritePlacement()
         {
@@ -97,8 +97,22 @@ namespace com.dogonahorse
 				spritesInWall[i].position = startPosition - vectorDirection * gapLength * i;
 				
 			}
-			//SpritesNeedAdjustment = false;
+
         }
+        
+        void checkForExcessSprites(int numberOfSprites)
+        {
+               SpriteRenderer[] AllSpriteChildren = HeartsContainer.GetComponentsInChildren<SpriteRenderer>();
+               if (AllSpriteChildren.Length != numberOfSprites){
+                   //this is bad so the sprites need to be cleaned up
+                   
+                   spritesInWall.Clear();
+                   for (int i=0; i< AllSpriteChildren.Length; i++) {
+                       GameObject.DestroyImmediate (AllSpriteChildren[i].gameObject);
+                   }
+               }
+        }
+        
         void adjustNumberOfSprites(int numberOfSprites)
         {
 
@@ -111,7 +125,7 @@ namespace com.dogonahorse
                 {
                     GameObject newSprite = Instantiate(SpritePrefab);
                     spritesInWall.Add(newSprite.transform);
-					newSprite.transform.parent = transform;
+					newSprite.transform.parent = HeartsContainer.transform;
                 }
             }
             else if (difference < 0)

@@ -21,17 +21,26 @@ namespace com.dogonahorse
         {
 
             rectTransform = GetComponent<RectTransform>();
-
             EventManager.ListenForEvent(eventType, StartTranslation);
             difference = endPosition - startPosition;
+            
+            if (startPosition.x == 777){
+                startPosition = transform.localPosition;
+                
+            }
+          if (endPosition.x == 777){
+                endPosition = transform.localPosition;
+                
+            }
+
 
         }
 
         // Update is called once per frame
         public void StartTranslation(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
-
+            
+            
             StartCoroutine("Translate");
 
         }

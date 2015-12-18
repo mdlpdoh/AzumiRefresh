@@ -31,7 +31,7 @@ namespace com.dogonahorse
 			myText.text = Param.ToString();
 
 
-			print (myText.text);
+//			print (myText.text);
 			if (myText.text == "2") {
 				print ("START FLASHING!");
 				swipeNotifier ();
