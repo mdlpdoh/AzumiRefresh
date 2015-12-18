@@ -12,7 +12,7 @@ namespace com.dogonahorse
 		private string victoryMessage1 = "You freed the\n@A\nwith @B\nenergy left!";
 		private string victoryMessage2 = "You also got\n@C Ants!";
 		private string failureMessage1 = "The ants got you!";
-		private string failureMessage2 = "You weren't able\nto free the\n@A! But at least\nyou got @C coins!";
+		private string failureMessage2 = "You didn't free the\n@A!\nBut you got\n @C coins!";
 		private string failureMessage3 = "Aargh!\nOut of energy!\nThe animals need you!";
 
 		private ScoreManager scoreManager;
