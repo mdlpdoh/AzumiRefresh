@@ -63,7 +63,7 @@ namespace com.dogonahorse
 				{
 					return 2;
 				} 
-				else if (coinsEarned >= oneStar && bouncesRemaining > 1) 
+				else if (coinsEarned <= oneStar && bouncesRemaining > 1) 
 				{
 					return 1;
 				} 
@@ -72,7 +72,7 @@ namespace com.dogonahorse
 					return 0;
 				}
             } // end get
-		} // end method
+		} // end
 
        
 
@@ -171,7 +171,7 @@ namespace com.dogonahorse
                 {
                     bouncesRemaining--;
                 }
-                if (bouncesRemaining == 0)
+				if (bouncesRemaining < 0)
                 {
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                 }
