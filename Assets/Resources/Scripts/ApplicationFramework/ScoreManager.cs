@@ -55,15 +55,15 @@ namespace com.dogonahorse
 				float ninetyPercent = 0.9f * CoinsInLevel;
 				int threeStar = (int) Math.Round (ninetyPercent);
 
-				if (coinsEarned >= threeStar && bouncesRemaining > 1) 
+				if (coinsEarned >= threeStar && bouncesRemaining > -1) 
 				{
 					return 3;
 				} 
-				else if (coinsEarned >= twoStar && bouncesRemaining > 1) 
+				else if (coinsEarned >= twoStar && bouncesRemaining > -1) 
 				{
 					return 2;
 				} 
-				else if (coinsEarned <= oneStar && bouncesRemaining > 1) 
+				else if (coinsEarned <= oneStar && bouncesRemaining > -1) 
 				{
 					return 1;
 				} 
