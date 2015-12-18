@@ -10,10 +10,10 @@ namespace com.dogonahorse
 	{
 
 		private string victoryMessage1 = "You freed the\n@A\nwith @B\nenergy left!";
-		private string victoryMessage2 = "You also got\n@C Coins!";
-		private string failureMessage1 = "Oh No!\nYou weren't able\nto free the\n@A!";
-		private string failureMessage2 = "But at least\nyou got @C coins!";
-		private string failureMessage3 = "Aargh!\nRan out of energy!\nThe animals need you!\nTry again?";
+		private string victoryMessage2 = "You also got\n@C Ants!";
+		private string failureMessage1 = "The ants got you!";
+		private string failureMessage2 = "You weren't able\nto free the\n@A! But at least\nyou got @C coins!";
+		private string failureMessage3 = "Aargh!\nOut of energy!\nThe animals need you!";
 
 		private ScoreManager scoreManager;
 
@@ -28,7 +28,7 @@ namespace com.dogonahorse
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 				//Players ran out of swipes - No coins, No nothin', Try again!
-			if (numberOfBounces < 1) {
+			if (numberOfBounces < 0) {
 				resultsMessage = ParseMessageString(failureMessage3,numberOfBounces,numberOfCoins,typeOfAnimal);
 			}
 			else if (numberOfStars < 1) {
