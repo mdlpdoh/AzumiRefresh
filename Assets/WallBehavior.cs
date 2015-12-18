@@ -44,8 +44,8 @@ namespace com.dogonahorse
         }
         
          void KillWallBehavior(){
-             
-             
+             EventManager.PostEvent(AzumiEventType.HealWallExpired, this,null);
+       
              
              
          }

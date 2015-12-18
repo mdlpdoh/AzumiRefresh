@@ -17,7 +17,7 @@ public class MoveXandY: MonoBehaviour {
 		void OnMouseDown() 
 		{
 //			InputManager.Instance.ControlActive();
-			Vector2 oldPosition = transform.position;
+			//Vector2 oldPosition = transform.position;
 //			print (oldPosition);
 		}
 		

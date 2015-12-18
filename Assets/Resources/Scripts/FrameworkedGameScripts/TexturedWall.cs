@@ -37,7 +37,6 @@ namespace com.dogonahorse
 			}
 			Vector2 handle01pos = handle01.transform.localPosition;
 			Vector2 handle02pos = handle02.transform.localPosition;
-			Vector2 wallSegmentPos = handle02.transform.localPosition;
 
 			drawMarker (handle01.transform.position);
 			drawMarker (handle02.transform.position);

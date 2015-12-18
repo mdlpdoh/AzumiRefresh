@@ -23,14 +23,15 @@ namespace com.dogonahorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
-//		GameTap,
+
 		GamePress,
 		GameShift,
 		GameRelease,
 		GameSwipe,
 		SetCoins,
 		SetBounces,
-		OutOfBounces
+		OutOfBounces,
+		HealWallExpired
 	}
 //-----------------------------------------------------------
 //Singleton EventManager to send events to listeners
