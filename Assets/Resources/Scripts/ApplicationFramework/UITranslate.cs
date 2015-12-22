@@ -39,7 +39,8 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void StartTranslation(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            
+       // print("Event_Type " + Event_Type + "  " + this.gameObject.name);
+
             
             StartCoroutine("Translate");
 
@@ -59,12 +60,12 @@ namespace com.dogonahorse
                 rectTransform.localPosition = startPosition + (difference * curveProgress);
 
 
-                currentTime += Time.deltaTime;
+                currentTime += Time.unscaledDeltaTime;
 
 
                 yield return null;
             }
-
+            print (" endPosition " + endPosition);
             rectTransform.localPosition = endPosition;
         }
         void OnDestroy()

@@ -13,6 +13,8 @@ namespace com.dogonahorse
             FadeOut
         }
         public float fadeTime = 0.5f;
+        
+        public float MaxOpacity = 1.0f;
         public FadeDirection fadeDirection;
         public AzumiEventType eventType;
         private Image myImage;
@@ -28,15 +30,15 @@ namespace com.dogonahorse
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 
-                if (fadeDirection == FadeDirection.FadeIn)
-                {
-                    StartCoroutine("FadeIn");
-                }
-                else
-                {
-                    StartCoroutine("FadeOut");
-                }
-      
+            if (fadeDirection == FadeDirection.FadeIn)
+            {
+                StartCoroutine("FadeIn");
+            }
+            else
+            {
+                StartCoroutine("FadeOut");
+            }
+
         }
 
 
@@ -49,15 +51,15 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / fadeTime;
                 float curveProgress = fadeCurve.Evaluate(normalizedTime);
                 color = myImage.color;
-                color.a = curveProgress;
-                print("currentTime " + currentTime);
+                color.a = curveProgress * MaxOpacity;
+
                 myImage.color = color;
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;
             }
 
             color = myImage.color;
-            color.a = 1;
+            color.a = MaxOpacity;
             myImage.color = color;
         }
         private IEnumerator FadeOut()
@@ -68,7 +70,7 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / fadeTime;
                 float curveProgress = fadeCurve.Evaluate(normalizedTime);
                 Color color = myImage.color;
-                color.a = 1 - curveProgress;
+                color.a = MaxOpacity - curveProgress  * MaxOpacity;
                 myImage.color = color;
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;

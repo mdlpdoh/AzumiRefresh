@@ -91,7 +91,8 @@ namespace com.dogonahorse
         
         void EmitParticles(float particleLevel)
         {
-            print(particleLevel * MaxParticles);
+          
+
        
            fadeParticles.emissionRate = particleLevel * MaxParticles;
         }

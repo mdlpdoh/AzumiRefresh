@@ -116,7 +116,7 @@ namespace com.dogonahorse
 
         void InitScoreUI()
         {
-            ScoreCounter scoreCounter = GameObject.Find("ScoreNumber").GetComponent<ScoreCounter>();
+            ScoreCounter scoreCounter = GameObject.Find("ScoreBGpanel").GetComponent<ScoreCounter>();
             CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
             scoreCounter.SetStartingAmount(MaxTaps);
             coinCounter.SetStartingAmount(0);// <--need to get from account

@@ -24,7 +24,7 @@ namespace com.dogonahorse
         }
         void DisplayBlurBackgroundEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            print("DisplayBlurBackgroundEventDisplayBlurBackgroundEvent");
+
 
             renderCamera.TakeScreenshot(0, 0, Screen.width, Screen.height);
 
