@@ -65,7 +65,7 @@ namespace com.dogonahorse
 
                 yield return null;
             }
-            print (" endPosition " + endPosition);
+          //  print (" endPosition " + endPosition);
             rectTransform.localPosition = endPosition;
         }
         void OnDestroy()

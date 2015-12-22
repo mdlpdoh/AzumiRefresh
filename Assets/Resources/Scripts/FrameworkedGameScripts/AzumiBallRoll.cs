@@ -20,7 +20,7 @@ namespace com.dogonahorse
 		//public float onTapSpeed = 100f;
 
 		// velocity clamp
-		//public float clampSpeed = 6f;
+		public float clampSpeed = 6f;
 
 		// Use this for initialization
 
@@ -67,7 +67,7 @@ namespace com.dogonahorse
 		void FixedUpdate ()
 		{
 			// clamp the velocity or it will go througjh colliders...also notice Y is constrained in the rigidbody so it wont fly up due to physics.
-			//myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
+			myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
 		}
 
 		public void OnGameSwipe (AzumiEventType Event_Type, Component Sender, object Param = null)
