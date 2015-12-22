@@ -143,7 +143,6 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.HitPowerUp);
 		Instance.RemoveEvent(AzumiEventType.HitTrigger);
 		Instance.RemoveEvent(AzumiEventType.HitDoor);
-	//	Instance.RemoveEvent(AzumiEventType.GameTap);
 		Instance.RemoveEvent(AzumiEventType.GamePress);
 		Instance.RemoveEvent(AzumiEventType.GameShift);
 		Instance.RemoveEvent(AzumiEventType.GameRelease);

@@ -35,9 +35,8 @@ namespace com.dogonahorse
         {
             if (col.gameObject.name == "Ball")
             {
-                Destroy(this.gameObject);
-                //print ("Coin has been pocketed");
-                EventManager.PostEvent(AzumiEventType.HitCollectible, this, collectibleType);
+   
+                EventManager.PostEvent(AzumiEventType.HitCollectible, this, col);
             }
         }
 
@@ -60,12 +59,10 @@ namespace com.dogonahorse
             if (remainderX < SnapValue / 2)
             {
                 newX = (Mathf.Abs(transform.position.x) - remainderX) * Mathf.Sign(transform.position.x);
-                //handle.position = new Vector2 ((Mathf.Abs (transform.position.x) - remainderX) * Mathf.Sign (transform.position.x), transform.position.y);
             }
             else
             {
                 newX = (Mathf.Abs(transform.position.x) + (SnapValue - remainderX)) * Mathf.Sign(transform.position.x);
-                //	handle.position = new Vector2 ((Mathf.Abs (transform.position.x) + (SnapValue - remainderX)) * Mathf.Sign (transform.position.x), transform.position.y);
             }
 
             float newY;
