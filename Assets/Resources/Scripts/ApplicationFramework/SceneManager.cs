@@ -133,7 +133,7 @@ namespace com.dogonahorse
             }
             else if (buttonAction == ButtonAction.CloseModal)
             {
-                print ("foo");
+  
               EventManager.PostEvent(AzumiEventType.CloseModal, this, null);
                  Time.timeScale = 1;
 				
