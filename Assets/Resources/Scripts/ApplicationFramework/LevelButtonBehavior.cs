@@ -10,14 +10,15 @@ namespace com.dogonahorse
 	
 		public int chapterNumber;
 		public int levelNumber;
-
-
+	   public Text LevelNumberText;
 		// Use this for initialization
 		override public void Start(){
 			base.Start();
 			buttonType =  ButtonType.LevelButton;
-			Text buttonText = button.GetComponentInChildren<Text>();
-			buttonText.text = "Level_"+ padWithZeroes(chapterNumber.ToString()) +  padWithZeroes(levelNumber.ToString());
+	        LevelNumberText.text = levelNumber.ToString();
+            
+			//Text buttonText = button.GetComponentInChildren<Text>();
+			//buttonText.text = "Level_"+ padWithZeroes(chapterNumber.ToString()) +  padWithZeroes(levelNumber.ToString());
 		}
 	
 		// Update is called once per frame

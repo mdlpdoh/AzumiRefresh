@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21289608}
   - 114: {fileID: 11446562}
   - 58: {fileID: 5891472}
+  - 114: {fileID: 11412636}
   m_Layer: 0
   m_Name: coin
   m_TagString: Untagged
@@ -25,8 +26,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.52, y: 2.3600001, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalPosition: {x: -2.0852473, y: -0.39027333, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,6 +45,52 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.28558064
+--- !u!114 &11412636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e29c4c0753d433bb3809b3fd0d6225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectTime: 0.7
+  MaxScaleAmount: 0.3
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 6.725169
+      outSlope: 6.725169
+      tangentMode: 0
+    - time: 0.975927
+      value: -0.83795696
+      inSlope: -3.6362493
+      outSlope: -3.6362493
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  rotationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    - time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  MaxRotationAmount: 500
 --- !u!114 &11446562
 MonoBehaviour:
   m_ObjectHideFlags: 1

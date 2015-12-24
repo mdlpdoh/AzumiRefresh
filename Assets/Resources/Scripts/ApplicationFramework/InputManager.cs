@@ -59,6 +59,7 @@ namespace com.dogonahorse
 
 
 			if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
+               // print("foo "+ UIControlIsActive);
 				InitialMouseDownIsValid = true;
 				lastMousePosition =  Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 				//start game if it hasn't already started kejf
@@ -73,7 +74,10 @@ namespace com.dogonahorse
 					lastMousePosition = Camera.main.ViewportToWorldPoint(FixCoordinates(Camera.main.ScreenToViewportPoint (Input.mousePosition)));
 					EventManager.PostEvent (AzumiEventType.GamePress, this,  lastMousePosition);
 				}
-			}
+			} else if (Input.GetMouseButtonDown (0)){
+                
+          //      print("Fee "+ UIControlIsActive);
+            }
 
 			//Update active arrow
 			Vector3 newMousePosition;
