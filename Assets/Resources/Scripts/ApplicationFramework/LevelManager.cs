@@ -25,6 +25,9 @@ namespace com.dogonahorse
 		public int ChapterBonusScore;
 		public int ChapterBonusCoins;
 		public string ChapterAnimalName;
+        
+       	public Color ChapterMainColor; 
+        public Color ChapterSecondColor;
 		public List<LevelInitData> LevelInitList = new List<LevelInitData> ();
 	}
 
@@ -103,6 +106,15 @@ namespace com.dogonahorse
 			LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber-1].LevelInitList[levelNumber-1];
 			return currentLevel.ChapterAnimalName;
 		}
+        public static Color GetChapterMainColor (int chapterNumber)
+		{
+			return  Instance.ChapterInitList[chapterNumber-1].ChapterMainColor;
+
+		}
+        public static Color GetChapterSecondColor (int chapterNumber)
+		{
+		  return  Instance.ChapterInitList[chapterNumber-1].ChapterSecondColor;
+		}
 		public static void SetLevelIDNumbers (int chapterNumber, int levelNumber)
 		{
 			lastChapterNumber = chapterNumber;
@@ -160,6 +172,9 @@ namespace com.dogonahorse
 				nextChapter.ChapterBonusScore = json [i] ["ChapterBonusScore"].AsInt;				
 				nextChapter.ChapterBonusCoins = json [i] ["ChapterBonusCoins"].AsInt;
 				nextChapter.ChapterAnimalName = json [i] ["ChapterAnimalName"];		
+     			nextChapter.ChapterMainColor =  HexUtility.HexToColor(json [i] ["ChapterMainColor"]);	           
+             	nextChapter.ChapterSecondColor =  HexUtility.HexToColor(json [i] ["ChapterSecondColor"]);	     
+
 				nextChapter.LevelInitList = SetUpLevels (json [i] ["Levels"], nextChapter.ChapterNumber, nextChapter.ChapterAnimalName);
 				ChapterInitList.Add (nextChapter);
 			}
@@ -207,6 +222,10 @@ namespace com.dogonahorse
 				newNode["ChapterBonusScore"].AsInt = currentChapter.ChapterBonusScore;
 				newNode["ChapterBonusCoins"].AsInt = currentChapter.ChapterBonusCoins;
 				newNode["ChapterAnimalName"]= currentChapter.ChapterAnimalName;
+    			newNode["ChapterMainColor"]= HexUtility.ColorToHex(currentChapter.ChapterMainColor);
+				newNode["ChapterSecondColor"]= HexUtility.ColorToHex(currentChapter.ChapterSecondColor);           
+                
+                
 				newNode["Levels"]= GetLevelsData( new JSONArray(), currentChapter);
 				baseArray.Add(newNode);
 			}
