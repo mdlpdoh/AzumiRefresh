@@ -65,6 +65,7 @@ namespace com.dogonahorse
         void InitStartY()
         {
             rectStartY = rectTransform.localPosition.y;
+            
         }
 
         void ReInitRestingY (float adjustY)
@@ -74,7 +75,7 @@ namespace com.dogonahorse
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            restingY = rectTransform.localPosition.y;
+           // restingY = rectTransform.localPosition.y;
             chapterPanels[chapterNumber - 1] = this;
         }
 
@@ -85,7 +86,12 @@ namespace com.dogonahorse
             ChapterMainColor = LevelManager.GetChapterMainColor(chapterNumber);
             ChapterSecondColor = LevelManager.GetChapterSecondColor(chapterNumber);
             SetUpChildObjects();
+            print ("rectTransform.localPosition.y " + rectTransform.localPosition.y);
+               print ("rectTransform.anchoredPosition.y " + rectTransform.anchoredPosition.y);
+            
             restingY = rectTransform.localPosition.y - (chapterNumber - 1) * 800;
+            
+            
             rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, restingY);
         }
 
