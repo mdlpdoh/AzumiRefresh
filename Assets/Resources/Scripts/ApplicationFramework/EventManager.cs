@@ -31,7 +31,9 @@ namespace com.dogonahorse
 		SetCoins,
 		SetBounces,
 		OutOfBounces,
-		HealWallExpired
+		HealWallExpired,
+       	WonLevel,
+        
 	}
 //-----------------------------------------------------------
 //Singleton EventManager to send events to listeners

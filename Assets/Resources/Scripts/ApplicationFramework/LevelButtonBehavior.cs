@@ -16,9 +16,6 @@ namespace com.dogonahorse
 			base.Start();
 			buttonType =  ButtonType.LevelButton;
 	        LevelNumberText.text = levelNumber.ToString();
-            
-			//Text buttonText = button.GetComponentInChildren<Text>();
-			//buttonText.text = "Level_"+ padWithZeroes(chapterNumber.ToString()) +  padWithZeroes(levelNumber.ToString());
 		}
 	
 		// Update is called once per frame
