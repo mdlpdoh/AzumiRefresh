@@ -143,7 +143,7 @@ namespace com.dogonahorse
 			SetUpUI ();
 		}
 		void OnDestroy(){
-			LevelManager.Instance.WriteLevelSettings();
+			//LevelManager.Instance.WriteLevelSettings();
 			PlayerPrefs.SetFloat("minVelocity",minVelocity);
 			PlayerPrefs.SetFloat("ballMass",ballMass);
 			PlayerPrefs.SetFloat("ballDrag",ballDrag);
