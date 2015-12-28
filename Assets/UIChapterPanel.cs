@@ -7,13 +7,17 @@ namespace com.dogonahorse
 {
     public class UIChapterPanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+
+        [SerializeField]
+        private bool dummyChapterPanel = false;
+
         private static int activeChapter = 1;
         private static bool drag;
         //location f hatever panel is currently active
         private static float activePanelY;
 
 
-        private static UIChapterPanel[] chapterPanels = new UIChapterPanel[4];
+        private static UIChapterPanel[] chapterPanels = new UIChapterPanel[5];
 
 
         private static float[] restPositions = null;
@@ -23,6 +27,9 @@ namespace com.dogonahorse
         [SerializeField]
         //rate at which panels transition to resting position
         private float dragFriction = 1.5f;
+
+        [SerializeField]
+        private float endPanelDragFriction = 5f;
         [SerializeField]
         //rate at which panels transition to resting position
         private float springBackRatio = 2f;
@@ -79,11 +86,6 @@ namespace com.dogonahorse
 
         void UpdateRestingY()
         {
-           /*
-            int difference = chapterNumber - activeChapter;
-            float restingYOffset = basePanelSeparation - ((difference - 1) * 50);
-            restingY = activePanelY - difference * restingYOffset;
-*/
 
             int difference = 4 + chapterNumber - activeChapter;
             restingY = restPositions[difference];
@@ -97,14 +99,19 @@ namespace com.dogonahorse
 
         void Start()
         {
+
             activePanelY = rectTransform.anchoredPosition.y;
-            ChapterAnimalName = LevelManager.GetChapterAnimalName(chapterNumber, 1);
-            ChapterMainColor = LevelManager.GetChapterMainColor(chapterNumber);
-            ChapterSecondColor = LevelManager.GetChapterSecondColor(chapterNumber);
-            SetUpChildObjects();
+            if (!dummyChapterPanel)
+            {
+                ChapterAnimalName = LevelManager.GetChapterAnimalName(chapterNumber, 1);
+                ChapterMainColor = LevelManager.GetChapterMainColor(chapterNumber);
+                ChapterSecondColor = LevelManager.GetChapterSecondColor(chapterNumber);
+                SetUpChildObjects();
+
+
+            }
             InitRestPositionsArray();
             UpdateRestingY();
-
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, restingY);
 
 
@@ -112,21 +119,23 @@ namespace com.dogonahorse
         }
         void InitRestPositionsArray()
         {
-        
+
             if (restPositions == null)
             {
-                restPositions = new float[9];
+                restPositions = new float[10];
                 int basePosition = -4;
                 float restingYOffset = 0;
 
                 for (int i = 0; i < restPositions.Length; i++)
                 {
-                    restingYOffset = basePanelSeparation - ((basePosition -1)* 50);
+                    restingYOffset = basePanelSeparation - ((basePosition - 1) * 50);
                     restPositions[i] = activePanelY - basePosition * restingYOffset;
                     basePosition++;
                 }
-            } else {
-                print ("REST POSITIONS ALREADY CALCULATED");
+            }
+            else
+            {
+                print("REST POSITIONS ALREADY CALCULATED");
             }
         }
         void SetUpChildObjects()
@@ -178,40 +187,48 @@ namespace com.dogonahorse
         public void OnDrag(PointerEventData eventData)
         {
             pointCurrentY = eventData.position.y;
-
             UIChapterPanel.drag = true;
 
-            UIChapterPanel.AdjustPanels((pointCurrentY - pointStartY) / Screen.height);
-            if (pointCurrentY > pointStartY)
+            if (activeChapter == 1 && pointCurrentY < pointStartY)
             {
-                print("UP " + ((pointCurrentY - pointStartY) / Screen.height));
-
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / endPanelDragFriction) / Screen.height);
+            }
+            else if (activeChapter == 4 && pointCurrentY > pointStartY)
+            {
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / endPanelDragFriction) / Screen.height);
             }
             else
             {
-                print("down " + ((pointCurrentY - pointStartY) / Screen.height));
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / dragFriction) / Screen.height);
             }
-
         }
 
 
         public void MovePanel(float newY)
         {
             float difference = 800;
-            if (newY > 0 && chapterNumber < 4)
+            //   print (4 + (chapterNumber -activeChapter) );
+            //  difference = restingY - restPositions[4 + (chapterNumber -activeChapter) ];
+
+            if (newY > 0)
             {
 
-              //  difference = restingY - UIChapterPanel.chapterPanels[chapterNumber].restingY;
-              //  difference = restingY - restPositions[4 + activeChapter - chapterNumber ];
-             // PRINT ()
+                difference = restingY - restPositions[chapterNumber - activeChapter + 5];
             }
-            else if (chapterNumber > 1)
+            else
             {
-                
-                 //        difference = restingY - restPositions[activeChapter - chapterNumber];
-
+                difference = restPositions[chapterNumber - activeChapter + 3] - restingY;
 
             }
+
+            if (chapterNumber == activeChapter)
+            {
+                //     print ("activeChapter " + activeChapter + " | " + (restingY - restPositions[chapterNumber - activeChapter + 5]));
+            }
+            // print(chapterNumber - activeChapter + 4 );
+
+            // 
+            //print (difference);
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, rectStartY + newY * difference);
         }
 
