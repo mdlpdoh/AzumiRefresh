@@ -14,7 +14,7 @@ namespace com.dogonahorse
         public int TwoStarBonus = 10;
         public int ThreeStarLevel = 300;
         public int ThreeStarBonus = 20;
-        private int bouncesRemaining;
+        private int swipesRemaining;
         public int CoinsInLevel = 0;
         private int coinsEarned = 0;
         private bool hitWallsCostsPoints = true;
@@ -25,7 +25,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-                return bouncesRemaining;
+                return swipesRemaining;
             }
         }
 
@@ -55,15 +55,15 @@ namespace com.dogonahorse
 				float ninetyPercent = 0.9f * CoinsInLevel;
 				int threeStar = (int) Math.Round (ninetyPercent);
 
-				if (coinsEarned >= threeStar && bouncesRemaining > -1) 
+				if (coinsEarned >= threeStar && swipesRemaining > -1) 
 				{
 					return 3;
 				} 
-				else if (coinsEarned >= twoStar && bouncesRemaining > -1) 
+				else if (coinsEarned >= twoStar && swipesRemaining > -1) 
 				{
 					return 2;
 				} 
-				else if (coinsEarned <= oneStar && bouncesRemaining > -1) 
+				else if (coinsEarned <= oneStar && swipesRemaining > -1) 
 				{
 					return 1;
 				} 
@@ -85,8 +85,8 @@ namespace com.dogonahorse
         public void ChangeMaxScore(int newScore)
         {
             MaxTaps = newScore;
-            bouncesRemaining = newScore;
-            EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+            swipesRemaining = newScore;
+            EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
         }
 
         void Start()
@@ -98,7 +98,7 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.HitCollectible, OnHitCollectibleEvent);
             EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
             InitScoreUI();
-            bouncesRemaining = MaxTaps;
+            swipesRemaining = MaxTaps;
         }
 
         //#if UNITY_EDITOR
@@ -143,16 +143,16 @@ namespace com.dogonahorse
                     //don't do anything if ball hit an ordinary wall
                     if (currentWallValue != 0)
                     {
-                        if (bouncesRemaining + currentWallValue >= 0)
+                        if (swipesRemaining + currentWallValue >= 0)
                         {
-                            bouncesRemaining += currentWallValue;
+                            swipesRemaining += currentWallValue;
                         }
-                        if (bouncesRemaining == 0)
+                        if (swipesRemaining == 0)
                         {
                             EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                         }
 
-                        EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+                        EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
                     }
                 }
 
@@ -167,16 +167,16 @@ namespace com.dogonahorse
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
                 //if (playerActionsCostPoints) {
-                if (bouncesRemaining >= 0)
+                if (swipesRemaining >= 0)
                 {
-                    bouncesRemaining--;
+                    swipesRemaining--;
                 }
-				if (bouncesRemaining < 0)
+				if (swipesRemaining < 0)
                 {
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                 }
 
-                EventManager.PostEvent(AzumiEventType.SetBounces, this, bouncesRemaining);
+                EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
                 //}
             }
 
