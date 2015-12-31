@@ -19,7 +19,7 @@ namespace com.dogonahorse
         private int coinsEarned = 0;
         private bool hitWallsCostsPoints = true;
         private bool playerActionsCostPoints = true;
-
+	
         public int numberOfBounces
         {
             // return reference to private instance 
@@ -166,18 +166,22 @@ namespace com.dogonahorse
         {
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
-                //if (playerActionsCostPoints) {
-                if (swipesRemaining >= 0)
-                {
-                    swipesRemaining--;
-                }
-				if (swipesRemaining < 0)
-                {
-                    EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
-                }
+                //if (playerActionsCostPoints) 
+				if (swipesRemaining > 0) 
+				{
+					swipesRemaining--;
+				} else 
+				{
+					EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+					print ("Out Of Bounces!!!!!");
+				}
+				if (swipesRemaining < 5) 
+				{
+					EventManager.PostEvent(AzumiEventType.SwipesLow, this);
+				}
 
                 EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
-                //}
+           
             }
 
         }
