@@ -25,7 +25,7 @@ namespace com.dogonahorse
 
 		void implementCurrentWindowState ()
 		{
-			//print ("implementCurrentWindowState");
+			print ("############### implementCurrentWindowState  " +  myWindowState);
 			if (myWindowState == WindowState.closed) {
 				gameObject.SetActive (false);
 			} else {
