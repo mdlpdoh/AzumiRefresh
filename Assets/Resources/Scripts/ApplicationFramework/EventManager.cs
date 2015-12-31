@@ -33,6 +33,9 @@ namespace com.dogonahorse
 		OutOfBounces,
 		HealWallExpired,
        	WonLevel,
+		SwipesLow,
+		SwipesLowFadeIn,
+		SwipesLowFadeOut
         
 	}
 //-----------------------------------------------------------
@@ -148,6 +151,9 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.GamePress);
 		Instance.RemoveEvent(AzumiEventType.GameShift);
 		Instance.RemoveEvent(AzumiEventType.GameRelease);
+		Instance.RemoveEvent(AzumiEventType.SwipesLow);
+		Instance.RemoveEvent(AzumiEventType.SwipesLowFadeIn);
+		Instance.RemoveEvent(AzumiEventType.SwipesLowFadeOut);
 	}
 
 	//---------------------------------------------------------

@@ -5,16 +5,38 @@ using System;
 
 namespace com.dogonahorse
 {
+	
     public class ScoreCounter : MonoBehaviour
     {
         private Text numeral01;
-
         private Text numeral02;
         private Text numeral03;
+		private Image panLeft;
+		private Image panCenter;
+		private Image panRight;
+		public float flashInterval = 0.5f;
+		private bool fadingIn = true;
+		private int swipesRemaining;
+		private bool alreadyFlashing;
 
 
         void Awake()
         {
+			Image[] myImages = GetComponentsInChildren<Image>();
+			for (int i = 0; i < myImages.Length; i++) 
+			{
+				if (myImages [i].name == "Redpanel_L") {
+					panLeft = myImages [i];
+				} else if (myImages [i].name == "Redpanel_C") {
+					panCenter = myImages [i];
+				} 
+				else  
+				{
+					panRight = myImages [i];
+				} 
+				
+			}
+
             Text[] myTexts = GetComponentsInChildren<Text>();
             for (int i = 0; i < myTexts.Length; i++)
             {
@@ -35,6 +57,7 @@ namespace com.dogonahorse
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.SetBounces, OnSetBouncesEvent);
+			EventManager.ListenForEvent(AzumiEventType.SwipesLow, StartFlashing);
 
         }
 
@@ -66,26 +89,67 @@ namespace com.dogonahorse
                 numeral03.text = numberString[0].ToString();
             }
 		}
-            void OnSetBouncesEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
-        {
-                
-                 AssignNumeralsToTextBoxes((int)Param);
-/*
-                //			print (myText.text);
-                if (myText.text == "2")
-                {
-                    print("START FLASHING!");
-                    swipeNotifier();
 
-                }
-    */
-            }
+        void OnSetBouncesEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+    	{
+            
+             AssignNumeralsToTextBoxes((int)Param);
+        }
 
-            void swipeNotifier()
-        {
-                // TODO
-                // MAKE THE THE NUMBER OF SWIPES COUNTDOWN FLASH WHEN THERE ARE 4 SWIPES LEFT
-            }
+		public int numberOfBounces
+		{
+			// return reference to private instance 
+			get
+			{
+				return swipesRemaining;
+			}
+		}
+
+
+		void StartFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+			if (alreadyFlashing == false) 
+			{
+				EventManager.PostEvent (AzumiEventType.SwipesLowFadeIn, this);
+				StartCoroutine ("Flashing");
+			}
+		}
+			
+		private IEnumerator Flashing()
+
+		{
+			alreadyFlashing = true;
+			float currentTime = 0f;
+
+
+			while (true)
+			{
+				
+				if (currentTime < flashInterval) 
+				{
+					currentTime += Time.unscaledDeltaTime;
+				}
+			else
+			{
+				if (fadingIn == true) 
+				{
+					EventManager.PostEvent(AzumiEventType.SwipesLowFadeOut, this);
+					fadingIn = false;
+				}
+				else 
+				{
+					EventManager.PostEvent(AzumiEventType.SwipesLowFadeIn, this);
+					fadingIn = true;
+
+				}
+				currentTime = 0;
+				
+			}
+				yield return null;
+		
+			}	
+
         }
     }
 
+}
