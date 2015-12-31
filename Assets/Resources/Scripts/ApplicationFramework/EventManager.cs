@@ -23,7 +23,6 @@ namespace com.dogonahorse
 		HitPowerUp,
 		HitTrigger,
 		HitDoor, 
-
 		GamePress,
 		GameShift,
 		GameRelease,

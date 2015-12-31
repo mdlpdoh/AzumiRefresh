@@ -215,7 +215,9 @@ namespace com.dogonahorse
         void Ready_Enter()
         {
             Debug.Log("Scene Manager: Ready");
+            if (GameManager.GetCurrentState()==GameState.GameLevel) {
 
+            }
         }
 
         void Playing_Enter()
