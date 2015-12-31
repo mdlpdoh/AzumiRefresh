@@ -12,6 +12,8 @@ namespace com.dogonahorse
         // Use this for initialization
         public Image myImage;
         public int blurPixels = 10;
+        
+         public int downSampleAmount = 4;
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.OpenModal, DisplayBlurBackgroundEvent);
@@ -40,7 +42,7 @@ namespace com.dogonahorse
             //Texture2D
             Texture2D blurTexture = renderCamera.screenshot;
 
-            TextureScale.Bilinear(blurTexture, blurTexture.width / 2, blurTexture.height / 2);
+            TextureScale.Bilinear(blurTexture, blurTexture.width / downSampleAmount, blurTexture.height / downSampleAmount);
             blurTexture = myBlur.Blur(blurTexture, blurPixels, 2);
             blurTexture.Apply();
             myImage.material.mainTexture = blurTexture;

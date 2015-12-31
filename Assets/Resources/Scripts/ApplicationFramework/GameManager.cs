@@ -59,6 +59,7 @@ namespace com.dogonahorse
             sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
             ChangeState(GameState.Init);
             Instance.sceneManager.InitScene();
+          
         }
 
         public static GameState GetCurrentState()
@@ -151,27 +152,32 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
+           
             Debug.Log("Game Manager:  Inited");
             ChangeState(defaultState);
         }
 
         void Title_Enter()
         {
+           AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this, null);
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Title Screen");
         }
 
         void Progress_Enter()
         {
+  
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Progress Screen");
 
         }
         void GameLevel_Enter()
         {
+         AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this, null);
             Debug.Log("Game Manager: GameLevel");
             Instance.sceneManager.InitScene();
-
+                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this, null);
+                    AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeIn, this, null);
 
         }
 
