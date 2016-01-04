@@ -18,6 +18,7 @@ namespace com.dogonahorse
 		private bool fadingIn = true;
 		private int swipesRemaining;
 		private bool alreadyFlashing;
+		private float timeRemaining = 2f;
 
 
         void Awake()
@@ -58,6 +59,7 @@ namespace com.dogonahorse
         {
             EventManager.ListenForEvent(AzumiEventType.SetBounces, OnSetBouncesEvent);
 			EventManager.ListenForEvent(AzumiEventType.SwipesLow, StartFlashing);
+			EventManager.ListenForEvent(AzumiEventType.StartTimer, EndGameStartTimer);
 
         }
 
@@ -150,6 +152,16 @@ namespace com.dogonahorse
 			}	
 
         }
+
+		void EndGameStartTimer(AzumiEventType Event_Type, Component Sender, object Param = null)
+		{
+			StartCoroutine(TheEndGameTimer(7.0F));
+		}
+		private IEnumerator TheEndGameTimer(float waitTime)
+		{
+			yield return new WaitForSeconds(waitTime);
+			EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+		}
     }
 
 }

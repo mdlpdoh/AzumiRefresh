@@ -34,7 +34,8 @@ namespace com.dogonahorse
        	WonLevel,
 		SwipesLow,
 		SwipesLowFadeIn,
-		SwipesLowFadeOut
+		SwipesLowFadeOut,
+		StartTimer
         
 	}
 //-----------------------------------------------------------
@@ -153,6 +154,7 @@ public class EventManager : MonoBehaviour
 		Instance.RemoveEvent(AzumiEventType.SwipesLow);
 		Instance.RemoveEvent(AzumiEventType.SwipesLowFadeIn);
 		Instance.RemoveEvent(AzumiEventType.SwipesLowFadeOut);
+		Instance.RemoveEvent(AzumiEventType.StartTimer);
 	}
 
 	//---------------------------------------------------------

@@ -179,7 +179,10 @@ namespace com.dogonahorse
 				{
 					EventManager.PostEvent(AzumiEventType.SwipesLow, this);
 				}
-
+				if (swipesRemaining == 0) 
+				{
+					EventManager.PostEvent(AzumiEventType.StartTimer, this);
+				}
                 EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
            
             }
