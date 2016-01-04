@@ -13,7 +13,7 @@ namespace com.dogonahorse
 		public SpriteRenderer[] ArrowLights;
 
 
-		private bool MainDirectionSelected = true;
+		//private bool MainDirectionSelected = true;
 
 		public float MaxFlickerInterval;
 		public float MinFlickerInterval;

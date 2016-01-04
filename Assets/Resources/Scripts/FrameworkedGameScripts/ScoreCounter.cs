@@ -110,6 +110,9 @@ namespace com.dogonahorse
 
 		void StartFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
+            
+            
+            print ("-----------------StartFlashing " + alreadyFlashing);
 			if (alreadyFlashing == false) 
 			{
 				EventManager.PostEvent (AzumiEventType.SwipesLowFadeIn, this);

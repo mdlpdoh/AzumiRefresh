@@ -24,7 +24,7 @@ namespace com.dogonahorse
 
 		//private  EventManager eventManager;
 
-		public static bool MainDirectionSelected = true;
+		public static bool MainDirectionSelected = false;
 
 		public static InputManager Instance { 
 			// return public reference to private instance 
@@ -57,7 +57,7 @@ namespace com.dogonahorse
 		void Update ()
 		{
 
-
+    
 			if (Input.GetMouseButtonDown (0) && !UIControlIsActive) {
                // print("foo "+ UIControlIsActive);
 				InitialMouseDownIsValid = true;

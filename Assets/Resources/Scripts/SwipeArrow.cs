@@ -9,7 +9,7 @@ namespace com.dogonahorse
 		private Vector3 startLocation;
 		public float fudge = 2;
 		private SpriteRenderer ArrowSpriteRenderer;
-		private bool MainDirectionSelected = true;
+		//private bool MainDirectionSelected = true;
 
 		public Sprite MainSprite;
 		public Sprite AltSprite;

@@ -179,7 +179,7 @@ namespace com.dogonahorse
             if (lastChapterNumber != 0 && lastLevelNumber != 0)
             {
 
-                print(Instance.ChapterInitList.Count);
+                //print(Instance.ChapterInitList.Count);
                 LevelInitData currentLevel = Instance.ChapterInitList[lastChapterNumber - 1].LevelInitList[lastLevelNumber - 1];
 
                 newScoreManager.ChapterAnimalName = currentLevel.ChapterAnimalName;

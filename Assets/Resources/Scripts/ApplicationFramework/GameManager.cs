@@ -159,25 +159,24 @@ namespace com.dogonahorse
 
         void Title_Enter()
         {
-           AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this, null);
+            EventManager.PostEvent(AzumiEventType.EnterTitle, this, null); 
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Title Screen");
         }
 
         void Progress_Enter()
         {
-  
+            EventManager.PostEvent(AzumiEventType.EnterProgress, this, null); 
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Progress Screen");
 
         }
         void GameLevel_Enter()
         {
-         AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this, null);
+          EventManager.PostEvent(AzumiEventType.EnterLevel, this, null); 
             Debug.Log("Game Manager: GameLevel");
             Instance.sceneManager.InitScene();
-                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this, null);
-                    AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeIn, this, null);
+      
 
         }
 
