@@ -12,11 +12,16 @@ namespace com.dogonahorse
 	
 		//Application Events
 		unassigned,
-		
 		OpenModal,
 		CloseModal,
 		ScreenShotReady,
 		BlurFadeOutComplete,	
+     	EnterTitle,	   
+     	EnterProgress,	  
+     	EnterLevel,	       
+        
+        
+        
 		//Level events
 		HitWall,
 		HitCollectible,

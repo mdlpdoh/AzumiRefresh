@@ -183,7 +183,7 @@ namespace com.dogonahorse
 
 			}
 			InputManager.MainDirectionSelected =smushEnabled;
-
+                
 			//print ("InputManager.MainDirectionSelected "+ InputManager.MainDirectionSelected);
 		}
 

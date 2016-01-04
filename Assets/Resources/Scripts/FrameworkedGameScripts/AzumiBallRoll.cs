@@ -34,7 +34,7 @@ namespace com.dogonahorse
 
 		void Start ()
 		{
-			print ("AzumiBallRoll start ");
+
 			//theBall = GameObject.Find ("Ball");
 
 			//make sure particle is off to start
@@ -101,37 +101,6 @@ namespace com.dogonahorse
 
 
 
-
-		/*
-		public void OnGameTap (AzumiEventType Event_Type, Component Sender, object Param = null)
-		{
-			// find pos of ball and mouseclick and move ball away from the mouseclick.
-		
-			//get the rigidbody og the ball
-			//Rigidbody2D getBall = theBall.GetComponent<Rigidbody2D> ();
-			//find the magnitude of the ball
-			float theMag = myRb.velocity.magnitude;
-			//0 out the velocity of the ball
-			//			getBall.velocity = new Vector2(0, 0);
-
-			Vector2 tapPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-				
-			//print (tapPos);
-			//get the position of the tap and the ball
-			Vector2 ballPos = myRb.transform.position;
-			//get the Trajectory of the ball to the tap
-			Vector2 ballTraj = ballPos - tapPos;
-			//normalize it 
-			Vector2 ballTrajN = ballTraj.normalized;
-			//give the ball its new trajectory away from tap
-//				getBall.velocity = ballTrajN * theMag;
-			Vector2 theForce = ballTrajN * theMag;
-			myRb.AddForce (theForce * onTapSpeed);
-
-//				getBall.velocity = Vector2.ClampMagnitude(getBall.velocity, clampSpeed);
-//				myRb.AddForce (transform.up * onTapSpeed);
-				
-		}*/
 
 	}// end class
 }

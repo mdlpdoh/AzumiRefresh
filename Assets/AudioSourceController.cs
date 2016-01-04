@@ -20,7 +20,7 @@ namespace com.dogonahorse
     {
         public AudioEventType[] audioEvents;
         public AudioActionType[] audioActions;
-        public float delay = 0f;
+        public float IntroDelay = 0f;
         public float bpm = 210.0f;
         public float numBeatsPerSegment = 32;
         public AudioClip[] loopClips;
@@ -77,6 +77,7 @@ namespace com.dogonahorse
                     GameObject child = new GameObject("LoopPlayer");
                     child.transform.parent = gameObject.transform;
                     audioSources[i] = child.AddComponent<AudioSource>();
+                    audioSources[i].outputAudioMixerGroup = mixerGroup;
                     i++;
                 }
             }
@@ -90,19 +91,19 @@ namespace com.dogonahorse
             {
                 case AudioActionType.HardStart:
 
-                    Invoke("Play", delay);
-             
+                    Invoke("Play", IntroDelay);
+
                     break;
                 case AudioActionType.HardStop:
-                    Invoke("Stop", delay);
+                    Invoke("Stop", 0);
                     break;
                 case AudioActionType.FadeIn:
 
-                    Invoke("StartFadeIn", delay);
+                    Invoke("StartFadeIn", IntroDelay);
                     break;
                 case AudioActionType.FadeOut:
 
-                    Invoke("StartFadeOut", delay);
+                    Invoke("StartFadeOut", 0);
 
                     break;
                 default:
@@ -140,7 +141,7 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void Play()
         {
-             nextEventTime = AudioSettings.dspTime + 2.0F;
+            nextEventTime = AudioSettings.dspTime + 2.0F;
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
 
@@ -154,11 +155,12 @@ namespace com.dogonahorse
             else
             {
 
-                print("nat doing anything");
+                // print("nat doing anything");
             }
         }
         public void Stop()
         {
+
             if (audioSource.clip != null && audioSource.isPlaying)
             {
                 audioSource.Stop();
@@ -166,11 +168,20 @@ namespace com.dogonahorse
             else if (loopClips.Length > 0 & loopIsRunning)
             {
                 loopIsRunning = false;
-                audioSources[clipIndex].Stop();
+                for (int i = 0; i < audioSources.Length; i++)
+                {
+                    audioSources[i].Stop();
+                }
+
             }
         }
+
+
+
+
         public void StartFadeOut()
         {
+
             if (audioSource.isPlaying || loopIsRunning)
             {
                 StartCoroutine("FadeOut");
@@ -217,7 +228,8 @@ namespace com.dogonahorse
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;
             }
-            mixer.SetFloat(mixerGroupVolumeParameter, 1f);
+            mixer.SetFloat(mixerGroupVolumeParameter, 0f);
+
             Stop();
         }
     }
