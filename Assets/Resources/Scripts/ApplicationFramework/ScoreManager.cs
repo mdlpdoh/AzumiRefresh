@@ -45,7 +45,6 @@ namespace com.dogonahorse
         {
             // return reference to private instance 
             get {
-
 				float twentyPercent = 0.2f * CoinsInLevel;
 				int oneStar = (int) Math.Round (twentyPercent);					
 
@@ -119,7 +118,6 @@ namespace com.dogonahorse
         {
             ScoreCounter scoreCounter = GameObject.Find("ScoreBGpanel").GetComponent<ScoreCounter>();
             CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
-//			TimerCounter timerCounter = GameObject.Find("TimerNumber").GetComponent<TimerCounter>();
             scoreCounter.SetStartingAmount(MaxTaps);
             coinCounter.SetStartingAmount(0);// <--need to get from account
         }

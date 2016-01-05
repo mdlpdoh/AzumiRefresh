@@ -23,25 +23,27 @@ namespace com.dogonahorse
 		override public void InitWindow() {
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 			int numberOfStars = scoreManager.NumberOfStars;
-			int numberOfBounces = scoreManager.numberOfBounces;
+			int numberOfSwipes = scoreManager.numberOfBounces;
 			int numberOfCoins  = scoreManager.CoinsEarned;
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
-				//Players ran out of swipes - No coins, No nothin', Try again!
-			if (numberOfBounces < 0) {
-				resultsMessage = ParseMessageString(failureMessage3,numberOfBounces,numberOfCoins,typeOfAnimal);
+
+
+			//Players ran out of swipes - No coins, No nothin', Try again!
+			if (numberOfSwipes <= 0 && numberOfStars == 0) {
+				resultsMessage = ParseMessageString(failureMessage3,numberOfSwipes,numberOfCoins,typeOfAnimal);
 			}
 			else if (numberOfStars < 1) {
 				//Players lost
-				resultsMessage = ParseMessageString(failureMessage1,numberOfBounces,numberOfCoins,typeOfAnimal);
+				resultsMessage = ParseMessageString(failureMessage1,numberOfSwipes,numberOfCoins,typeOfAnimal);
 				if (numberOfCoins > 0) {
-					resultsMessage += "\n" + ParseMessageString(failureMessage2,numberOfBounces,numberOfCoins,typeOfAnimal); 
+					resultsMessage += "\n" + ParseMessageString(failureMessage2,numberOfSwipes,numberOfCoins,typeOfAnimal); 
 				}
 			} else {
 				//Players won
-				resultsMessage = ParseMessageString(victoryMessage1,numberOfBounces,numberOfCoins,typeOfAnimal);
+				resultsMessage = ParseMessageString(victoryMessage1,numberOfSwipes,numberOfCoins,typeOfAnimal);
 				if (numberOfCoins > 0) {
-					resultsMessage += "\n" + ParseMessageString(victoryMessage2,numberOfBounces,numberOfCoins,typeOfAnimal); 
+					resultsMessage += "\n" + ParseMessageString(victoryMessage2,numberOfSwipes,numberOfCoins,typeOfAnimal); 
 				}
 			}
 			Text messageText = GetComponentInChildren<Text>();
@@ -52,8 +54,6 @@ namespace com.dogonahorse
 
 		void SetStars (int numberOfStars) {
 	
-
-
 			if (numberOfStars > 2) {
 				transform.Find("Star3").GetComponent<Image>().color = Color.red;
 				transform.Find("Star2").GetComponent<Image>().color = Color.red;
@@ -61,15 +61,15 @@ namespace com.dogonahorse
 			} else if (numberOfStars > 1){
 				transform.Find("Star2").GetComponent<Image>().color = Color.red;
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
-			} else if (numberOfStars > 0){
+			} else if (numberOfStars == 0){
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
 			}
 		}
 
 
-		string ParseMessageString (string rawMessage, int numberOfBounces, int numberOfCoins, string typeOfAnimal) {
+		string ParseMessageString (string rawMessage, int numberOfSwipes, int numberOfCoins, string typeOfAnimal) {
 			rawMessage = rawMessage.Replace("@A", typeOfAnimal); 
-			rawMessage = rawMessage.Replace("@B", numberOfBounces.ToString()); 
+			rawMessage = rawMessage.Replace("@B", numberOfSwipes.ToString()); 
 			rawMessage = rawMessage.Replace("@C", numberOfCoins.ToString ()); 
 			return rawMessage ;
 		}
