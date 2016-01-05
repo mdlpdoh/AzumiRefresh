@@ -34,7 +34,7 @@ namespace com.dogonahorse
                 myText.text = timer.ToString("F1");
                 yield return null;
             }
-                 myText.text = "0";
+            myText.text = "0";
             EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
 
         }// end ienumerator 
