@@ -16,7 +16,7 @@ namespace com.dogonahorse
     }
 
 
-    public class AudioSourceController : MonoBehaviour
+    public class MusicController : MonoBehaviour
     {
         public AudioEventType[] audioEvents;
         public AudioActionType[] audioActions;
@@ -134,7 +134,7 @@ namespace com.dogonahorse
 
                     clipIndex = 0;
                 }
-                print(" clipIndex " + clipIndex);
+               // print(" clipIndex " + clipIndex);
             }
         }
 
@@ -154,7 +154,8 @@ namespace com.dogonahorse
             }
             else
             {
-
+          // audioSource.Stop();
+               //    audioSource.Play();
                 // print("nat doing anything");
             }
         }
@@ -172,7 +173,6 @@ namespace com.dogonahorse
                 {
                     audioSources[i].Stop();
                 }
-
             }
         }
 
