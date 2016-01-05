@@ -20,7 +20,9 @@ namespace com.dogonahorse
 
         LevelThemeHardStart,
         LevelThemeFadeIn,
-        LevelThemeFadeOut
+        LevelThemeFadeOut,
+        
+        OrdinaryWallHit
 
     }
     //-----------------------------------------------------------

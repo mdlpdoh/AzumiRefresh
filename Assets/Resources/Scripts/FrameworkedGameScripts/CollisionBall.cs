@@ -42,6 +42,7 @@ namespace com.dogonahorse
 				if (particlesEnabled){
 					emitParticleEffect (coll);
 				}
+
 				EventManager.PostEvent(AzumiEventType.HitWall, this, coll);
 			}
 		}
