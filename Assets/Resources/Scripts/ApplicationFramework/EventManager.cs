@@ -182,10 +182,14 @@ namespace com.dogonahorse
                 for (int i = 0; i < Listeners[azumiEventType].Count; i++)
                 {
                         if (Listeners[azumiEventType][i] == Listener ){
-                            
+                            //do nothing--this is the listener we want to eliminate
                             print ("Found one " +Listener );
+                        } else {
+                            //add to new list which will short;y replace the old one
+                            tempList.Add(Listeners[azumiEventType][i]);
                         }
                 }
+                 Listeners[azumiEventType] = tempList;
 
             }
         }
