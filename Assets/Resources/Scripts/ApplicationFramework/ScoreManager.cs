@@ -96,6 +96,7 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.HitWall, OnHitWallEvent);
             EventManager.ListenForEvent(AzumiEventType.GameSwipe, OnPlayerActionEvent);
             EventManager.ListenForEvent(AzumiEventType.HitCollectible, OnHitCollectibleEvent);
+
             EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
             InitScoreUI();
             swipesRemaining = MaxTaps;
@@ -118,6 +119,7 @@ namespace com.dogonahorse
         {
             ScoreCounter scoreCounter = GameObject.Find("ScoreBGpanel").GetComponent<ScoreCounter>();
             CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
+//			TimerCounter timerCounter = GameObject.Find("TimerNumber").GetComponent<TimerCounter>();
             scoreCounter.SetStartingAmount(MaxTaps);
             coinCounter.SetStartingAmount(0);// <--need to get from account
         }
@@ -170,6 +172,7 @@ namespace com.dogonahorse
 				if (swipesRemaining > 0) 
 				{
 					swipesRemaining--;
+					print ("THIS IS THE SWIPES REMAININGGGGGGGGGGGG " + swipesRemaining);
 				} else 
 				{
 					EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
