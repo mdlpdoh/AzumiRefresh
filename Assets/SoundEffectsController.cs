@@ -16,7 +16,7 @@ namespace com.dogonahorse
         public AudioClip[] RandomClips;
         public AudioMixer mixer;
 
-        public AudioMixerGroup mixerGroup;
+        private AudioMixerGroup mixerGroup;
 
         public string mixerGroupVolumeParameter;
         private AudioSource[] audioSources;
@@ -28,6 +28,8 @@ namespace com.dogonahorse
         {
 
             audioSource = GetComponent<AudioSource>();
+            mixerGroup = audioSource.outputAudioMixerGroup;
+            mixer = (AudioMixer)Resources.Load("AzumiAudio");
 
         }
 
@@ -61,7 +63,7 @@ namespace com.dogonahorse
                     break;
 
 
-                    break;
+
                 default:
                     print("Audio Trigger not recognized");
                     break;
