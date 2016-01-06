@@ -16,7 +16,7 @@ namespace com.dogonahorse
 		private Image panRight;
 		public float flashInterval = 0.5f;
 		private bool fadingIn = true;
-		private int swipesRemaining;
+//		private int swipesRemaining; //Don't think this is needed...?
 		private bool alreadyFlashing;
 
 
@@ -97,14 +97,15 @@ namespace com.dogonahorse
              AssignNumeralsToTextBoxes((int)Param);
         }
 
-		public int numberOfBounces
-		{
-			// return reference to private instance 
-			get
-			{
-				return swipesRemaining;
-			}
-		}
+//***** Is this needed? ****
+//		public int numberOfBounces
+//		{
+//			// return reference to private instance 
+//			get
+//			{
+//				return swipesRemaining;
+//			}
+//		}
 
 
 		void StartFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)

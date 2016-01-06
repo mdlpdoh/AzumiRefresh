@@ -24,7 +24,6 @@ namespace com.dogonahorse
         void EndGameStartTimer(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             StartCoroutine("EndTimer");
-
         }
         private IEnumerator EndTimer()
         {

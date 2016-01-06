@@ -58,6 +58,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
+				
                 float twentyPercent = 0.2f * CoinsInLevel;
                 int oneStar = (int)Math.Round(twentyPercent);
 
@@ -67,15 +68,15 @@ namespace com.dogonahorse
                 float ninetyPercent = 0.9f * CoinsInLevel;
                 int threeStar = (int)Math.Round(ninetyPercent);
 
-                if (coinsEarned >= threeStar && swipesRemaining > -1)
+				if (exitedDoorSafely == true && coinsEarned >= threeStar)
                 {
                     return 3;
                 }
-                else if (coinsEarned >= twoStar && swipesRemaining > -1)
+				else if (exitedDoorSafely == true && coinsEarned >= twoStar)
                 {
                     return 2;
                 }
-                else if (coinsEarned <= oneStar && swipesRemaining > -1)
+				else if (exitedDoorSafely == true && coinsEarned >= oneStar)
                 {
                     return 1;
                 }
@@ -187,7 +188,7 @@ namespace com.dogonahorse
                 }
                 else
                 {
-                    exitedDoorSafely = false;
+					exitedDoorSafely = false;
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                     print("Out Of Bounces!!!!!");
                 }
