@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+namespace com.dogonahorse
+{
 public class RepelMover : MonoBehaviour
 {
 
@@ -35,6 +36,7 @@ public class RepelMover : MonoBehaviour
     {
         if (col.gameObject.name == "Ball")
         {
+           EventManager.PostEvent(AzumiEventType.inRepeller, this);
             startDistance = (col.transform.position - transform.position).magnitude;
         }
     }
@@ -43,6 +45,7 @@ public class RepelMover : MonoBehaviour
     {
         if (col.gameObject.name == "Ball")
         {
+            EventManager.PostEvent(AzumiEventType.inRepeller, this);
             Vector2 repelVector = (col.transform.position - transform.position);
 
             float currentDistance = repelVector.magnitude / startDistance;
@@ -52,4 +55,5 @@ public class RepelMover : MonoBehaviour
      
         }
     }
+}
 }
