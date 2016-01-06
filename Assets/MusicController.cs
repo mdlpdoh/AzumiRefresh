@@ -5,15 +5,7 @@ using UnityEngine.Audio;
 namespace com.dogonahorse
 {
 
-    public enum AudioActionType
 
-    {
-        unassigned,
-        HardStart,
-        HardStop,
-        FadeIn,
-        FadeOut
-    }
 
 
     public class MusicController : MonoBehaviour
@@ -122,7 +114,7 @@ namespace com.dogonahorse
             {
                 audioSources[clipIndex].clip = loopClips[clipIndex];
                 audioSources[clipIndex].PlayScheduled(nextEventTime);
-                Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
+                //Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
                 nextEventTime += 60.0F / bpm * numBeatsPerSegment;
                 if (clipIndex < audioSources.Length - 1)
                 {

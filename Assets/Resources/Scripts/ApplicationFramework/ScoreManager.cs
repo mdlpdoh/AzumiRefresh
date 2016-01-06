@@ -19,7 +19,19 @@ namespace com.dogonahorse
         private int coinsEarned = 0;
         private bool hitWallsCostsPoints = true;
         private bool playerActionsCostPoints = true;
-	
+
+        private bool exitedDoorSafely = false;
+       
+        public bool ExitedDoorSafely
+        {
+            // return reference to private instance 
+            get
+            {
+                return exitedDoorSafely;
+            }
+        }
+
+       
         public int numberOfBounces
         {
             // return reference to private instance 
@@ -38,42 +50,43 @@ namespace com.dogonahorse
 
             }
         }
-     
+
 
         public int NumberOfStars
-		// number of stars given based on percentage of ants(coins) cleared in level
+        // number of stars given based on percentage of ants(coins) cleared in level
         {
             // return reference to private instance 
-            get {
-				float twentyPercent = 0.2f * CoinsInLevel;
-				int oneStar = (int) Math.Round (twentyPercent);					
+            get
+            {
+                float twentyPercent = 0.2f * CoinsInLevel;
+                int oneStar = (int)Math.Round(twentyPercent);
 
-				float sixtyPercent = 0.6f * CoinsInLevel;
-				int twoStar = (int) Math.Round (sixtyPercent);
+                float sixtyPercent = 0.6f * CoinsInLevel;
+                int twoStar = (int)Math.Round(sixtyPercent);
 
-				float ninetyPercent = 0.9f * CoinsInLevel;
-				int threeStar = (int) Math.Round (ninetyPercent);
+                float ninetyPercent = 0.9f * CoinsInLevel;
+                int threeStar = (int)Math.Round(ninetyPercent);
 
-				if (coinsEarned >= threeStar && swipesRemaining > -1) 
-				{
-					return 3;
-				} 
-				else if (coinsEarned >= twoStar && swipesRemaining > -1) 
-				{
-					return 2;
-				} 
-				else if (coinsEarned <= oneStar && swipesRemaining > -1) 
-				{
-					return 1;
-				} 
-				else 
-				{
-					return 0;
-				}
+                if (coinsEarned >= threeStar && swipesRemaining > -1)
+                {
+                    return 3;
+                }
+                else if (coinsEarned >= twoStar && swipesRemaining > -1)
+                {
+                    return 2;
+                }
+                else if (coinsEarned <= oneStar && swipesRemaining > -1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             } // end get
-		} // end
+        } // end
 
-       
+
 
         //private float elapsedTime;
         private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
@@ -95,7 +108,6 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.HitWall, OnHitWallEvent);
             EventManager.ListenForEvent(AzumiEventType.GameSwipe, OnPlayerActionEvent);
             EventManager.ListenForEvent(AzumiEventType.HitCollectible, OnHitCollectibleEvent);
-
             EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
             InitScoreUI();
             swipesRemaining = MaxTaps;
@@ -116,6 +128,7 @@ namespace com.dogonahorse
 
         void InitScoreUI()
         {
+              exitedDoorSafely = false;
             ScoreCounter scoreCounter = GameObject.Find("ScoreBGpanel").GetComponent<ScoreCounter>();
             CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
             scoreCounter.SetStartingAmount(MaxTaps);
@@ -134,7 +147,7 @@ namespace com.dogonahorse
 
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
-		
+
                 try
                 {
                     Collision2D wallCollider = (Collision2D)Param;
@@ -167,25 +180,27 @@ namespace com.dogonahorse
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
                 //if (playerActionsCostPoints) 
-				if (swipesRemaining > 0) 
-				{
-					swipesRemaining--;
-					print ("THIS IS THE SWIPES REMAININGGGGGGGGGGGG " + swipesRemaining);
-				} else 
-				{
-					EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
-					print ("Out Of Bounces!!!!!");
-				}
-				if (swipesRemaining < 5) 
-				{
-					EventManager.PostEvent(AzumiEventType.SwipesLow, this);
-				}
-				if (swipesRemaining == 0) 
-				{
-					EventManager.PostEvent(AzumiEventType.StartTimer, this);
-				}
+                if (swipesRemaining > 0)
+                {
+                    swipesRemaining--;
+                    //					print ("THIS IS THE SWIPES REMAININGGGGGGGGGGGG " + swipesRemaining);
+                }
+                else
+                {
+                    exitedDoorSafely = false;
+                    EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+                    print("Out Of Bounces!!!!!");
+                }
+                if (swipesRemaining < 5)
+                {
+                    EventManager.PostEvent(AzumiEventType.SwipesLow, this);
+                }
+                if (swipesRemaining == 0)
+                {
+                    EventManager.PostEvent(AzumiEventType.StartTimer, this);
+                }
                 EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
-           
+
             }
 
         }
@@ -200,10 +215,7 @@ namespace com.dogonahorse
 
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            if (sceneManager.GetCurrentState() == SceneState.Playing)
-            {
-
-            }
+            exitedDoorSafely = true;
         }
     }
 }

@@ -14,13 +14,21 @@ namespace com.dogonahorse
         public bool isRandom = false;
         public bool dontRepeat = false;
         public AudioClip[] RandomClips;
+        public float maxVolume = 1.0f;
+        public float droneVolumeIncreaseRatio = 100f;
+
+        public float droneVolumeDecreaseRatio = 50f;
+
+        private bool droneIsActive = false;
+
+        public float panLevel = 1.0f;
         public AudioMixer mixer;
 
         private AudioMixerGroup mixerGroup;
 
         public string mixerGroupVolumeParameter;
-        private AudioSource[] audioSources;
-
+        //private AudioSource[] audioSources;
+        private List<AudioSource> audioSources = new List<AudioSource>();
         private AudioSource audioSource;
         private List<int> randomList;
         private int randomIndex = 0;
@@ -35,47 +43,82 @@ namespace com.dogonahorse
 
         void Start()
         {
-            refreshRandomList();
+            if (isRandom && RandomClips.Length > 0)
+            {
+                refreshRandomList();
+            }
+            // setUpAudioSources();
             EventManager.ListenForEvent(myEvent, DoAudioEvent);
+        }
+
+        AudioSource getNewAudioSource(AudioClip newClip)
+        {
+
+            GameObject child = new GameObject("tempPlayer");
+            child.transform.parent = gameObject.transform;
+            AudioSource newAudioSource = child.AddComponent<AudioSource>();
+            newAudioSource.outputAudioMixerGroup = mixerGroup;
+
+            newAudioSource.spatialBlend = panLevel;
+            newAudioSource.clip = newClip;
+
+            return newAudioSource;
         }
         void refreshRandomList()
         {
             randomList = new List<int>();
-            randomList.Add(0);
-            randomList.Add(1);
-            randomList.Add(2);
-            randomList.Add(3);
+
+            int i = 0;
+            while (i < RandomClips.Length)
+            {
+                randomList.Add(i);
+                i++;
+            }
         }
 
 
         public void DoAudioEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-
             switch (myAction)
             {
                 case AudioActionType.HardStart:
-
-                    Invoke("Play", 0);
-
+                    Play();
                     break;
                 case AudioActionType.HardStop:
-                    Invoke("Stop", 0);
+                    Stop();
                     break;
 
-
+                case AudioActionType.FadingDrone:
+                    Drone();
+                    break;
 
                 default:
                     print("Audio Trigger not recognized");
                     break;
             }
-
         }
 
-
+        public void Drone()
+        {
+            droneIsActive = true;
+            if (audioSources.Count < 1 || !audioSources[0].isPlaying)
+            {
+                //no sound--start sound up
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0]);
+                newAudioSource.volume = 0;
+                newAudioSource.Play();
+                audioSources.Add(newAudioSource); ;
+            }
+            else if (audioSources.Count == 1 || audioSources[0].isPlaying)
+            {
+                //Sound already playing--Fade In 
+                audioSources[0].volume += (maxVolume - audioSources[0].volume) / droneVolumeIncreaseRatio;
+            }
+        }
         public void Play()
         {
-            audioSource.Stop();
-
+            // audioSource.Stop();
+            //clip needs to be randomized between a number of different clips
             if (isRandom && RandomClips.Length > 0)
             {
                 if (dontRepeat)
@@ -92,26 +135,78 @@ namespace com.dogonahorse
                 else
                 {
                     randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
-
                 }
-                audioSource.clip = RandomClips[randomIndex];
-                audioSource.Play();
+
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex]);
+                newAudioSource.Play();
+                audioSources.Add(newAudioSource); ;
+
+                //audioSource.clip = R;
+                //    audioSources[randomIndex].Stop();
+                //audioSources[randomIndex].Play();
             }
             else
             {
-                audioSource.Play();
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0]);
+                newAudioSource.Play();
+                audioSources.Add(newAudioSource); ;
             }
         }
 
 
+        void Update()
+        {
 
+            if (audioSources.Count > 0)
+            {
+                int i = audioSources.Count - 1;
+                while (i >= 0)
+                {
+                    if (!audioSources[i].isPlaying)
+                    {
+                        GameObject.Destroy(audioSources[i].gameObject);
+                        audioSources.RemoveAt(i);
+                    }
+                    i--;
+                }
+                if (audioSources.Count > 0  && myAction == AudioActionType.FadingDrone)
+                {
+                    if (droneIsActive)
+                    {
+                        droneIsActive = false;
+                    }
+                    else
+                    {
+                        float decreaseAmount = audioSources[0].volume / droneVolumeDecreaseRatio;
+                        if (audioSources[0].volume - decreaseAmount > 0)
+                        {
+                            audioSources[0].volume -= decreaseAmount;
+                        }
+                        else
+                        {
+                            audioSources[0].volume = 0;
+
+                        }
+                    }
+                }
+            }
+        }
         void OnDestroy()
         {
             EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
         }
         public void Stop()
         {
-            audioSource.Stop();
+
+            int i = 0;
+            while (i < audioSources.Count)
+            {
+
+                audioSources[i].Stop();
+                i++;
+            }
+
+
         }
 
     }

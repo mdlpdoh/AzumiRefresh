@@ -28,6 +28,7 @@ namespace com.dogonahorse
         HitCollectible,
         HitPowerUp,
         HitTrigger,
+        inRepeller,
         HitDoor,
         GamePress,
         GameShift,
@@ -181,15 +182,18 @@ namespace com.dogonahorse
                 List<OnEvent> tempList = new List<OnEvent>();
                 for (int i = 0; i < Listeners[azumiEventType].Count; i++)
                 {
-                        if (Listeners[azumiEventType][i] == Listener ){
-                            //do nothing--this is the listener we want to eliminate
-                            print ("Found one " +Listener );
-                        } else {
-                            //add to new list which will short;y replace the old one
-                            tempList.Add(Listeners[azumiEventType][i]);
-                        }
+                    if (Listeners[azumiEventType][i] == Listener)
+                    {
+                        //do nothing--this is the listener we want to eliminate
+                        print("Found one " + Listener);
+                    }
+                    else
+                    {
+                        //add to new list which will short;y replace the old one
+                        tempList.Add(Listeners[azumiEventType][i]);
+                    }
                 }
-                 Listeners[azumiEventType] = tempList;
+                Listeners[azumiEventType] = tempList;
 
             }
         }

@@ -5,7 +5,16 @@ using System.Collections.Generic;
 namespace com.dogonahorse
 {
 
+    public enum AudioActionType
 
+    {
+        unassigned,
+        HardStart,
+        HardStop,
+        FadeIn,
+        FadeOut,
+        FadingDrone
+    }
     public class SoundManager : MonoBehaviour
     {
 
