@@ -48,7 +48,6 @@ namespace com.dogonahorse
             {
                 return instance;
             }
-
         }
 
         public static float MusicVolume
@@ -58,10 +57,8 @@ namespace com.dogonahorse
                 return instance.musicVolume;
             }
             set
-            {
-        
+            { 
                 instance.UpdateMusicVolume(value);
-
             }
         }
 
@@ -73,7 +70,6 @@ namespace com.dogonahorse
             }
             set
             {
-
                 instance.UpdateSoundEffectsVolume(value);
             }
         }
@@ -81,13 +77,11 @@ namespace com.dogonahorse
         void UpdateMusicVolume(float value)
         {
             musicVolume = value;
-    
-
             mixer.SetFloat(musicMixerVolume, deNormalizeVolume(musicVolume));
         }
+        
         float  deNormalizeVolume(float value)
-        {
-            
+        {     
             float t = Mathf.Log10(value);
             return  Mathf.Lerp(-80f, 0f, t + 1);
         }
@@ -149,7 +143,6 @@ namespace com.dogonahorse
                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeHardStart, this);
             }
-
         }
     }
 }
