@@ -189,8 +189,9 @@ namespace com.dogonahorse
 
         private IEnumerator FadeIn()
         {
+       
             float currentTime = 0f;
-            float volume;
+        
             while (currentTime < fadeInTime)
             {
 

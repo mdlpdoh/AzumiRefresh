@@ -48,7 +48,7 @@ namespace com.dogonahorse
         public Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow>();
         public GameObject devSettingsPanel;
 
-        private SceneState nextState;
+       // private SceneState nextState;
 
         private int nextChapter;
         private int nextLevel;
@@ -126,7 +126,7 @@ namespace com.dogonahorse
                 {
                     //print ("opening other modal");
                     Time.timeScale = 0;
-                    nextState = GetCurrentState();
+                    //nextState = GetCurrentState();
                 }
                 ChangeState(SceneState.Modal);
            
@@ -176,7 +176,7 @@ namespace com.dogonahorse
              EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
 
              
-            nextState = SceneState.Ready;
+            //nextState = SceneState.Ready;
         }
         
         void openPregameModal (AzumiEventType Event_Type, Component Sender, object Param = null){
@@ -204,7 +204,7 @@ namespace com.dogonahorse
         void PreGame_Enter()
         {
             if (modalWindowDictionary.ContainsKey(ButtonID.Instructions)){
-                nextState = SceneState.Ready;
+                //nextState = SceneState.Ready;
                  ChangeState(SceneState.Modal);
                  modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
             } else {

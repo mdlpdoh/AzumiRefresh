@@ -92,7 +92,7 @@ namespace com.dogonahorse
             Vector2 handle00pos = handle00.transform.localPosition;
             Vector2 handle01pos = handle01.transform.localPosition;
             Vector2 handle10pos = handle10.transform.localPosition;
-            Vector2 handle11pos = handle11.transform.localPosition;
+//            Vector2 handle11pos = handle11.transform.localPosition;
 
 
             drawMarker(handle00.transform.position);

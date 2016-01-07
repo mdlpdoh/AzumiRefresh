@@ -249,6 +249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee161bbaa5e554fc882945e2c6d6bb28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: c91ab27dd98b94ddeaeeae13575bb34a, type: 2}
+  musicMixerVolume: MusicVolume
+  soundEffectsMixerVolume: SoundFXVolume
 --- !u!114 &11446528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioEvents: 050000000600000007000000
   audioActions: 010000000300000004000000
-  delay: 0
+  IntroDelay: 0
   bpm: 210
   numBeatsPerSegment: 32
   loopClips:
@@ -335,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioEvents: 010000000300000004000000
   audioActions: 010000000300000004000000
-  delay: 0
+  IntroDelay: 0
   bpm: 210
   numBeatsPerSegment: 32
   loopClips: []
