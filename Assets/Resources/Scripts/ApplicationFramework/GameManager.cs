@@ -22,12 +22,9 @@ namespace com.dogonahorse
     {
 
         private static GameManager instance = null;
-
-
         public static GameManager Instance
         {
             // return reference to private instance 
-
             get
             {
                 return instance;
@@ -36,7 +33,6 @@ namespace com.dogonahorse
 
         public GameState defaultState;
         public SceneManager sceneManager;
-
         public int frameRate = 60;
         void Awake()
         {
@@ -59,9 +55,7 @@ namespace com.dogonahorse
             sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
             ChangeState(GameState.Init);
             Instance.sceneManager.InitScene();
-          
         }
-
         public static GameState GetCurrentState()
         {
             return (GameState)Enum.Parse(typeof(GameState), instance.GetState().ToString());
@@ -136,13 +130,7 @@ namespace com.dogonahorse
             }
             return numberString;
         }
-        /*
-		public static void ReturnToProgressScreen(){
-			EventManager.ClearGameLevelListeners();
-			Instance.ChangeState (GameState.Progress );
-			Application.LoadLevel("Progress");
-			
-		}*/
+ 
         public static void GameOver()
         {
             Instance.ChangeState(GameState.EndGame);

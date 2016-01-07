@@ -47,8 +47,6 @@ namespace com.dogonahorse
         {
 
             float currentTime = 0f;
-
-
             while (currentTime < fadeTime)
             {
                 float normalizedTime = currentTime / fadeTime;
@@ -57,9 +55,6 @@ namespace com.dogonahorse
                 FadeMainQuad(fadeCurveProgress);
                 FadeHearts(fadeCurveProgress);
                 EmitParticles(particleCurveProgress);
-                
-                
-                
                 currentTime += Time.deltaTime;
                 yield return null;
             }

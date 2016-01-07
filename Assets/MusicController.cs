@@ -36,7 +36,6 @@ namespace com.dogonahorse
         public AnimationCurve fadeOutCurve;
         void Awake()
         {
-
             audioSource = GetComponent<AudioSource>();
             audioTriggers = new Dictionary<AudioEventType, AudioActionType>();
             if (audioEvents.Length == audioActions.Length)
@@ -55,7 +54,6 @@ namespace com.dogonahorse
         void Start()
         {
             List<AudioEventType> myKeys = new List<AudioEventType>(audioTriggers.Keys);
-
             for (int i = 0; i < myKeys.Count; i++)
             {
                 AudioEventManager.ListenForEvent(myKeys[i], DoAudioEvent);
@@ -110,44 +108,44 @@ namespace com.dogonahorse
                 return;
 
             double time = AudioSettings.dspTime;
+                       
             if (time + 1.0F > nextEventTime)
             {
+               
                 audioSources[clipIndex].clip = loopClips[clipIndex];
                 audioSources[clipIndex].PlayScheduled(nextEventTime);
-                //Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
+                Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
                 nextEventTime += 60.0F / bpm * numBeatsPerSegment;
                 if (clipIndex < audioSources.Length - 1)
                 {
-
                     clipIndex++;
                 }
                 else
                 {
-
                     clipIndex = 0;
                 }
-               // print(" clipIndex " + clipIndex);
+                // print(" clipIndex " + clipIndex);
             }
         }
 
         // Update is called once per frame
         public void Play()
         {
-            nextEventTime = AudioSettings.dspTime + 2.0F;
+          
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
-
                 audioSource.Play();
             }
             else if (loopClips.Length > 0 & !loopIsRunning)
             {
-
+  nextEventTime = AudioSettings.dspTime + 2.0F;
                 loopIsRunning = true;
+
             }
             else
             {
-          // audioSource.Stop();
-               //    audioSource.Play();
+                // audioSource.Stop();
+                //    audioSource.Play();
                 // print("nat doing anything");
             }
         }
@@ -173,7 +171,6 @@ namespace com.dogonahorse
 
         public void StartFadeOut()
         {
-
             if (audioSource.isPlaying || loopIsRunning)
             {
                 StartCoroutine("FadeOut");
@@ -189,20 +186,14 @@ namespace com.dogonahorse
 
         private IEnumerator FadeIn()
         {
-       
+
             float currentTime = 0f;
-        
             while (currentTime < fadeInTime)
             {
-
                 float normalizedTime = currentTime / fadeInTime;
-
-
                 float curveProgress = fadeInCurve.Evaluate(normalizedTime);
-
                 float musicVol = Mathf.Lerp(-80f, 0f, curveProgress);
                 mixer.SetFloat(mixerGroupVolumeParameter, musicVol);
-
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;
             }
