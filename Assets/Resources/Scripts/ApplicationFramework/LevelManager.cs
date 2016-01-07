@@ -107,17 +107,7 @@ namespace com.dogonahorse
             }
 
 
-            /*
-                        if (File.Exists(datapath + "/leveldata.json"))
-                        {
-                            chapters = System.IO.File.ReadAllText(datapath + "/leveldata.json");
-                        }
-                        else
-                        {
-                            TextAsset jsonAsset = Resources.Load("data/leveldata") as TextAsset;
-                            chapters = jsonAsset.text;
-                        }
-            */
+  
         }
 
 

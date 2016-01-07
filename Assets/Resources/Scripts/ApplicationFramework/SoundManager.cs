@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 namespace com.dogonahorse
 {
@@ -13,16 +14,32 @@ namespace com.dogonahorse
         HardStop,
         FadeIn,
         FadeOut,
-        FadingDrone
+        FadingDrone,
+    }
+
+    public enum VolumeSetting
+
+    {
+        Music,
+        SoundFX
+
     }
     public class SoundManager : MonoBehaviour
     {
+        public AudioMixer mixer;
+        public string musicMixerVolume;
+        public string soundEffectsMixerVolume;
 
         private static SoundManager instance = null;
         //private List<LevelPlayerData> LevelPlayerList = new List<LevelPlayerData> ();
 
         private bool musicEnabled = true;
-        private bool moundFXEnabled = true;
+        private bool soundFXEnabled = true;
+
+
+        private float musicVolume = 1;
+        private float soundFXVolume = 1;
+
 
         public static SoundManager Instance
         {
@@ -31,8 +48,54 @@ namespace com.dogonahorse
             {
                 return instance;
             }
+
         }
 
+        public static float MusicVolume
+        {
+            get
+            {
+                return instance.musicVolume;
+            }
+            set
+            {
+        
+                instance.UpdateMusicVolume(value);
+
+            }
+        }
+
+        public static float SoundFXVolume
+        {
+            get
+            {
+                return instance.soundFXVolume;
+            }
+            set
+            {
+
+                instance.UpdateSoundEffectsVolume(value);
+            }
+        }
+
+        void UpdateMusicVolume(float value)
+        {
+            musicVolume = value;
+    
+
+            mixer.SetFloat(musicMixerVolume, deNormalizeVolume(musicVolume));
+        }
+        float  deNormalizeVolume(float value)
+        {
+            
+            float t = Mathf.Log10(value);
+            return  Mathf.Lerp(-80f, 0f, t + 1);
+        }
+        void UpdateSoundEffectsVolume(float value)
+        {
+            soundFXVolume = value;
+            mixer.SetFloat(soundEffectsMixerVolume, deNormalizeVolume(soundFXVolume));
+        }
         void Awake()
         {
             // Check if existing instance of class exists in scene 35 
@@ -59,31 +122,34 @@ namespace com.dogonahorse
 
         void OnEnterTitle(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-                       print ("***********************************OnEnterTitle");
-            if (musicEnabled){
-               AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);
+            // print("***********************************OnEnterTitle");
+            if (musicEnabled)
+            {
+                AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);
             }
-      
+
         }
-        
+
         void OnEnterProgress(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-            print ("***********************************OnEnterProgress");
-            if (musicEnabled){
-              AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
-               AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);
+            // print("***********************************OnEnterProgress");
+            if (musicEnabled)
+            {
+                AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
+                AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);
             }
-      
+
         }
-        
+
         void OnEnterLevel(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-                       print ("***********************************OnEnterLevel");
-            if (musicEnabled){
-               AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
-               AudioEventManager.PostEvent(AudioEventType.LevelThemeHardStart, this);
+            // print("***********************************OnEnterLevel");
+            if (musicEnabled)
+            {
+                AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
+                AudioEventManager.PostEvent(AudioEventType.LevelThemeHardStart, this);
             }
-      
+
         }
     }
 }

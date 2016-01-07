@@ -32,18 +32,18 @@ namespace com.dogonahorse
                 endPosition = transform.localPosition;
                 
             }
-
+      
+               
 
         }
 
         // Update is called once per frame
         public void StartTranslation(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-       // print("Event_Type " + Event_Type + "  " + this.gameObject.name);
 
-            
-            StartCoroutine("Translate");
-
+            if (gameObject.active == true) {
+              StartCoroutine("Translate");
+            }
         }
 
 
