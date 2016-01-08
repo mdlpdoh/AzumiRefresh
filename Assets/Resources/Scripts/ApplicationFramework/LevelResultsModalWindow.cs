@@ -9,9 +9,9 @@ namespace com.dogonahorse
 	public class LevelResultsModalWindow : ModalWindow
 	{
 
-		private string victoryMessage1 = "You freed the\n@A\nwith @B\nenergy left!\nYou also got\n@C Ants!";
+		private string victoryMessage1 = "You freed the @A\nwith @B energy left!and\ngot@C Ants!";
 		private string failureMessage2 = "The ants won!\nYou didn't free the\n@A!\nBut you got\n @C coins!";
-		private string failureMessage1 = "Aargh!\nOut of energy\nand didn't eat\nenough ants!\nTry again!";
+		private string failureMessage1 = "Aargh!\nOut of energy\nand you didn't eat\nenough ants!\nTry again!";
 
 		private ScoreManager scoreManager;
 
