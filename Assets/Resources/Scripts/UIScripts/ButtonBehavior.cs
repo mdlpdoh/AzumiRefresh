@@ -40,7 +40,9 @@ namespace com.dogonahorse
 		Select,
 		Buy,
 		NextScreen,
-		ResetLevel
+		ResetLevel,
+        Cancel,
+        Save
 	}
 	public class ButtonBehavior : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{
