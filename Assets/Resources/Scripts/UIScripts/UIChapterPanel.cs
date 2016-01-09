@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -26,6 +26,9 @@ namespace com.dogonahorse
         private int chapterNumber = 1;
         [SerializeField]
         //rate at which panels transition to resting position
+
+
+
         private float dragFriction = 1.5f;
 
         [SerializeField]
@@ -93,6 +96,7 @@ namespace com.dogonahorse
 
         void Awake()
         {
+
             rectTransform = GetComponent<RectTransform>();
             chapterPanels[chapterNumber - 1] = this;
         }
@@ -107,19 +111,13 @@ namespace com.dogonahorse
                 ChapterMainColor = LevelManager.GetChapterMainColor(chapterNumber);
                 ChapterSecondColor = LevelManager.GetChapterSecondColor(chapterNumber);
                 SetUpChildObjects();
-
-
             }
             InitRestPositionsArray();
             UpdateRestingY();
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, restingY);
-
-
-
         }
         void InitRestPositionsArray()
         {
-
             if (restPositions == null)
             {
                 restPositions = new float[10];
@@ -176,6 +174,7 @@ namespace com.dogonahorse
         }
 
 
+      
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {

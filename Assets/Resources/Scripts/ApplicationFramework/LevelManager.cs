@@ -82,10 +82,6 @@ namespace com.dogonahorse
             DontDestroyOnLoad(gameObject);
             datapath = Application.persistentDataPath;
 
-        }
-
-        void Start()
-        {
             //get Basic Chapter Data
             string chapters;
             TextAsset jsonAsset = Resources.Load("data/leveldata") as TextAsset;
@@ -96,21 +92,35 @@ namespace com.dogonahorse
             string playerData;
             if (File.Exists(datapath + "/playerdata.json"))
             {
-                         print ("retrieving existing player data");
+                print("retrieving existing player data");
                 playerData = System.IO.File.ReadAllText(datapath + "/playerdata.json");
                 SetUpPlayerData(playerData);
             }
             else
             {
-                print ("setting up new player data");
+                print("setting up new player data");
                 SetUpNewPlayerData();
             }
-
-
-  
         }
-
-
+        
+        
+        
+        
+             public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
+        {
+     
+            return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
+        }
+        
+        public static int GetPlayerLevelHighScore(int chapterNumber, int levelNumber)
+        {
+     
+            return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].HighScore;
+        }
+        public static bool GetPlayerLevelStatus(int chapterNumber, int levelNumber)
+        {
+            return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsOpen;
+        }
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
         {
             LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
@@ -218,20 +228,34 @@ namespace com.dogonahorse
 
         void SetUpNewPlayerData()
         {
-            ChapterPlayerData nextChapter = new ChapterPlayerData();
-            nextChapter.ChapterNumber = 1;
 
-            LevelPlayerData nextLevel = new LevelPlayerData();
-            nextLevel.ChapterNumber = 1;
-            nextLevel.LevelNumber = 1;
-            nextLevel.HighScore = 0;
-            nextLevel.MaxStarsEarned = 0;
+            for (int i = 0; i < 4; i++)
+            {
 
-            nextLevel.LevelIsOpen = true;
-            List<LevelPlayerData> newLevels = new List<LevelPlayerData>();
-            newLevels.Add(nextLevel);
-            nextChapter.LevelPlayerDataList = newLevels;
-            ChapterPlayerDataList.Add(nextChapter);
+                ChapterPlayerData nextChapter = new ChapterPlayerData();
+                nextChapter.ChapterNumber = i + 1;
+                List<LevelPlayerData> newLevels = new List<LevelPlayerData>();
+                for (int j = 0; j < 10; j++)
+                {
+                    LevelPlayerData nextLevel = new LevelPlayerData();
+                    nextLevel.ChapterNumber = nextChapter.ChapterNumber;
+                    nextLevel.LevelNumber = j + 1;
+                    nextLevel.HighScore = 0;
+                    nextLevel.MaxStarsEarned = 0;
+                    newLevels.Add(nextLevel);
+
+                    if (i == 0 && j == 0)
+                    {
+                        nextLevel.LevelIsOpen = true;
+                    }
+                    else
+                    {
+                        nextLevel.LevelIsOpen = false;
+                    }
+                }
+                nextChapter.LevelPlayerDataList = newLevels;
+                ChapterPlayerDataList.Add(nextChapter);
+            }
 
         }
         void SetUpChapters(string chapterInfo)
@@ -296,11 +320,8 @@ namespace com.dogonahorse
 
         public void WritePlayerLevelSettings()
         {
-
             JSONArray newJson = GetPlayerChaptersData(new JSONArray());
-
             System.IO.File.WriteAllText(datapath + "/playerdata.json", newJson.ToString(""));
-
         }
 
 

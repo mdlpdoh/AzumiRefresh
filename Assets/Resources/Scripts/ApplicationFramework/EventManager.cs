@@ -20,8 +20,12 @@ namespace com.dogonahorse
         EnterTitle,
         EnterProgress,
         EnterLevel,
+        CancelSettings,
+        SaveSettings,
 
-
+        UnlockAllLevels,
+        RelockLevels,
+        ResetProgress,
 
         //Level events
         HitWall,

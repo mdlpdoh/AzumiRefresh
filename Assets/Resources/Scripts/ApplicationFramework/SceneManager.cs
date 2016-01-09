@@ -26,10 +26,10 @@ namespace com.dogonahorse
     /**
 	 *  Manages all scene assets and behaviors. SceneManager mediates between the GameManager, SceneManager and other high level objects associated with an individual scene.
 	 */
+
+
     public class SceneManager : StateBehaviour
     {
-
-
         private static SceneManager instance = null;
 
         public static SceneManager Instance
@@ -48,7 +48,7 @@ namespace com.dogonahorse
         public Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow>();
         public GameObject devSettingsPanel;
 
-       // private SceneState nextState;
+        // private SceneState nextState;
 
         private int nextChapter;
         private int nextLevel;
@@ -95,10 +95,10 @@ namespace com.dogonahorse
                 modalWindowDictionary.Add(modals[i].buttonID, modals[i]);
             }
             inputManager = GameObject.Find("GameScripts").GetComponent<InputManager>();
-          
+
             // blurBackground = GameObject.Find("BlurPanel").GetComponent<BlurBackground>();
             ChangeState(SceneState.Init);
-          
+
             EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
             EventManager.ListenForEvent(AzumiEventType.OutOfBounces, OnOutOfBouncesEvent);
         }
@@ -119,7 +119,7 @@ namespace com.dogonahorse
         {
             if (buttonAction == ButtonAction.OpenModal)
             {
-                EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
+                EventManager.PostEvent(AzumiEventType.OpenModal, this, buttonID);
                 modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
                 //pause Game if opening modal while game is running re ready to start
                 if (GameManager.GetCurrentState() == GameState.GameLevel && (GetCurrentState() == SceneState.Ready || GetCurrentState() == SceneState.Playing))
@@ -129,28 +129,38 @@ namespace com.dogonahorse
                     //nextState = GetCurrentState();
                 }
                 ChangeState(SceneState.Modal);
-           
+
             }
-            else if (buttonAction == ButtonAction.CloseModal)
+            else if (buttonAction == ButtonAction.CloseModal || buttonAction == ButtonAction.Save || buttonAction == ButtonAction.Cancel)
             {
-  
-              EventManager.PostEvent(AzumiEventType.CloseModal, this, null);
-                 Time.timeScale = 1;
-				
+
+                if (buttonAction == ButtonAction.Cancel)
+                {
+                    EventManager.PostEvent(AzumiEventType.CancelSettings, this);
+                }
+                else if (buttonAction == ButtonAction.Save)
+                {
+                    EventManager.PostEvent(AzumiEventType.SaveSettings, this);
+                }
+                // }
+                EventManager.PostEvent(AzumiEventType.CloseModal, this, buttonID);
+                Time.timeScale = 1;
+
                 ChangeState(SceneState.Ready);
 
 
-               // modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
+                // modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
             }
             else if (buttonAction == ButtonAction.NextScreen)
             {
 
                 if (buttonID == ButtonID.PreGameModal)
                 {
-					ChangeState(SceneState.Closing);
-   						GameManager.ChangeScene(nextLevel, NextChapter);
+                    ChangeState(SceneState.Closing);
+                    GameManager.ChangeScene(nextLevel, NextChapter);
                 }
-                else {
+                else
+                {
                     Time.timeScale = 1;
                     ChangeState(SceneState.Closing);
                     GameManager.ChangeScene(buttonID, buttonAction);
@@ -171,17 +181,15 @@ namespace com.dogonahorse
             nextChapter = chapterNumber;
             nextLevel = levelNumber;
             ChangeState(SceneState.Modal);
-       
-            EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, openPregameModal);
-             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
+         modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
+            //EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, openPregameModal);
+            EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
 
-             
+
             //nextState = SceneState.Ready;
         }
-        
-        void openPregameModal (AzumiEventType Event_Type, Component Sender, object Param = null){
-            modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
-        }
+
+   
 
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
@@ -203,19 +211,23 @@ namespace com.dogonahorse
         }
         void PreGame_Enter()
         {
-            if (modalWindowDictionary.ContainsKey(ButtonID.Instructions)){
+            if (modalWindowDictionary.ContainsKey(ButtonID.Instructions))
+            {
                 //nextState = SceneState.Ready;
-                 ChangeState(SceneState.Modal);
-                 modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
-            } else {
-                  ChangeState(SceneState.Ready);
-      
+                ChangeState(SceneState.Modal);
+                modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
+            }
+            else
+            {
+                ChangeState(SceneState.Ready);
+
             }
         }
         void Ready_Enter()
         {
             Debug.Log("Scene Manager: Ready");
-            if (GameManager.GetCurrentState()==GameState.GameLevel) {
+            if (GameManager.GetCurrentState() == GameState.GameLevel)
+            {
 
             }
         }
