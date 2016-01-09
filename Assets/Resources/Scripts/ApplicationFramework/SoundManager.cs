@@ -27,11 +27,11 @@ namespace com.dogonahorse
     public class SoundManager : MonoBehaviour
     {
         public AudioMixer mixer;
-        public string musicMixerVolume;
-        public string soundEffectsMixerVolume;
+        public string musicMixerVolumeID;
+        public string soundEffectsMixerVolumeID;
 
         private static SoundManager instance = null;
-        //private List<LevelPlayerData> LevelPlayerList = new List<LevelPlayerData> ();
+
 
         private bool musicEnabled = true;
         private bool soundFXEnabled = true;
@@ -40,7 +40,12 @@ namespace com.dogonahorse
         private float musicVolume = 1;
         private float soundFXVolume = 1;
 
+        private float formerMusicVolume = 1;
+        private float formerSoundFXVolume = 1;
 
+        private bool editingSoundLevels = false;
+
+        private bool actualSoundLevelsLoaded = false;
         public static SoundManager Instance
         {
             // return reference to private instance 
@@ -57,7 +62,7 @@ namespace com.dogonahorse
                 return instance.musicVolume;
             }
             set
-            { 
+            {
                 instance.UpdateMusicVolume(value);
             }
         }
@@ -74,21 +79,40 @@ namespace com.dogonahorse
             }
         }
 
+
+        void cacheOriginalSettings()
+        {
+            if (!editingSoundLevels)
+            {
+                editingSoundLevels = true;
+                formerMusicVolume = musicVolume;
+                formerSoundFXVolume = soundFXVolume;
+            }
+        }
+
         void UpdateMusicVolume(float value)
         {
-            musicVolume = value;
-            mixer.SetFloat(musicMixerVolume, deNormalizeVolume(musicVolume));
+            if (actualSoundLevelsLoaded)
+            {
+                cacheOriginalSettings();
+                musicVolume = value;
+                mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume));
+            }
         }
-        
-        float  deNormalizeVolume(float value)
-        {     
+
+        float deNormalizeVolume(float value)
+        {
             float t = Mathf.Log10(value);
-            return  Mathf.Lerp(-80f, 0f, t + 1);
+            return Mathf.Lerp(-80f, 0f, t + 1);
         }
         void UpdateSoundEffectsVolume(float value)
         {
-            soundFXVolume = value;
-            mixer.SetFloat(soundEffectsMixerVolume, deNormalizeVolume(soundFXVolume));
+            if (actualSoundLevelsLoaded)
+            {
+                cacheOriginalSettings();
+                soundFXVolume = value;
+                mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume));
+            }
         }
         void Awake()
         {
@@ -105,12 +129,47 @@ namespace com.dogonahorse
         }
 
         void Start()
-        {
+        { 
+            
+   
+            if (!PlayerPrefs.HasKey("musicVolume"))
+            {
+                PlayerPrefs.SetFloat("musicVolume", musicVolume);
+               
+            }
+            else
+            {
+                musicVolume = PlayerPrefs.GetFloat("musicVolume");
+               
+            }
+
+            if (!PlayerPrefs.HasKey("soundFXVolume"))
+            {
+                PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
+            }
+            else
+            {
+                soundFXVolume = PlayerPrefs.GetFloat("soundFXVolume");
+            }
+            formerMusicVolume = musicVolume;
+            formerSoundFXVolume = soundFXVolume;
+            mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume));
+            mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume));
             EventManager.ListenForEvent(AzumiEventType.EnterTitle, OnEnterTitle);
             EventManager.ListenForEvent(AzumiEventType.EnterProgress, OnEnterProgress);
             EventManager.ListenForEvent(AzumiEventType.EnterLevel, OnEnterLevel);
+            EventManager.ListenForEvent(AzumiEventType.CancelSettings, OnCancelSettings);
+            EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
+        
+            actualSoundLevelsLoaded = true;
         }
+        void SaveSettings()
+        {
 
+               print ("SaveSettings++++++++++++++++++++++++  soundFXVolume " + soundFXVolume);
+            PlayerPrefs.SetFloat("musicVolume", musicVolume);
+            PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
+        }
 
 
 
@@ -144,5 +203,21 @@ namespace com.dogonahorse
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeHardStart, this);
             }
         }
+
+        void OnCancelSettings(AzumiEventType azumiEventType, Component Sender, object Param = null)
+        {
+            UpdateMusicVolume(formerMusicVolume);
+            UpdateSoundEffectsVolume(formerSoundFXVolume);
+            editingSoundLevels = false;
+        }
+
+        void OnSaveSettings(AzumiEventType azumiEventType, Component Sender, object Param = null)
+        {
+            SaveSettings();
+            formerMusicVolume = musicVolume;
+            formerSoundFXVolume = soundFXVolume;
+            editingSoundLevels = false;
+        }
+
     }
 }

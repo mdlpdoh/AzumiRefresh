@@ -51,11 +51,14 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(myEvent, DoAudioEvent);
         }
 
-        AudioSource getNewAudioSource(AudioClip newClip)
+        AudioSource getNewAudioSource(AudioClip newClip, Transform objectLocation )
         {
 
             GameObject child = new GameObject("tempPlayer");
-            child.transform.parent = gameObject.transform;
+            
+            
+           // child.transform.parent = gameObject.transform;
+          child.transform.position =  objectLocation.position;
             AudioSource newAudioSource = child.AddComponent<AudioSource>();
             newAudioSource.outputAudioMixerGroup = mixerGroup;
 
@@ -82,14 +85,14 @@ namespace com.dogonahorse
             switch (myAction)
             {
                 case AudioActionType.HardStart:
-                    Play();
+                    Play(Sender.gameObject.transform);
                     break;
                 case AudioActionType.HardStop:
                     Stop();
                     break;
 
                 case AudioActionType.FadingDrone:
-                    Drone();
+                    Drone(Sender.gameObject.transform);
                     break;
 
                 default:
@@ -98,13 +101,13 @@ namespace com.dogonahorse
             }
         }
 
-        public void Drone()
+        public void Drone(Transform objectLocation)
         {
             droneIsActive = true;
             if (audioSources.Count < 1 || !audioSources[0].isPlaying)
             {
                 //no sound--start sound up
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[0]);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0], objectLocation);
                 newAudioSource.volume = 0;
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
@@ -115,7 +118,7 @@ namespace com.dogonahorse
                 audioSources[0].volume += (maxVolume - audioSources[0].volume) / droneVolumeIncreaseRatio;
             }
         }
-        public void Play()
+        public void Play(Transform objectLocation)
         {
             // audioSource.Stop();
             //clip needs to be randomized between a number of different clips
@@ -137,7 +140,7 @@ namespace com.dogonahorse
                     randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
                 }
 
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex]);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], objectLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
 
@@ -147,7 +150,7 @@ namespace com.dogonahorse
             }
             else
             {
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[0]);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0],  objectLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
             }
