@@ -26,7 +26,7 @@ namespace com.dogonahorse
 			
 			int nextChapter = SceneManager.NextChapter;
 			int nextLevel = SceneManager.NextLevel;
-			
+			//print(" nextChapter  " + nextChapter + "  nextLevel  " + nextLevel);
 			int numberOfBounces = LevelManager.GetMaxTaps(nextChapter, nextLevel);
 			int numberOfCoins  = LevelManager.GetCoinsInLevel(nextChapter, nextLevel);
 			string typeOfAnimal = LevelManager.GetChapterAnimalName(nextChapter, nextLevel);

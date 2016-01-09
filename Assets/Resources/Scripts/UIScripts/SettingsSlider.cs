@@ -26,9 +26,11 @@ namespace com.dogonahorse
         }
 
         // Update is called once per frame
-        public void OnEnable()
+        public void Start()
         {
+       
             if (mySetting == VolumeSetting.Music){
+  
                  currentLevel = SoundManager.MusicVolume;
             }else {
                  currentLevel = SoundManager.SoundFXVolume;

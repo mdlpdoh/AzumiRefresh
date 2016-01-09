@@ -158,6 +158,9 @@ namespace com.dogonahorse
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Progress Screen");
 
+                 EventManager.PostEvent(AzumiEventType.UnlockAllLevels, this);
+  
+      
         }
         void GameLevel_Enter()
         {
