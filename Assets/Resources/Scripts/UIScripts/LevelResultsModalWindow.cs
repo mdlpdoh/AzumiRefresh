@@ -9,7 +9,7 @@ namespace com.dogonahorse
 	public class LevelResultsModalWindow : ModalWindow
 	{
 
-		private string victoryMessage1 = "You freed the @A\nwith @B energy left and\ngot@C Ants!";
+		private string victoryMessage1 = "You freed the @A\nwith @B energy left and\ngot @C Ants!";
 		private string failureMessage2 = "The ants won!\nYou didn't free the\n@A!\nBut you got @C coins!";
 		private string failureMessage1 = "Aargh!\nOut of energy and you didn't eat\nenough ants! Try again!";
 
@@ -61,9 +61,12 @@ namespace com.dogonahorse
 			{
 				transform.Find("Star2").GetComponent<Image>().color = Color.red;
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
+				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 			} else if (numberOfStars > 0)
 			{
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
+				transform.Find("BrokenStar2").GetComponent<Image>().enabled = true;
+				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 			} else if (numberOfStars == 0)
 			{
 				//It will give 3 broken grey stars
