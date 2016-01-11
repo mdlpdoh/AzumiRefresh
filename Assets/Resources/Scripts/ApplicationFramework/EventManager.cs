@@ -22,6 +22,7 @@ namespace com.dogonahorse
         EnterLevel,
         CancelSettings,
         SaveSettings,
+        UpdatePlayerProgress,
 
         UnlockAllLevels,
         RelockLevels,
@@ -41,12 +42,14 @@ namespace com.dogonahorse
         SetCoins,
         SetBounces,
         OutOfBounces,
+        OutOfTime,
         HealWallExpired,
-        WonLevel,
         SwipesLow,
         SwipesLowFadeIn,
         SwipesLowFadeOut,
-        StartTimer
+        StartTimer,
+        LevelWon,
+        LevelLost
 
     }
     //-----------------------------------------------------------
@@ -169,6 +172,10 @@ namespace com.dogonahorse
             Instance.RemoveEvent(AzumiEventType.SwipesLowFadeIn);
             Instance.RemoveEvent(AzumiEventType.SwipesLowFadeOut);
             Instance.RemoveEvent(AzumiEventType.StartTimer);
+            Instance.RemoveEvent(AzumiEventType.OutOfBounces);
+            Instance.RemoveEvent(AzumiEventType.OutOfTime);
+            Instance.RemoveEvent(AzumiEventType.LevelWon);
+            Instance.RemoveEvent(AzumiEventType.LevelLost);
         }
 
         //---------------------------------------------------------

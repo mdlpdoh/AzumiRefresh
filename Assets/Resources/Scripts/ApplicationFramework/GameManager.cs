@@ -175,8 +175,11 @@ namespace com.dogonahorse
 
         void EndGame_Enter()
         {
-
+            
             Debug.Log("Game Manager: Game is Over");
+          //  if (){
+            //  UpdatePlayerProgress   
+           /// }
 
         }
         void Reset_Enter()
