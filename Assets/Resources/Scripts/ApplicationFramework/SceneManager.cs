@@ -99,8 +99,8 @@ namespace com.dogonahorse
             // blurBackground = GameObject.Find("BlurPanel").GetComponent<BlurBackground>();
             ChangeState(SceneState.Init);
 
-            EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
-            EventManager.ListenForEvent(AzumiEventType.OutOfBounces, OnOutOfBouncesEvent);
+            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLostEvent);
+            EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWonEvent);
         }
 
 
@@ -181,7 +181,7 @@ namespace com.dogonahorse
             nextChapter = chapterNumber;
             nextLevel = levelNumber;
             ChangeState(SceneState.Modal);
-         modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
+             modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
             //EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, openPregameModal);
             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
 
@@ -191,12 +191,12 @@ namespace com.dogonahorse
 
    
 
-        public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        public void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ChangeState(SceneState.GameOver);
         }
 
-        public void OnOutOfBouncesEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        public void OnLevelLostEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ChangeState(SceneState.GameOver);
         }

@@ -34,7 +34,7 @@ namespace com.dogonahorse
                 yield return null;
             }
             myText.text = "0";
-            EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+            EventManager.PostEvent(AzumiEventType.OutOfTime, this);
 
         }// end ienumerator 
 

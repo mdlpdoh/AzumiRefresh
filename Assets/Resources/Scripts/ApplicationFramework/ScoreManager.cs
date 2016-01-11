@@ -19,9 +19,8 @@ namespace com.dogonahorse
         private int coinsEarned = 0;
         private bool hitWallsCostsPoints = true;
         private bool playerActionsCostPoints = true;
-
         private bool exitedDoorSafely = false;
-       
+
         public bool ExitedDoorSafely
         {
             // return reference to private instance 
@@ -31,7 +30,7 @@ namespace com.dogonahorse
             }
         }
 
-       
+
         public int numberOfBounces
         {
             // return reference to private instance 
@@ -58,7 +57,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-				
+
                 float twentyPercent = 0.2f * CoinsInLevel;
                 int oneStar = (int)Math.Round(twentyPercent);
 
@@ -68,15 +67,15 @@ namespace com.dogonahorse
                 float ninetyPercent = 0.9f * CoinsInLevel;
                 int threeStar = (int)Math.Round(ninetyPercent);
 
-				if (exitedDoorSafely == true && coinsEarned >= threeStar)
+                if (exitedDoorSafely == true && coinsEarned >= threeStar)
                 {
                     return 3;
                 }
-				else if (exitedDoorSafely == true && coinsEarned >= twoStar)
+                else if (exitedDoorSafely == true && coinsEarned >= twoStar)
                 {
                     return 2;
                 }
-				else if (exitedDoorSafely == true && coinsEarned >= oneStar)
+                else if (exitedDoorSafely == true && coinsEarned >= oneStar)
                 {
                     return 1;
                 }
@@ -110,6 +109,8 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.GameSwipe, OnPlayerActionEvent);
             EventManager.ListenForEvent(AzumiEventType.HitCollectible, OnHitCollectibleEvent);
             EventManager.ListenForEvent(AzumiEventType.HitDoor, OnHitDoorEvent);
+            EventManager.ListenForEvent(AzumiEventType.OutOfBounces, OnOutOfBounces);
+            EventManager.ListenForEvent(AzumiEventType.OutOfTime, OnOutOfTime);
             InitScoreUI();
             swipesRemaining = MaxTaps;
         }
@@ -129,7 +130,7 @@ namespace com.dogonahorse
 
         void InitScoreUI()
         {
-              exitedDoorSafely = false;
+            exitedDoorSafely = false;
             ScoreCounter scoreCounter = GameObject.Find("ScoreBGpanel").GetComponent<ScoreCounter>();
             CoinCounter coinCounter = GameObject.Find("CoinsNumber").GetComponent<CoinCounter>();
             scoreCounter.SetStartingAmount(MaxTaps);
@@ -188,7 +189,7 @@ namespace com.dogonahorse
                 }
                 else
                 {
-					exitedDoorSafely = false;
+                    exitedDoorSafely = false;
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                     print("Out Of Bounces!!!!!");
                 }
@@ -217,6 +218,23 @@ namespace com.dogonahorse
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             exitedDoorSafely = true;
+            if (NumberOfStars > 0)
+            {
+                EventManager.PostEvent(AzumiEventType.LevelWon, this);
+            }
+            else
+            {
+                EventManager.PostEvent(AzumiEventType.LevelLost, this);
+            }
+
+        }
+        public void OnOutOfBounces(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            EventManager.PostEvent(AzumiEventType.LevelLost, this);
+        }
+        public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
     }
 }
