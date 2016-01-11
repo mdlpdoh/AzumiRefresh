@@ -103,7 +103,18 @@ namespace com.dogonahorse
                 SetUpNewPlayerData();
             }
         }
-
+        void Start()
+        {
+            EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWon);
+        }
+        
+        
+        public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            
+            
+           print ("Won a level!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
@@ -202,7 +213,7 @@ namespace com.dogonahorse
                     ChapterPlayerDataList.Add(nextChapter);
                 }
             }
-           //player data is not OK, rebuild it
+            //player data is not OK, rebuild it
             else
             {
                 print("PlayerData Json is damaged-- setting up new player data");
