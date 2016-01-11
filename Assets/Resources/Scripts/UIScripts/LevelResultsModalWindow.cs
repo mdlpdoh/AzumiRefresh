@@ -15,9 +15,12 @@ namespace com.dogonahorse
 
 		private ScoreManager scoreManager;
 
+		public Material failPanda;
 
-	
+
+
 		override public void InitWindow() {
+			
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 			int numberOfStars = scoreManager.NumberOfStars;
 			int numberOfSwipes = scoreManager.numberOfBounces;
@@ -67,7 +70,16 @@ namespace com.dogonahorse
 				transform.Find("BrokenStar1").GetComponent<Image>().enabled = true;
 				transform.Find("BrokenStar2").GetComponent<Image>().enabled = true;
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
+				// show the player the filled in red panda				
+			
+				Image redpanda = transform.Find ("RedPanda").GetComponent<Image> ();
+				redpanda.color = Color.red;
+				redpanda.material = failPanda;
+
+
 			}
+
+		
 		}
 
 
