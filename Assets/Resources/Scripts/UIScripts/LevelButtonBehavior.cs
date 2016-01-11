@@ -150,6 +150,15 @@ namespace com.dogonahorse
             }
         }
 
+        void OnDestroy()
+        {
+            EventManager.Instance.RemoveListener(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
+            EventManager.Instance.RemoveListener(AzumiEventType.RelockLevels, OnLockLevel);
+
+
+
+        }
+
         string padWithZeroes(string numberString)
         {
             if (numberString.Length < 2)
