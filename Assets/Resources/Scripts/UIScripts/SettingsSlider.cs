@@ -36,6 +36,7 @@ namespace com.dogonahorse
                  currentLevel = SoundManager.SoundFXVolume;
             }
             slider.value = currentLevel;
+       
         }
 
 

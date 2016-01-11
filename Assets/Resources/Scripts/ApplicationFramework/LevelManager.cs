@@ -48,6 +48,7 @@ namespace com.dogonahorse
     public class LevelManager : MonoBehaviour
     {
 
+        public int expectedChapters = 4;
         private static LevelManager instance = null;
         //private List<LevelPlayerData> LevelPlayerList = new List<LevelPlayerData> ();
         private List<ChapterInitData> ChapterInitList = new List<ChapterInitData>();
@@ -102,25 +103,22 @@ namespace com.dogonahorse
                 SetUpNewPlayerData();
             }
         }
-        
-        
-        
-        
-             public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
+
+        public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
         {
-     
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
         }
-        
+
         public static int GetPlayerLevelHighScore(int chapterNumber, int levelNumber)
         {
-     
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].HighScore;
         }
+
         public static bool GetPlayerLevelStatus(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsOpen;
         }
+
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
         {
             LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
@@ -132,11 +130,13 @@ namespace com.dogonahorse
             LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
             return currentLevel.CoinsInLevel;
         }
+
         public static string GetChapterAnimalName(int chapterNumber, int levelNumber)
         {
             LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
             return currentLevel.ChapterAnimalName;
         }
+
         public static Color GetChapterMainColor(int chapterNumber)
         {
             return Instance.ChapterInitList[chapterNumber - 1].ChapterMainColor;
@@ -146,20 +146,17 @@ namespace com.dogonahorse
         {
             return Instance.ChapterInitList[chapterNumber - 1].ChapterSecondColor;
         }
+
         public static void SetLevelIDNumbers(int chapterNumber, int levelNumber)
         {
             lastChapterNumber = chapterNumber;
             lastLevelNumber = levelNumber;
         }
 
-
         public static void InitializateDevPanelValues(DevelopmentPanelManager newDevPanel)
         {
-
             //if both numbers are zero it means level is being tested from within the editor
             //in this case the scoremanager shoud go with the ScoreManager's inspector values
-
-
             if (lastChapterNumber != 0 && lastLevelNumber != 0)
             {
                 LevelInitData currentLevel = Instance.ChapterInitList[lastChapterNumber - 1].LevelInitList[lastLevelNumber - 1];
@@ -168,7 +165,6 @@ namespace com.dogonahorse
                 newDevPanel.TwoStarBonus = currentLevel.TwoStarBonus;
                 newDevPanel.ThreeStarLevel = currentLevel.ThreeStarBonus;
             }
-
         }
 
 
@@ -195,18 +191,25 @@ namespace com.dogonahorse
         void SetUpPlayerData(string playerData)
         {
             JSONNode json = JSONNode.Parse(playerData);
-            //print("chapterInfo " + chapterInfo);
-            for (int i = 0; i < json.Count; i++)
+            //simple check to see if data is OK
+            if (json.Count == expectedChapters)
             {
-                //print(json[i]["ChapterAnimalName"]);
-                ChapterPlayerData nextChapter = new ChapterPlayerData();
-
-                nextChapter.ChapterNumber = json[i]["ChapterNumber"].AsInt;
-                nextChapter.LevelPlayerDataList = SetUpPlayerLevels(json[i]["Levels"], nextChapter.ChapterNumber);
-                ChapterPlayerDataList.Add(nextChapter);
+                for (int i = 0; i < json.Count; i++)
+                {
+                    ChapterPlayerData nextChapter = new ChapterPlayerData();
+                    nextChapter.ChapterNumber = json[i]["ChapterNumber"].AsInt;
+                    nextChapter.LevelPlayerDataList = SetUpPlayerLevels(json[i]["Levels"], nextChapter.ChapterNumber);
+                    ChapterPlayerDataList.Add(nextChapter);
+                }
             }
-
+           //player data is not OK, rebuild it
+            else
+            {
+                print("PlayerData Json is damaged-- setting up new player data");
+                SetUpNewPlayerData();
+            }
         }
+
         List<LevelPlayerData> SetUpPlayerLevels(JSONNode levelInfo, int chapterNumber)
         {
             List<LevelPlayerData> newLevels = new List<LevelPlayerData>();
