@@ -13,16 +13,13 @@ namespace com.dogonahorse
         {
             if (toggle.isOn)
             {
-
-                EventManager.PostEvent(AzumiEventType.UnlockAllLevels, this);
+                InputManager.Instance.UnlockLevelButtons();
             }
             else
-            {
-                EventManager.PostEvent(AzumiEventType.RelockLevels, this);
+            {    
+                InputManager.Instance.LockLevelButtons();
             }
         }
-        
 
-        // Update is called once per frame
     }
 }
