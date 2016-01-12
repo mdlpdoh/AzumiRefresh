@@ -36,7 +36,7 @@ namespace com.dogonahorse
 			else if (numberOfStars > 2) 
 			{
 				//Players got out with 0 or more energy but only 60% or less ants (2 stars).
-				resultsMessage = ParseMessageString(failureMessage2,numberOfSwipes,numberOfCoins,totalScore,typeOfAnimal);
+				resultsMessage = ParseMessageString(victoryMessage1,numberOfSwipes,numberOfCoins,totalScore,typeOfAnimal);
 			} else 
 			{
 				//Players got out with 90% or more ants (3 stars)and with 0 or more energy.
