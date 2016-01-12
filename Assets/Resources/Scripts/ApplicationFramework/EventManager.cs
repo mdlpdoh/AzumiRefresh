@@ -50,6 +50,7 @@ namespace com.dogonahorse
         StartTimer,
         LevelWon,
         LevelLost
+        
 
     }
     //-----------------------------------------------------------
@@ -174,8 +175,8 @@ namespace com.dogonahorse
             Instance.RemoveEvent(AzumiEventType.StartTimer);
             Instance.RemoveEvent(AzumiEventType.OutOfBounces);
             Instance.RemoveEvent(AzumiEventType.OutOfTime);
-            Instance.RemoveEvent(AzumiEventType.LevelWon);
-            Instance.RemoveEvent(AzumiEventType.LevelLost);
+           // Instance.RemoveEvent(AzumiEventType.LevelWon);
+          //  Instance.RemoveEvent(AzumiEventType.LevelLost);
         }
 
         //---------------------------------------------------------

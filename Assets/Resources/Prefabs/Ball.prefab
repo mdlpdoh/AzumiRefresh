@@ -147,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 4.36, z: 0}
+  m_LocalPosition: {x: -0.003, y: 3.666, z: 0}
   m_LocalScale: {x: 0.31364247, y: 0.31364247, z: 0.31364247}
   m_Children:
   - {fileID: 472782}
@@ -316,11 +316,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAction: 5
-  myEvent: 12
+  myEvent: 18
   isRandom: 0
   dontRepeat: 0
   RandomClips:
   - {fileID: 8300000, guid: ca027eac7c2604393b11a92828539106, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
   panLevel: 1
   mixer: {fileID: 0}
   mixerGroupVolumeParameter: 
@@ -355,11 +358,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAction: 1
-  myEvent: 9
+  myEvent: 15
   isRandom: 0
   dontRepeat: 0
   RandomClips:
   - {fileID: 8300000, guid: c094f30ab55d34f659955aab68d6a30d, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
   panLevel: 1
   mixer: {fileID: 0}
   mixerGroupVolumeParameter: 
@@ -387,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAction: 1
-  myEvent: 8
+  myEvent: 14
   isRandom: 1
   dontRepeat: 0
   RandomClips:
@@ -395,6 +401,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5d388613d39724dd1aeab605af5ec421, type: 3}
   - {fileID: 8300000, guid: deb4ce075802f4c7cb9350a05b7f3060, type: 3}
   - {fileID: 8300000, guid: a36d59782e093463389db594ea290af2, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
   panLevel: 1
   mixer: {fileID: 24100000, guid: c91ab27dd98b94ddeaeeae13575bb34a, type: 2}
   mixerGroupVolumeParameter: 
