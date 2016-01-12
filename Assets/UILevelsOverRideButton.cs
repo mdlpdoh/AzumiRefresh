@@ -8,6 +8,16 @@ namespace com.dogonahorse
     {
         public Toggle toggle;
 
+
+     public void OnEnable()
+        {
+            print ("============OnEnable " +InputManager.Instance.LevelProgressOverride );
+            if(InputManager.Instance.LevelProgressOverride) {
+                toggle.isOn = true;
+            } else {
+                toggle.isOn = false;
+            }
+        }
         // Use this for initialization
         public void LockUnlock()
         {

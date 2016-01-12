@@ -196,7 +196,7 @@ namespace com.dogonahorse
                 if (swipesRemaining > 0)
                 {
                     swipesRemaining--;
-                    //					print ("THIS IS THE SWIPES REMAININGGGGGGGGGGGG " + swipesRemaining);
+                    
                 }
                 else
                 {
@@ -229,8 +229,12 @@ namespace com.dogonahorse
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             exitedDoorSafely = true;
+            
+            print ("#################### NumberOfStars" + NumberOfStars);
             if (NumberOfStars > 0)
             {
+                
+                print  ("posting level won event");
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
             }
             else
@@ -241,6 +245,7 @@ namespace com.dogonahorse
         }
         public void OnOutOfBounces(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
+            
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
         public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)

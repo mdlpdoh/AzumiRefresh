@@ -169,10 +169,17 @@ namespace com.dogonahorse
 
             else if (buttonAction == ButtonAction.ResetLevel)
             {
-                Time.timeScale = 1;
-                ChangeState(SceneState.Ready);
-                modalWindowDictionary[buttonID].DoButtonAction(ButtonAction.CloseModal);
-                GameManager.ReloadScene();
+                if (GameManager.GetCurrentState() == GameState.EndGame)
+                {
+                    Time.timeScale = 1;
+                    ChangeState(SceneState.Ready);
+                    modalWindowDictionary[buttonID].DoButtonAction(ButtonAction.CloseModal);
+                    GameManager.ReloadScene();
+                }
+                else if (GameManager.GetCurrentState() == GameState.Progress)
+                {
+                    EventManager.PostEvent(AzumiEventType.ResetProgress, this);
+                }
             }
         }
 
@@ -181,15 +188,11 @@ namespace com.dogonahorse
             nextChapter = chapterNumber;
             nextLevel = levelNumber;
             ChangeState(SceneState.Modal);
-             modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
-            //EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, openPregameModal);
+            modalWindowDictionary[ButtonID.PreGameModal].DoButtonAction(ButtonAction.OpenModal);
             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
-
-
-            //nextState = SceneState.Ready;
         }
 
-   
+
 
         public void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
@@ -215,7 +218,9 @@ namespace com.dogonahorse
             {
                 //nextState = SceneState.Ready;
                 ChangeState(SceneState.Modal);
+
                 modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
+
             }
             else
             {
@@ -252,7 +257,7 @@ namespace com.dogonahorse
 
             //devSettingsPanel.SetActive(false);
             modalWindowDictionary[ButtonID.LevelResults].DoButtonAction(ButtonAction.OpenModal);
-
+            EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
         }
 
         void Modal_Enter()

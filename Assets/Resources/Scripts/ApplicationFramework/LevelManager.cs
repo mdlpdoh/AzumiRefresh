@@ -59,6 +59,10 @@ namespace com.dogonahorse
         private static int lastLevelNumber = 0;
         private static int lastChapterNumber = 0;
 
+        private static LevelPlayerData newOpenLevel = null;
+
+
+
         public static LevelManager Instance
         {
             // return reference to private instance 
@@ -106,29 +110,57 @@ namespace com.dogonahorse
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWon);
+            EventManager.ListenForEvent(AzumiEventType.ResetProgress, OnResetProgress);
         }
-        
-        
+
+        public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            print("OnResetProgress");
+
+            SetUpNewPlayerData();
+            WritePlayerLevelSettings();
+        }
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
+            
+            print ("=============OnLevelWon ");
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
-            int numberOfStars = myScoreManager.NumberOfStars;  
-             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
-             if (totalScore >currentLevelData.HighScore) {
-                 currentLevelData.HighScore = totalScore;
-             }
-              if (numberOfStars >currentLevelData.MaxStarsEarned) {
-                 currentLevelData.MaxStarsEarned = numberOfStars;
-             }
-             
-             
-              WritePlayerLevelSettings();
-             
+            int numberOfStars = myScoreManager.NumberOfStars;
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            if (totalScore > currentLevelData.HighScore)
+            {
+                currentLevelData.HighScore = totalScore;
+            }
+            if (numberOfStars > currentLevelData.MaxStarsEarned)
+            {
+                currentLevelData.MaxStarsEarned = numberOfStars;
+            }
+            newOpenLevel = GetNextLevel(lastChapterNumber, lastLevelNumber);
+            print("==========newOpenLevel " + newOpenLevel);
+            if (newOpenLevel != null)
+            {
+                newOpenLevel.LevelIsOpen = true;
+            }
+            WritePlayerLevelSettings();
         }
-        
-        
-        
+
+        LevelPlayerData GetNextLevel(int chapterNumber, int levelNumber)
+        {
+            if (levelNumber < 10)
+            {
+                return ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber];
+            }
+            else if (chapterNumber < 4)
+            {
+                return ChapterPlayerDataList[chapterNumber].LevelPlayerDataList[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
@@ -256,7 +288,7 @@ namespace com.dogonahorse
 
         void SetUpNewPlayerData()
         {
-
+            ChapterPlayerDataList = new List<ChapterPlayerData>();
             for (int i = 0; i < 4; i++)
             {
 

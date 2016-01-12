@@ -23,14 +23,25 @@ namespace com.dogonahorse
 
         override public void Start()
         {
-
+             EventManager.ListenForEvent(AzumiEventType.ResetProgress, OnResetProgress);
+            buttonType = ButtonType.LevelButton;
             EventManager.ListenForEvent(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.ListenForEvent(AzumiEventType.RelockLevels, OnLockLevel);
-            base.Start();
-
-            buttonType = ButtonType.LevelButton;
-            button.interactable = LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber);
             whitePanel = GetComponent<UISecondaryButtonPressEffect>();
+            base.Start();
+            Init();
+        }
+        
+        
+            public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            Init();
+        }
+        public void Init()
+        {
+
+            button.interactable = LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber);
+
             whitePanel.SetActiveStatus(button.interactable);
 
             highScore = LevelManager.GetPlayerLevelHighScore(chapterNumber, levelNumber);
@@ -87,6 +98,7 @@ namespace com.dogonahorse
         }
         void SetUpChildObjects()
         {
+
             Transform[] childTransforms = GetComponentsInChildren<Transform>();
             for (int i = 0; i < childTransforms.Length; i++)
             {
@@ -152,9 +164,11 @@ namespace com.dogonahorse
 
         void OnDestroy()
         {
+            
+            
             EventManager.Instance.RemoveListener(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.Instance.RemoveListener(AzumiEventType.RelockLevels, OnLockLevel);
-
+            EventManager.Instance.RemoveListener(AzumiEventType.ResetProgress, OnResetProgress);
 
 
         }
