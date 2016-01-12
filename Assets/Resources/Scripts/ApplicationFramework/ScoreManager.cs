@@ -83,6 +83,17 @@ namespace com.dogonahorse
                 {
                     return 0;
                 }
+            } 
+        }
+
+            public int TotalScore
+        // number of stars given based on percentage of ants(coins) cleared in level
+        {
+            // return reference to private instance 
+            get
+            {
+                return swipesRemaining + coinsEarned;
+
             } // end get
         } // end
 

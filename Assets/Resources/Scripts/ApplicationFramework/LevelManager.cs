@@ -111,10 +111,24 @@ namespace com.dogonahorse
         
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            
-            
-           print ("Won a level!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            ScoreManager myScoreManager = Sender as ScoreManager;
+            int totalScore = myScoreManager.TotalScore;
+            int numberOfStars = myScoreManager.NumberOfStars;  
+             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+             if (totalScore >currentLevelData.HighScore) {
+                 currentLevelData.HighScore = totalScore;
+             }
+              if (numberOfStars >currentLevelData.MaxStarsEarned) {
+                 currentLevelData.MaxStarsEarned = numberOfStars;
+             }
+             
+             
+              WritePlayerLevelSettings();
+             
         }
+        
+        
+        
         public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
