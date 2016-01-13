@@ -12,6 +12,16 @@ namespace com.dogonahorse
         private bool dummyChapterPanel = false;
 
         private static int activeChapter = 1;
+        
+          public static int ActiveChapter
+        {
+            // return reference to private instance 
+            get
+            {
+                return activeChapter;
+            }
+        }
+
         private static bool drag;
         //location f hatever panel is currently active
         private static float activePanelY;
