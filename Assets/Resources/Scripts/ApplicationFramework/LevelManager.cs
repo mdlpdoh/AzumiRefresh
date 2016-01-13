@@ -115,15 +115,15 @@ namespace com.dogonahorse
 
         public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            print("OnResetProgress");
+            //   print("OnResetProgress");
 
             SetUpNewPlayerData();
             WritePlayerLevelSettings();
         }
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            
-            print ("=============OnLevelWon ");
+
+            //  print("=============OnLevelWon ");
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
             int numberOfStars = myScoreManager.NumberOfStars;
@@ -137,7 +137,7 @@ namespace com.dogonahorse
                 currentLevelData.MaxStarsEarned = numberOfStars;
             }
             newOpenLevel = GetNextLevel(lastChapterNumber, lastLevelNumber);
-            print("==========newOpenLevel " + newOpenLevel);
+            // print("==========newOpenLevel " + newOpenLevel);
             if (newOpenLevel != null)
             {
                 newOpenLevel.LevelIsOpen = true;
@@ -227,6 +227,7 @@ namespace com.dogonahorse
 
         public static void InitializateLevelValues(ScoreManager newScoreManager)
         {
+
             //if both numbers are zero it means level is being tested from within the editor
             //in this case the scoremanager shoud go with the ScoreManager's inspector values
             if (lastChapterNumber != 0 && lastLevelNumber != 0)
@@ -241,7 +242,31 @@ namespace com.dogonahorse
                 newScoreManager.TwoStarBonus = currentLevel.TwoStarBonus;
                 newScoreManager.ThreeStarLevel = currentLevel.ThreeStarBonus;
                 newScoreManager.CoinsInLevel = currentLevel.CoinsInLevel;
+                newScoreManager.ChapterMainColor = GetChapterMainColor(lastChapterNumber);
+                newScoreManager.ChapterSecondColor = GetChapterSecondColor(lastChapterNumber);
+            }
+            else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Length >= 10)
+            {
+                string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+                string chapterNumberString = sceneName.Substring(6, 2);
+                string levelNumberString = sceneName.Substring(8, 2);
+                int chapterNumber;
+                int levelNumber;
+                if (int.TryParse(chapterNumberString, out chapterNumber) &&
+                int.TryParse(levelNumberString, out levelNumber))
+                {
 
+
+                    LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
+                    newScoreManager.ChapterAnimalName = currentLevel.ChapterAnimalName;
+                    newScoreManager.MaxTaps = currentLevel.MaxTaps;
+                    newScoreManager.TwoStarLevel = currentLevel.TwoStarLevel;
+                    newScoreManager.TwoStarBonus = currentLevel.TwoStarBonus;
+                    newScoreManager.ThreeStarLevel = currentLevel.ThreeStarBonus;
+                    newScoreManager.CoinsInLevel = currentLevel.CoinsInLevel;
+                    newScoreManager.ChapterMainColor = GetChapterMainColor(chapterNumber);
+                    newScoreManager.ChapterSecondColor = GetChapterSecondColor(chapterNumber);
+                }
             }
 
         }

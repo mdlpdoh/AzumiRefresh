@@ -9,6 +9,11 @@ namespace com.dogonahorse
     public class ScoreManager : MonoBehaviour
     {
         public string ChapterAnimalName = "Drop Bear";
+        
+        
+        public Color ChapterMainColor;
+        public Color ChapterSecondColor;
+
         public int MaxTaps = 400;
         public int TwoStarLevel = 200;
         public int TwoStarBonus = 10;

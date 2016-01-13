@@ -35,7 +35,7 @@ namespace com.dogonahorse
 			resultsMessage = ParseMessageString(beginLevelMessage,numberOfBounces,numberOfCoins,typeOfAnimal);
 
 			//Text messageText = titleText;
-			AnimalNameText.text = typeOfAnimal;
+			AnimalNameText.text = typeOfAnimal.ToUpper();
 			ChapterNumberText.text = nextChapter.ToString();
 			LevelNumberText.text = nextLevel.ToString();
 			titleText.text = resultsMessage;
