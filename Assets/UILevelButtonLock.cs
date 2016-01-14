@@ -5,7 +5,7 @@ public class UILevelButtonLock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+	 print ("foo");
 	}
 	
 	// Update is called once per frame
