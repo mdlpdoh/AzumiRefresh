@@ -99,8 +99,14 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-                return swipesRemaining + coinsEarned;
-
+				if (NumberOfStars == 0) 
+				{
+					return 0; 
+				}
+				else
+				{
+                	return swipesRemaining + coinsEarned;
+				}
             } // end get
         } // end
 
@@ -209,7 +215,6 @@ namespace com.dogonahorse
                 {
                     exitedDoorSafely = false;
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
-                    print("Out Of Bounces!!!!!");
                 }
                 if (swipesRemaining < 5)
                 {
@@ -237,10 +242,8 @@ namespace com.dogonahorse
         {
             exitedDoorSafely = true;
 
-            print("#################### NumberOfStars" + NumberOfStars);
             if (NumberOfStars > 0)
             {
-
                 print("posting level won event");
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
             }
@@ -250,14 +253,16 @@ namespace com.dogonahorse
             }
 
         }
+
         public void OnOutOfBounces(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
+
         public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
-    }
-}
+
+    }//end class
+}//end namespace
