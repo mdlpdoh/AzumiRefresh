@@ -36,7 +36,8 @@ namespace com.dogonahorse
         private bool musicEnabled = true;
         private bool soundFXEnabled = true;
 
-
+        public float musicVolumeAdjustment = 1;
+        public float soundFXVolumeAdjustment = 1;
         private float musicVolume = 1;
         private float soundFXVolume = 1;
 
@@ -96,22 +97,23 @@ namespace com.dogonahorse
             {
                 cacheOriginalSettings();
                 musicVolume = value;
-                mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume));
+                mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume * musicVolumeAdjustment));
             }
         }
 
         float deNormalizeVolume(float value)
         {
             float t = Mathf.Log10(value);
-            return Mathf.Lerp(-80f, 0f, t + 1);
+            return Mathf.Lerp(-80f, 20f, t + 1);
         }
         void UpdateSoundEffectsVolume(float value)
         {
             if (actualSoundLevelsLoaded)
             {
+                //print (deNormalizeVolume(soundFXVolume *soundFXVolumeAdjustment)));
                 cacheOriginalSettings();
                 soundFXVolume = value;
-                mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume));
+                mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume * soundFXVolumeAdjustment));
             }
         }
         void Awake()
@@ -129,18 +131,18 @@ namespace com.dogonahorse
         }
 
         void Start()
-        { 
-            
-   
+        {
+
+
             if (!PlayerPrefs.HasKey("musicVolume"))
             {
                 PlayerPrefs.SetFloat("musicVolume", musicVolume);
-               
+
             }
             else
             {
                 musicVolume = PlayerPrefs.GetFloat("musicVolume");
-               
+
             }
 
             if (!PlayerPrefs.HasKey("soundFXVolume"))
@@ -160,13 +162,15 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.EnterLevel, OnEnterLevel);
             EventManager.ListenForEvent(AzumiEventType.CancelSettings, OnCancelSettings);
             EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
-        
+
             actualSoundLevelsLoaded = true;
+            mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume * musicVolumeAdjustment));
+            mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume * soundFXVolumeAdjustment));
         }
         void SaveSettings()
         {
 
-               print ("SaveSettings++++++++++++++++++++++++  soundFXVolume " + soundFXVolume);
+
             PlayerPrefs.SetFloat("musicVolume", musicVolume);
             PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
         }

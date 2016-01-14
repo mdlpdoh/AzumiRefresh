@@ -10,9 +10,7 @@ namespace com.dogonahorse
 
         [SerializeField]
         private bool dummyChapterPanel = false;
-
         private static int activeChapter = 1;
-        
           public static int ActiveChapter
         {
             // return reference to private instance 
@@ -21,26 +19,16 @@ namespace com.dogonahorse
                 return activeChapter;
             }
         }
-
         private static bool drag;
         //location f hatever panel is currently active
         private static float activePanelY;
-
-
         private static UIChapterPanel[] chapterPanels = new UIChapterPanel[5];
-
-
         private static float[] restPositions = null;
-
         [SerializeField]
         private int chapterNumber = 1;
         [SerializeField]
         //rate at which panels transition to resting position
-
-
-
         private float dragFriction = 1.5f;
-
         [SerializeField]
         private float endPanelDragFriction = 5f;
         [SerializeField]
@@ -65,6 +53,7 @@ namespace com.dogonahorse
         private Color ChapterMainColor;
         private Color ChapterSecondColor;
 
+        private Color ChapterThirdColor;
 
         static void AdjustPanels(float newY)
         {
@@ -120,6 +109,7 @@ namespace com.dogonahorse
                 ChapterAnimalName = LevelManager.GetChapterAnimalName(chapterNumber, 1);
                 ChapterMainColor = LevelManager.GetChapterMainColor(chapterNumber);
                 ChapterSecondColor = LevelManager.GetChapterSecondColor(chapterNumber);
+                ChapterThirdColor = LevelManager.GetChapterThirdColor(chapterNumber);
                 SetUpChildObjects();
             }
             InitRestPositionsArray();
@@ -153,7 +143,7 @@ namespace com.dogonahorse
             {
                 if (childTransforms[i].name == "ChapterPanel" || childTransforms[i].name == "Foliage")
                 {
-                    childTransforms[i].GetComponent<Image>().color = ChapterMainColor;
+                    childTransforms[i].GetComponent<Image>().color = ChapterThirdColor;
                 }
                 if (childTransforms[i].name == "LevelLabel")
                 {

@@ -22,11 +22,11 @@ namespace com.dogonahorse
         private bool droneIsActive = false;
 
         public float panLevel = 1.0f;
-        public AudioMixer mixer;
+        private AudioMixer mixer;
 
         private AudioMixerGroup mixerGroup;
 
-        public string mixerGroupVolumeParameter;
+       // public string mixerGroupVolumeParameter;
         //private AudioSource[] audioSources;
         private List<AudioSource> audioSources = new List<AudioSource>();
         private AudioSource audioSource;

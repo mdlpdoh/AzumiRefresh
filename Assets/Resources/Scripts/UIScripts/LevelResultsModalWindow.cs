@@ -90,9 +90,9 @@ namespace com.dogonahorse
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 				// show the player the filled in red panda				
 			
-				Image redpanda = transform.Find ("RedPanda").GetComponent<Image> ();
-				redpanda.color = Color.red;
-				redpanda.material = failPanda;
+//				Image redpanda = transform.Find ("RedPanda").GetComponent<Image> ();
+		//		redpanda.color = Color.red;
+		//		redpanda.material = failPanda;
 			}
 		}
 			

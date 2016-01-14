@@ -108,10 +108,10 @@ namespace com.dogonahorse
                 return;
 
             double time = AudioSettings.dspTime;
-                       
+
             if (time + 1.0F > nextEventTime)
             {
-               
+
                 audioSources[clipIndex].clip = loopClips[clipIndex];
                 audioSources[clipIndex].PlayScheduled(nextEventTime);
                 Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
@@ -131,14 +131,14 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void Play()
         {
-          
+
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
                 audioSource.Play();
             }
             else if (loopClips.Length > 0 & !loopIsRunning)
             {
-  nextEventTime = AudioSettings.dspTime + 2.0F;
+                nextEventTime = AudioSettings.dspTime + 2.0F;
                 loopIsRunning = true;
 
             }
