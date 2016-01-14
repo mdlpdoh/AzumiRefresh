@@ -28,6 +28,7 @@ namespace com.dogonahorse
 
         public Color ChapterMainColor;
         public Color ChapterSecondColor;
+        public Color ChapterThirdColor;
         public List<LevelInitData> LevelInitList = new List<LevelInitData>();
     }
     public class LevelPlayerData
@@ -37,6 +38,8 @@ namespace com.dogonahorse
         public int HighScore;
         public int MaxStarsEarned;
         public bool LevelIsOpen;
+
+        public bool LevelIsNewlyOpen = false;
     }
 
     public class ChapterPlayerData
@@ -137,10 +140,12 @@ namespace com.dogonahorse
                 currentLevelData.MaxStarsEarned = numberOfStars;
             }
             newOpenLevel = GetNextLevel(lastChapterNumber, lastLevelNumber);
-            // print("==========newOpenLevel " + newOpenLevel);
+     
             if (newOpenLevel != null)
             {
                 newOpenLevel.LevelIsOpen = true;
+                newOpenLevel.LevelIsNewlyOpen = true;
+                
             }
             WritePlayerLevelSettings();
         }
@@ -175,6 +180,10 @@ namespace com.dogonahorse
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsOpen;
         }
+       public static bool GetPlayerLevelStatusChanged(int chapterNumber, int levelNumber)
+        {
+            return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen;
+        }
 
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
         {
@@ -204,6 +213,10 @@ namespace com.dogonahorse
             return Instance.ChapterInitList[chapterNumber - 1].ChapterSecondColor;
         }
 
+        public static Color GetChapterThirdColor(int chapterNumber)
+        {
+            return Instance.ChapterInitList[chapterNumber - 1].ChapterThirdColor;
+        }
         public static void SetLevelIDNumbers(int chapterNumber, int levelNumber)
         {
             lastChapterNumber = chapterNumber;
@@ -244,6 +257,11 @@ namespace com.dogonahorse
                 newScoreManager.CoinsInLevel = currentLevel.CoinsInLevel;
                 newScoreManager.ChapterMainColor = GetChapterMainColor(lastChapterNumber);
                 newScoreManager.ChapterSecondColor = GetChapterSecondColor(lastChapterNumber);
+                newScoreManager.ChapterSecondColor = GetChapterThirdColor(lastChapterNumber);
+                newScoreManager.ChapterNumber = lastChapterNumber;
+                newScoreManager.LevelNumber = lastLevelNumber;
+
+
             }
             else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Length >= 10)
             {
@@ -266,6 +284,10 @@ namespace com.dogonahorse
                     newScoreManager.CoinsInLevel = currentLevel.CoinsInLevel;
                     newScoreManager.ChapterMainColor = GetChapterMainColor(chapterNumber);
                     newScoreManager.ChapterSecondColor = GetChapterSecondColor(chapterNumber);
+                    newScoreManager.ChapterSecondColor = GetChapterSecondColor(chapterNumber);
+                    newScoreManager.ChapterSecondColor = GetChapterThirdColor(chapterNumber);
+                    newScoreManager.ChapterNumber = chapterNumber;
+                    newScoreManager.LevelNumber = levelNumber;
                 }
             }
 
@@ -356,6 +378,7 @@ namespace com.dogonahorse
                 nextChapter.ChapterAnimalName = json[i]["ChapterAnimalName"];
                 nextChapter.ChapterMainColor = HexUtility.HexToColor(json[i]["ChapterMainColor"]);
                 nextChapter.ChapterSecondColor = HexUtility.HexToColor(json[i]["ChapterSecondColor"]);
+                nextChapter.ChapterThirdColor = HexUtility.HexToColor(json[i]["ChapterThirdColor"]);
                 nextChapter.LevelInitList = SetUpLevels(json[i]["Levels"], nextChapter.ChapterNumber, nextChapter.ChapterAnimalName);
                 ChapterInitList.Add(nextChapter);
             }
@@ -455,7 +478,7 @@ namespace com.dogonahorse
                 newNode["ChapterAnimalName"] = currentChapter.ChapterAnimalName;
                 newNode["ChapterMainColor"] = HexUtility.ColorToHex(currentChapter.ChapterMainColor);
                 newNode["ChapterSecondColor"] = HexUtility.ColorToHex(currentChapter.ChapterSecondColor);
-
+                newNode["ChapterThirdColor"] = HexUtility.ColorToHex(currentChapter.ChapterThirdColor);
 
                 newNode["Levels"] = GetLevelsData(new JSONArray(), currentChapter);
                 baseArray.Add(newNode);

@@ -9,7 +9,7 @@ namespace com.dogonahorse
     {
   
  
-        ScoreManager scoreManager;
+        private ScoreManager scoreManager;
         void Start()
         {
 

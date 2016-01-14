@@ -11,36 +11,44 @@ namespace com.dogonahorse
         public int chapterNumber;
         public int levelNumber;
         //public Text LevelNumberText;
-
         private int highScore;
         private int maxStarsEarned;
 
         private Text highScoreText;
         // Use this for initialization
         private UISecondaryButtonPressEffect whitePanel;
-        private Image lockIcon;
+        private Transform lockIcon;
         private UIProgressButtonLevelStar[] stars = new UIProgressButtonLevelStar[3];
-
+        private bool LevelIsNewlyOpen = false;
         override public void Start()
         {
-             EventManager.ListenForEvent(AzumiEventType.ResetProgress, OnResetProgress);
+            EventManager.ListenForEvent(AzumiEventType.ResetProgress, OnResetProgress);
             buttonType = ButtonType.LevelButton;
             EventManager.ListenForEvent(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.ListenForEvent(AzumiEventType.RelockLevels, OnLockLevel);
             whitePanel = GetComponent<UISecondaryButtonPressEffect>();
+
             base.Start();
             Init();
         }
-        
-        
-            public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
+
+
+        public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             Init();
         }
         public void Init()
         {
+            LevelIsNewlyOpen = LevelManager.GetPlayerLevelStatusChanged(chapterNumber, levelNumber);
+            if (LevelIsNewlyOpen)
+            {
+                button.interactable = false;
+            }
+            else
+            {
+                button.interactable = LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber); ;
+            }
 
-            button.interactable = LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber);
 
             whitePanel.SetActiveStatus(button.interactable);
 
@@ -63,39 +71,6 @@ namespace com.dogonahorse
             }
         }
 
-        public void OnLockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
-        {
-            if (!LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber))
-            {
-                lockIcon.enabled = true;
-                highScoreText.enabled = false;
-                button.interactable = false;
-                whitePanel.SetActiveStatus(button.interactable);
-                for (int i = 0; i < stars.Length; i++)
-                {
-                    stars[i].Hide();
-                }
-            }
-        }
-        public void OnUnlockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
-        {
-            lockIcon.enabled = false;
-            highScoreText.enabled = true;
-            button.interactable = true;
-            whitePanel.SetActiveStatus(button.interactable);
-            for (int i = 0; i < stars.Length; i++)
-            {
-                if (maxStarsEarned > i)
-                {
-                    stars[i].ShowGold();
-                }
-                else
-                {
-                    stars[i].ShowGrey();
-                }
-            }
-
-        }
         void SetUpChildObjects()
         {
 
@@ -108,15 +83,15 @@ namespace com.dogonahorse
                 }
                 else if (childTransforms[i].name == "Lock")
                 {
+                    lockIcon = childTransforms[i];
 
-                    lockIcon = childTransforms[i].GetComponent<Image>();
                     if (button.interactable)
                     {
-                        lockIcon.enabled = false;
+                        lockIcon.GetComponent<Image>().enabled = false;
                     }
                     else
                     {
-                        lockIcon.enabled = true;
+                        lockIcon.GetComponent<Image>().enabled = true;
                     }
                 }
                 else if (childTransforms[i].name == "ScoreNumber")
@@ -164,8 +139,8 @@ namespace com.dogonahorse
 
         void OnDestroy()
         {
-            
-            
+
+
             EventManager.Instance.RemoveListener(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.Instance.RemoveListener(AzumiEventType.RelockLevels, OnLockLevel);
             EventManager.Instance.RemoveListener(AzumiEventType.ResetProgress, OnResetProgress);
@@ -173,6 +148,39 @@ namespace com.dogonahorse
 
         }
 
+        public void OnLockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            if (!LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber))
+            {
+                lockIcon.GetComponent<Image>().enabled = true;
+                highScoreText.enabled = false;
+                button.interactable = false;
+                whitePanel.SetActiveStatus(button.interactable);
+                for (int i = 0; i < stars.Length; i++)
+                {
+                    stars[i].Hide();
+                }
+            }
+        }
+        public void OnUnlockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            lockIcon.GetComponent<Image>().enabled = false;
+            highScoreText.enabled = true;
+            button.interactable = true;
+            whitePanel.SetActiveStatus(button.interactable);
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (maxStarsEarned > i)
+                {
+                    stars[i].ShowGold();
+                }
+                else
+                {
+                    stars[i].ShowGrey();
+                }
+            }
+
+        }
         string padWithZeroes(string numberString)
         {
             if (numberString.Length < 2)

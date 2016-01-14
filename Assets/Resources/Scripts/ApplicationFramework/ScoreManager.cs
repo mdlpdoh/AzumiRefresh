@@ -9,11 +9,13 @@ namespace com.dogonahorse
     public class ScoreManager : MonoBehaviour
     {
         public string ChapterAnimalName = "Drop Bear";
-        
-        
+
+
         public Color ChapterMainColor;
         public Color ChapterSecondColor;
 
+        public int ChapterNumber = 0;
+        public int LevelNumber = 0;
         public int MaxTaps = 400;
         public int TwoStarLevel = 200;
         public int TwoStarBonus = 10;
@@ -88,10 +90,10 @@ namespace com.dogonahorse
                 {
                     return 0;
                 }
-            } 
+            }
         }
 
-            public int TotalScore
+        public int TotalScore
         // number of stars given based on percentage of ants(coins) cleared in level
         {
             // return reference to private instance 
@@ -201,7 +203,7 @@ namespace com.dogonahorse
                 if (swipesRemaining > 0)
                 {
                     swipesRemaining--;
-                    
+
                 }
                 else
                 {
@@ -234,12 +236,12 @@ namespace com.dogonahorse
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             exitedDoorSafely = true;
-            
-            print ("#################### NumberOfStars" + NumberOfStars);
+
+            print("#################### NumberOfStars" + NumberOfStars);
             if (NumberOfStars > 0)
             {
-                
-                print  ("posting level won event");
+
+                print("posting level won event");
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
             }
             else
@@ -250,7 +252,7 @@ namespace com.dogonahorse
         }
         public void OnOutOfBounces(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            
+
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
         public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)
