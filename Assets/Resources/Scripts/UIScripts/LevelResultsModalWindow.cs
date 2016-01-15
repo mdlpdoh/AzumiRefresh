@@ -15,36 +15,35 @@ namespace com.dogonahorse
 		private string failureMessage3 = "The ants got you!\nYou didn't eat enough of them! Try again!"; // You lost, did not eat min amt of ants but you still had swipes left.
 
 		private ScoreManager scoreManager;
-		public Material failPanda;
+		public Material failPandaMat;
 	
 		override public void InitWindow() {
 			
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-			int numberOfStars = scoreManager.NumberOfStars;
+			int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
 			int numberOfSwipes = scoreManager.numberOfBounces;
 			int numberOfCoins  = scoreManager.CoinsEarned;
 			int totalScore = scoreManager.TotalScore;
 			string typeOfAnimal = scoreManager.ChapterAnimalName;
 			string resultsMessage;
 
-
-			if (numberOfStars == 0) 
+			if (correctWinOrLoseMessage == 0) 
 			{
 				// 0 stars. You lost, did not eat min amt of ants but you still had swipes left.
 				resultsMessage = ParseMessageString (failureMessage3, numberOfSwipes, numberOfCoins, totalScore, typeOfAnimal);
 			} 
-			else if (numberOfStars == 5) 
+			else if (correctWinOrLoseMessage == 5) 
 			{
 				// 0 stars. You lost, did not eat enuf ants and ran out of swipes.
 				resultsMessage = ParseMessageString(failureMessage1,numberOfSwipes,numberOfCoins,totalScore,typeOfAnimal);
 			} 
-			else if (numberOfStars == 4) 
+			else if (correctWinOrLoseMessage == 4) 
 			{
 				// 0 stars. You lost, got the min amt of ants but you ran out of swipes. 
 				resultsMessage = ParseMessageString(failureMessage2,numberOfSwipes,numberOfCoins,totalScore,typeOfAnimal);
 			} 
 
-			else if (numberOfStars > 0) 
+			else if (correctWinOrLoseMessage > 0) 
 			{
 				// 1 or more stars. You got min amt of ants in amt of swipes given.
 				resultsMessage = ParseMessageString(victoryMessage1,numberOfSwipes,numberOfCoins,totalScore,typeOfAnimal);
@@ -63,7 +62,7 @@ namespace com.dogonahorse
 				{
 					Text messageText = childTransforms[i].GetComponent<Text>();
 					messageText.text = resultsMessage;
-					SetStars(numberOfStars);
+					SetStars(correctWinOrLoseMessage);
 				}
 				if (childTransforms [i].name == "FinalScoreTextNumeral") 
 				{
@@ -74,32 +73,33 @@ namespace com.dogonahorse
 			}//end for loop
 		}//end method
 
-		void SetStars (int numberOfStars) {
+		void SetStars (int correctWinOrLoseMessage) {
 			
-			if (numberOfStars == 0 || numberOfStars == 4 || numberOfStars == 5)
+			if (correctWinOrLoseMessage == 0 || correctWinOrLoseMessage == 4 || correctWinOrLoseMessage == 5)
 			{
 				//It will give 3 broken grey stars
 				transform.Find("BrokenStar1").GetComponent<Image>().enabled = true;
 				transform.Find("BrokenStar2").GetComponent<Image>().enabled = true;
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 			}
-			else if (numberOfStars == 3) 
+			else if (correctWinOrLoseMessage == 3) 
 			{
 				transform.Find("Star3").GetComponent<Image>().color = Color.red;
 				transform.Find("Star2").GetComponent<Image>().color = Color.red;
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
 			} 
-			else if (numberOfStars == 2)
+			else if (correctWinOrLoseMessage == 2)
 			{
 				transform.Find("Star2").GetComponent<Image>().color = Color.red;
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 			} 
-			else if (numberOfStars == 1)
+			else if (correctWinOrLoseMessage == 1)
 			{
 				transform.Find("Star1").GetComponent<Image>().color = Color.red;
 				transform.Find("BrokenStar2").GetComponent<Image>().enabled = true;
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
+
 			} 
 			else 
 			{
@@ -109,9 +109,6 @@ namespace com.dogonahorse
 				transform.Find("BrokenStar3").GetComponent<Image>().enabled = true;
 				// show the player the filled in red panda				
 			
-//				Image redpanda = transform.Find ("RedPanda").GetComponent<Image> ();
-		//		redpanda.color = Color.red;
-		//		redpanda.material = failPanda;
 			}
 		}
 			

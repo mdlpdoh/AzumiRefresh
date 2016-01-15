@@ -129,7 +129,7 @@ namespace com.dogonahorse
             //  print("=============OnLevelWon ");
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
-            int numberOfStars = myScoreManager.NumberOfStars;
+			int numberOfStars = myScoreManager.WinAndLoseMessageInfo;
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             if (totalScore > currentLevelData.HighScore)
             {
