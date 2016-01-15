@@ -182,7 +182,13 @@ namespace com.dogonahorse
         }
        public static bool GetPlayerLevelStatusChanged(int chapterNumber, int levelNumber)
         {
-            return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen;
+            if (Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen) {
+                Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen = false;
+                return true;
+            } else {
+                  return false;
+            }
+             
         }
 
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
