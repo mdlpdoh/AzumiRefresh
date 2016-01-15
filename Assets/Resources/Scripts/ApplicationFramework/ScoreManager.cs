@@ -28,6 +28,7 @@ namespace com.dogonahorse
         private bool playerActionsCostPoints = true;
         private bool exitedDoorSafely = false;
 
+
         public bool ExitedDoorSafely
         {
             // return reference to private instance 
@@ -36,7 +37,7 @@ namespace com.dogonahorse
                 return exitedDoorSafely;
             }
         }
-
+			
 
         public int numberOfBounces
         {
@@ -86,6 +87,15 @@ namespace com.dogonahorse
                 {
                     return 1;
                 }
+				else if (exitedDoorSafely == false && coinsEarned >= oneStar)
+				{
+					return 4;
+				}
+				else if (exitedDoorSafely == false && coinsEarned < oneStar)
+				{
+					
+					return 5;
+				}
                 else
                 {
                     return 0;
@@ -99,7 +109,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-				if (NumberOfStars == 0) 
+				if (NumberOfStars == 0 || exitedDoorSafely == false) 
 				{
 					return 0; 
 				}
