@@ -11,7 +11,7 @@ namespace com.dogonahorse
         [SerializeField]
         private bool dummyChapterPanel = false;
         private static int activeChapter = 1;
-          public static int ActiveChapter
+        public static int ActiveChapter
         {
             // return reference to private instance 
             get
@@ -71,7 +71,7 @@ namespace com.dogonahorse
             }
         }
 
-        static void UpdateAllRestingY(float adjustY)
+        static void UpdateAllRestingY()
         {
             for (int i = 0; i < chapterPanels.Length; i++)
             {
@@ -99,7 +99,12 @@ namespace com.dogonahorse
             rectTransform = GetComponent<RectTransform>();
             chapterPanels[chapterNumber - 1] = this;
         }
+        public static void ShiftToNewActivePanel(int newActiveChapter)
+        {
+            activeChapter = newActiveChapter;
+            UIChapterPanel.UpdateAllRestingY();
 
+        }
         void Start()
         {
 
@@ -174,7 +179,7 @@ namespace com.dogonahorse
         }
 
 
-      
+
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
@@ -239,12 +244,12 @@ namespace com.dogonahorse
                 {
 
                     activeChapter++;
-                    UIChapterPanel.UpdateAllRestingY(basePanelSeparation);
+                    UIChapterPanel.UpdateAllRestingY();
                 }
                 else if (activeChapter > 1 && rectTransform.anchoredPosition.y <= restingY)
                 {
                     activeChapter--;
-                    UIChapterPanel.UpdateAllRestingY(-basePanelSeparation);
+                    UIChapterPanel.UpdateAllRestingY();
                 }
 
             }

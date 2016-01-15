@@ -17,7 +17,7 @@ namespace com.dogonahorse
         private Text highScoreText;
         // Use this for initialization
         private UISecondaryButtonPressEffect whitePanel;
-        private Transform lockIcon;
+        private UILevelButtonLock lockIcon;
         private UIProgressButtonLevelStar[] stars = new UIProgressButtonLevelStar[3];
         private bool LevelIsNewlyOpen = false;
         override public void Start()
@@ -27,7 +27,7 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.ListenForEvent(AzumiEventType.RelockLevels, OnLockLevel);
             whitePanel = GetComponent<UISecondaryButtonPressEffect>();
-
+            lockIcon = GetComponentInChildren<UILevelButtonLock>();
             base.Start();
             Init();
         }
@@ -37,12 +37,20 @@ namespace com.dogonahorse
         {
             Init();
         }
+        
         public void Init()
         {
             LevelIsNewlyOpen = LevelManager.GetPlayerLevelStatusChanged(chapterNumber, levelNumber);
             if (LevelIsNewlyOpen)
             {
                 button.interactable = false;
+               if ( UIChapterPanel.ActiveChapter == chapterNumber && chapterNumber < 4){
+                   lockIcon.PrepareToBreakOpenAfterShift();
+               } else {
+                   lockIcon.PrepareToBreakOpen();
+                   UIChapterPanel.ShiftToNewActivePanel(chapterNumber);
+               }
+                
             }
             else
             {
@@ -73,26 +81,20 @@ namespace com.dogonahorse
 
         void SetUpChildObjects()
         {
-
+            if (button.interactable)
+            {
+                lockIcon.Hide();
+            }
+            else
+            {
+                lockIcon.Show();
+            }
             Transform[] childTransforms = GetComponentsInChildren<Transform>();
             for (int i = 0; i < childTransforms.Length; i++)
             {
                 if (childTransforms[i].name == "LevelNumber")
                 {
                     childTransforms[i].GetComponent<Text>().text = levelNumber.ToString();
-                }
-                else if (childTransforms[i].name == "Lock")
-                {
-                    lockIcon = childTransforms[i];
-
-                    if (button.interactable)
-                    {
-                        lockIcon.GetComponent<Image>().enabled = false;
-                    }
-                    else
-                    {
-                        lockIcon.GetComponent<Image>().enabled = true;
-                    }
                 }
                 else if (childTransforms[i].name == "ScoreNumber")
                 {
@@ -139,20 +141,16 @@ namespace com.dogonahorse
 
         void OnDestroy()
         {
-
-
             EventManager.Instance.RemoveListener(AzumiEventType.UnlockAllLevels, OnUnlockLevel);
             EventManager.Instance.RemoveListener(AzumiEventType.RelockLevels, OnLockLevel);
             EventManager.Instance.RemoveListener(AzumiEventType.ResetProgress, OnResetProgress);
-
-
         }
 
         public void OnLockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             if (!LevelManager.GetPlayerLevelStatus(chapterNumber, levelNumber))
             {
-                lockIcon.GetComponent<Image>().enabled = true;
+                lockIcon.Show();
                 highScoreText.enabled = false;
                 button.interactable = false;
                 whitePanel.SetActiveStatus(button.interactable);
@@ -164,7 +162,11 @@ namespace com.dogonahorse
         }
         public void OnUnlockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            lockIcon.GetComponent<Image>().enabled = false;
+        Unlock();
+
+        }
+         public void Unlock(){
+                 lockIcon.Hide();
             highScoreText.enabled = true;
             button.interactable = true;
             whitePanel.SetActiveStatus(button.interactable);
@@ -179,8 +181,7 @@ namespace com.dogonahorse
                     stars[i].ShowGrey();
                 }
             }
-
-        }
+         }
         string padWithZeroes(string numberString)
         {
             if (numberString.Length < 2)
