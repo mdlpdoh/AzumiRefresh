@@ -57,9 +57,10 @@ namespace com.dogonahorse
 
             }
         }
+			
 
-
-        public int NumberOfStars
+        public int WinAndLoseMessageInfo
+		// This gives the LevelResultsModalWindow information so it can spit out correct win/lose message
         // number of stars given based on percentage of ants(coins) cleared in level
         {
             // return reference to private instance 
@@ -109,7 +110,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
-				if (NumberOfStars == 0 || exitedDoorSafely == false) 
+				if (WinAndLoseMessageInfo == 0 || exitedDoorSafely == false) 
 				{
 					return 0; 
 				}
@@ -252,7 +253,7 @@ namespace com.dogonahorse
         {
             exitedDoorSafely = true;
 
-            if (NumberOfStars > 0)
+			if (WinAndLoseMessageInfo > 0)
             {
                 print("posting level won event");
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
