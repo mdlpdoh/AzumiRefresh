@@ -13,8 +13,8 @@ namespace com.dogonahorse
         public Sprite[] animalImages;
 
         private Image animalImage;
-		public Material winAnimal;
-		public Material loseAnimal;
+        public Material winAnimal;
+        public Material loseAnimal;
 
         private ScoreManager scoreManager;
 
@@ -27,24 +27,28 @@ namespace com.dogonahorse
         }
         void OnEnable()
         {
-			// find out if player lost or won from the score manager
-			int wonOrLost = scoreManager.WinAndLoseMessageInfo;
+            // find out if player lost or won from the score manager
 
-			// default is the loseAnimal material - shows outline of animal
-			animalImage.sprite = animalImages [scoreManager.ChapterNumber - 1];
-			animalImage.color = scoreManager.ChapterMainColor;
 
-			if (wonOrLost > 0) 
-			{ 
-				// if the player has 1 or more stars, Player has won so change the material to winAnimal, to show the animal in full color	
-				animalImage.material = winAnimal;
-				animalImage.color = Color.white;
-			} 
-	
+            // default is the loseAnimal material - shows outline of animal
+            animalImage.sprite = animalImages[scoreManager.ChapterNumber - 1];
 
-//			animalImage.sprite = animalImages [scoreManager.ChapterNumber - 1];
-//			animalImage.color = scoreManager.ChapterMainColor;
-		}
-	
-	}
+
+            if (scoreManager.NumberOfStars > 0)
+            {
+
+                // if the player has 1 or more stars, Player has won so change the material to winAnimal, to show the animal in full color	
+                //animalImage.material = null;
+
+                animalImage.material = winAnimal;
+                animalImage.color = Color.white;
+            }
+            else
+            {
+                animalImage.material = loseAnimal;
+                animalImage.color = scoreManager.ChapterMainColor;
+            }
+        }
+
+    }
 }

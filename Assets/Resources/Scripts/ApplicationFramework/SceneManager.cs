@@ -254,7 +254,7 @@ namespace com.dogonahorse
             Debug.Log("Scene Manager: GameOver");
             //LevelReset();
             GameManager.GameOver();
-
+            Time.timeScale = 0;
             //devSettingsPanel.SetActive(false);
             modalWindowDictionary[ButtonID.LevelResults].DoButtonAction(ButtonAction.OpenModal);
             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
