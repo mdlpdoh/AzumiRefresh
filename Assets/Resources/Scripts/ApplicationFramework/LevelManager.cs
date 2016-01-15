@@ -64,7 +64,7 @@ namespace com.dogonahorse
 
         private static LevelPlayerData newOpenLevel = null;
 
-
+        private int highestOpenChapter = 1;
 
         public static LevelManager Instance
         {
@@ -129,7 +129,7 @@ namespace com.dogonahorse
             //  print("=============OnLevelWon ");
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
-			int numberOfStars = myScoreManager.WinAndLoseMessageInfo;
+			int numberOfStars = myScoreManager.NumberOfStars;
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             if (totalScore > currentLevelData.HighScore)
             {
@@ -140,12 +140,16 @@ namespace com.dogonahorse
                 currentLevelData.MaxStarsEarned = numberOfStars;
             }
             newOpenLevel = GetNextLevel(lastChapterNumber, lastLevelNumber);
-     
+
             if (newOpenLevel != null)
             {
+
                 newOpenLevel.LevelIsOpen = true;
                 newOpenLevel.LevelIsNewlyOpen = true;
-                
+
+                highestOpenChapter = newOpenLevel.ChapterNumber;
+
+
             }
             WritePlayerLevelSettings();
         }
@@ -170,7 +174,10 @@ namespace com.dogonahorse
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
         }
-
+          public static int GetGetHighestChapterOpened()
+        {
+            return Instance.highestOpenChapter;
+        }
         public static int GetPlayerLevelHighScore(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].HighScore;
@@ -180,15 +187,18 @@ namespace com.dogonahorse
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsOpen;
         }
-       public static bool GetPlayerLevelStatusChanged(int chapterNumber, int levelNumber)
+        public static bool GetPlayerLevelStatusChanged(int chapterNumber, int levelNumber)
         {
-            if (Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen) {
+            if (Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen)
+            {
                 Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].LevelIsNewlyOpen = false;
                 return true;
-            } else {
-                  return false;
             }
-             
+            else
+            {
+                return false;
+            }
+
         }
 
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
@@ -333,6 +343,11 @@ namespace com.dogonahorse
                 nextLevel.MaxStarsEarned = levelInfo[i]["MaxStarsEarned"].AsInt;
                 nextLevel.LevelIsOpen = levelInfo[i]["LevelIsOpen"].AsBool;
 
+
+                if (nextLevel.LevelIsOpen)
+                {
+                    highestOpenChapter = nextLevel.ChapterNumber;
+                }
                 newLevels.Add(nextLevel);
             }
             return newLevels;

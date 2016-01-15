@@ -107,7 +107,7 @@ namespace com.dogonahorse
         }
         void Start()
         {
-
+            activeChapter = LevelManager.GetGetHighestChapterOpened();
             activePanelY = rectTransform.anchoredPosition.y;
             if (!dummyChapterPanel)
             {

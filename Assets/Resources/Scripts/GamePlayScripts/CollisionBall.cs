@@ -21,12 +21,12 @@ namespace com.dogonahorse
 			// below is to give a nice particle effect when ball hits something.
 
 			ContactPoint2D contact = coll.contacts [0];
-			Quaternion rot = Quaternion.FromToRotation (Vector3.right, contact.normal);
+			Quaternion rot = Quaternion.FromToRotation (Vector3.forward, contact.normal);
 			Vector2 pos = contact.point;
 			//print (rot.eulerAngles);
 			hits.transform.position = pos;
 			hits.transform.rotation = rot;
-			hits.GetComponent<ParticleSystem> ().Emit (100);
+			hits.GetComponent<ParticleSystem> ().Emit (200);
 		
 			//fix for making the particles into a V shape that always rotate on x axis
 			//make an empty game object and parent the hitParticles to it and use below 
