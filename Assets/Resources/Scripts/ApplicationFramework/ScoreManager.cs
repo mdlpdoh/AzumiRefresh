@@ -27,7 +27,16 @@ namespace com.dogonahorse
     
 //        private bool playerActionsCostPoints = true;
         private bool exitedDoorSafely = false;
+		private bool ranOutOfTime = false;
 
+		public bool RanOutOfTime
+		{
+			// return reference to private instance 
+			get
+			{
+				return ranOutOfTime;
+			}
+		}
 
         public bool ExitedDoorSafely
         {
@@ -60,7 +69,7 @@ namespace com.dogonahorse
 
        public int NumberOfStars
         // This gives the LevelResultsModalWindow information so it can spit out correct win/lose message
-        // number of stars given based on percentage of ants(coins) cleared in level
+        // and show the correct number of stars given based on percentage of ants(coins) cleared in level
         {
             // return reference to private instance 
             get
@@ -259,6 +268,7 @@ namespace com.dogonahorse
 
         public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
+			ranOutOfTime = true;
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
 
