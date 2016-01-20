@@ -202,7 +202,6 @@ namespace com.dogonahorse
         private IEnumerator FadeOut()
         {
             float currentTime = 0f;
-            float volume;
             while (currentTime < fadeOutTime)
             {
                 float normalizedTime = currentTime / fadeOutTime;

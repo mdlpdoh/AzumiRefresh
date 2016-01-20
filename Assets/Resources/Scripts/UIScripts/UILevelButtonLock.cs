@@ -55,13 +55,24 @@ namespace com.dogonahorse
             maxAlpha = mainlockImage.color.a;
         }
 
+        void Start()
+        {
+            EventManager.ListenForEvent(AzumiEventType.OpenModal, OnOpenModal);
+        }
+        public void OnOpenModal(AzumiEventType azumiEventType, Component Sender, object Param = null)
+        {
+            lockParticles.Clear();
+        }
+        void onDestroy(){
+            EventManager.Instance.RemoveListener(AzumiEventType.OpenModal, OnOpenModal);
+        }
         public void PrepareToBreakOpen()
         {
             Invoke("breakOpen", BreakDelay);
         }
-     public void PrepareToBreakOpenAfterShift()
+        public void PrepareToBreakOpenAfterShift()
         {
-            Invoke("breakOpen", BreakDelay*2);
+            Invoke("breakOpen", BreakDelay * 2);
         }
 
         public void breakOpen()
@@ -74,10 +85,10 @@ namespace com.dogonahorse
         {
             Color color;
             float currentTime = 0f;
-            
-                        leftLockImage.enabled = true;
+
+            leftLockImage.enabled = true;
             rightLockImage.enabled = true;
-            
+
             while (currentTime < shakeTime)
             {
                 float normalizedTime = currentTime / shakeTime;
@@ -92,7 +103,7 @@ namespace com.dogonahorse
 
                 color = rightLockImage.color;
                 color.a = breakAlphaProgress * maxAlpha;
-              
+
                 leftLockImage.color = color;
                 rightLockImage.color = color;
                 currentTime += Time.unscaledDeltaTime;
@@ -100,7 +111,7 @@ namespace com.dogonahorse
             }
 
             rectTransform.anchoredPosition = new Vector2(0, rectTransform.anchoredPosition.y);
-              leftLockImage.enabled = false;
+            leftLockImage.enabled = false;
             rightLockImage.enabled = false;
             parentButton.Unlock();
         }

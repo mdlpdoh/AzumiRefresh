@@ -11,9 +11,7 @@ namespace com.dogonahorse
         private Text numeral01;
         private Text numeral02;
         private Text numeral03;
-		private Image panLeft;
-		private Image panCenter;
-		private Image panRight;
+
 		public float flashInterval = 0.5f;
 		private bool fadingIn = true;
 //		private int swipesRemaining; //Don't think this is needed...?
@@ -22,20 +20,6 @@ namespace com.dogonahorse
 
         void Awake()
         {
-			Image[] myImages = GetComponentsInChildren<Image>();
-			for (int i = 0; i < myImages.Length; i++) 
-			{
-				if (myImages [i].name == "Redpanel_L") {
-					panLeft = myImages [i];
-				} else if (myImages [i].name == "Redpanel_C") {
-					panCenter = myImages [i];
-				} 
-				else  
-				{
-					panRight = myImages [i];
-				} 
-				
-			}
 
             Text[] myTexts = GetComponentsInChildren<Text>();
             for (int i = 0; i < myTexts.Length; i++)

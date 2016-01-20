@@ -71,14 +71,16 @@ namespace com.dogonahorse
             {
                 case GameState.Title:
                     newState = GameState.Progress;
-                    Application.LoadLevel(newState.ToString());
+                       UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
+                    //Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
                 case GameState.EndGame:
                 case GameState.GameLevel:
                     newState = GameState.Progress;
                     EventManager.ClearGameLevelListeners();
-                    Application.LoadLevel(newState.ToString());
+                      UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
+                    // Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
                 default:
@@ -107,8 +109,8 @@ namespace com.dogonahorse
 
                 if (Application.CanStreamedLevelBeLoaded(levelName))
                 {
-
-                    Application.LoadLevel(levelName);
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
+                    //Application.LoadLevel(levelName);
                     Instance.ChangeState(GameState.GameLevel);
                     LevelManager.SetLevelIDNumbers(chapterNumber, levelNumber);
                     return true;
@@ -130,7 +132,7 @@ namespace com.dogonahorse
             }
             return numberString;
         }
- 
+
         public static void GameOver()
         {
             Instance.ChangeState(GameState.EndGame);
@@ -140,54 +142,58 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
-           
+
             Debug.Log("Game Manager:  Inited");
             ChangeState(defaultState);
         }
 
         void Title_Enter()
         {
-            EventManager.PostEvent(AzumiEventType.EnterTitle, this, null); 
+            EventManager.PostEvent(AzumiEventType.EnterTitle, this, null);
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Title Screen");
         }
 
         void Progress_Enter()
         {
-            EventManager.PostEvent(AzumiEventType.EnterProgress, this, null); 
+            EventManager.PostEvent(AzumiEventType.EnterProgress, this, null);
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Progress Screen");
-            if (InputManager.Instance.LevelProgressOverride) {
-                            EventManager.PostEvent(AzumiEventType.UnlockAllLevels, this);
+            if (InputManager.Instance.LevelProgressOverride)
+            {
+                EventManager.PostEvent(AzumiEventType.UnlockAllLevels, this);
             }
-             
-  
-      
+
+
+
         }
         void GameLevel_Enter()
         {
-          EventManager.PostEvent(AzumiEventType.EnterLevel, this, null); 
+            EventManager.PostEvent(AzumiEventType.EnterLevel, this, null);
             Debug.Log("Game Manager: GameLevel");
             Instance.sceneManager.InitScene();
-      
+
 
         }
 
         void EndGame_Enter()
         {
-            
+
             Debug.Log("Game Manager: Game is Over");
-          //  if (){
+            //  if (){
             //  UpdatePlayerProgress   
-           /// }
+            /// }
 
         }
         void Reset_Enter()
         {
+            
+             Debug.Log("Game Manager: Reset_Enter" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             EventManager.ClearGameLevelListeners();
-            Application.LoadLevel(Application.loadedLevel);
+               UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            //Application.LoadLevel(Application.loadedLevel);
 
-            Debug.Log("Game Manager: Reset_Enter");
+
             Instance.ChangeState(GameState.GameLevel);
         }
 

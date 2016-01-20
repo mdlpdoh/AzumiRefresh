@@ -141,7 +141,7 @@ namespace com.dogonahorse
             }
             newOpenLevel = GetNextLevel(lastChapterNumber, lastLevelNumber);
 
-            if (newOpenLevel != null)
+            if (newOpenLevel != null && newOpenLevel.LevelIsOpen == false)
             {
 
                 newOpenLevel.LevelIsOpen = true;

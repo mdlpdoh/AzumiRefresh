@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 
-namespace com.dogonahorse
+namespace  com.dogonahorse
 {
     public class UITranslate : MonoBehaviour
     {
@@ -41,7 +41,7 @@ namespace com.dogonahorse
         public void StartTranslation(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 
-            if (gameObject.active == true) {
+            if (gameObject.activeSelf == true) {
               StartCoroutine("Translate");
             }
         }

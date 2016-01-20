@@ -13,8 +13,8 @@ namespace com.dogonahorse
         public AzumiEventType eventType;
 
         public GameObject heartSpriteContainer;
-        
-           public int MaxParticles = 450;
+
+        public int MaxParticles = 450;
         private MeshRenderer meshRenderer;
         public AnimationCurve fadeCurve;
         public AnimationCurve particleCurve;
@@ -23,14 +23,14 @@ namespace com.dogonahorse
 
         private ParticleSystem fadeParticles;
         // Use this for initialization
-        
+
         void Start()
         {
             meshRenderer = GetComponent<MeshRenderer>();
             EventManager.ListenForEvent(eventType, StartFade);
             myWall = GetComponent<WallBehavior>();
             heartSprites = heartSpriteContainer.GetComponentsInChildren<SpriteRenderer>();
-            fadeParticles =  GetComponent<ParticleSystem>();
+            fadeParticles = GetComponent<ParticleSystem>();
         }
 
         // Update is called once per frame
@@ -51,7 +51,7 @@ namespace com.dogonahorse
             {
                 float normalizedTime = currentTime / fadeTime;
                 float fadeCurveProgress = 1 - fadeCurve.Evaluate(normalizedTime);
-                float particleCurveProgress =  particleCurve.Evaluate(normalizedTime);
+                float particleCurveProgress = particleCurve.Evaluate(normalizedTime);
                 FadeMainQuad(fadeCurveProgress);
                 FadeHearts(fadeCurveProgress);
                 EmitParticles(particleCurveProgress);
@@ -60,14 +60,14 @@ namespace com.dogonahorse
             }
             FadeMainQuad(0);
             FadeHearts(0);
-                   EmitParticles(0);
+            EmitParticles(0);
         }
 
         void FadeMainQuad(float fadeLevel)
         {
             Color color;
             color = meshRenderer.material.color;
-            color.a =  fadeLevel;
+            color.a = fadeLevel;
             meshRenderer.material.color = color;
         }
 
@@ -82,14 +82,13 @@ namespace com.dogonahorse
                 heartSprites[i].material.color = color;
             }
         }
-        
-        
+
+
         void EmitParticles(float particleLevel)
         {
-          
+            var em = fadeParticles.emission;
+            em.rate = new ParticleSystem.MinMaxCurve(particleLevel * MaxParticles);
 
-       
-           fadeParticles.emissionRate = particleLevel * MaxParticles;
         }
 
         void OnDestroy()

@@ -21,30 +21,30 @@ namespace com.dogonahorse
         {
 
             scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-            int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
+           //. int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
             int numberOfSwipes = scoreManager.numberOfBounces;
             int numberOfCoins = scoreManager.CoinsEarned;
             int totalScore = scoreManager.TotalScore;
             string typeOfAnimal = scoreManager.ChapterAnimalName;
             string resultsMessage;
 
-            if (correctWinOrLoseMessage == 0)
+            if (WinAndLoseMessageInfo == 0)
             {
                 // 0 stars. You lost, did not eat min amt of ants but you still had swipes left.
                 resultsMessage = ParseMessageString(failureMessage3, numberOfSwipes, numberOfCoins, totalScore, typeOfAnimal);
             }
-            else if (correctWinOrLoseMessage == 5)
+            else if (WinAndLoseMessageInfo == 5)
             {
                 // 0 stars. You lost, did not eat enuf ants and ran out of swipes.
                 resultsMessage = ParseMessageString(failureMessage1, numberOfSwipes, numberOfCoins, totalScore, typeOfAnimal);
             }
-            else if (correctWinOrLoseMessage == 4)
+            else if (WinAndLoseMessageInfo == 4)
             {
                 // 0 stars. You lost, got the min amt of ants but you ran out of swipes. 
                 resultsMessage = ParseMessageString(failureMessage2, numberOfSwipes, numberOfCoins, totalScore, typeOfAnimal);
             }
 
-            else if (correctWinOrLoseMessage > 0)
+            else if (WinAndLoseMessageInfo > 0)
             {
                 // 1 or more stars. You got min amt of ants in amt of swipes given.
                 resultsMessage = ParseMessageString(victoryMessage1, numberOfSwipes, numberOfCoins, totalScore, typeOfAnimal);
@@ -64,7 +64,7 @@ namespace com.dogonahorse
                 {
                     Text messageText = childTransforms[i].GetComponent<Text>();
                     messageText.text = resultsMessage;
-                    SetStars(correctWinOrLoseMessage);
+                    SetStars(scoreManager.NumberOfStars);
                 }
                 if (childTransforms[i].name == "FinalScoreTextNumeral")
                 {
@@ -97,7 +97,7 @@ namespace com.dogonahorse
                 }
                 else if (scoreManager.NumberOfStars == 0 && scoreManager.ExitedDoorSafely == true)
                 {
-                    return 4;
+                    return 0;
                 }
                 else if (scoreManager.NumberOfStars == 0 && scoreManager.ExitedDoorSafely == false )
                 {

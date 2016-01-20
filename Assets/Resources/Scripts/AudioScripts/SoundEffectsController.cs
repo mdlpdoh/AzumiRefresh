@@ -22,7 +22,7 @@ namespace com.dogonahorse
         private bool droneIsActive = false;
 
         public float panLevel = 1.0f;
-        private AudioMixer mixer;
+      //  private AudioMixer mixer;
 
         private AudioMixerGroup mixerGroup;
 
@@ -37,7 +37,7 @@ namespace com.dogonahorse
 
             audioSource = GetComponent<AudioSource>();
             mixerGroup = audioSource.outputAudioMixerGroup;
-            mixer = (AudioMixer)Resources.Load("AzumiAudio");
+           // mixer = (AudioMixer)Resources.Load("AzumiAudio");
 
         }
 
