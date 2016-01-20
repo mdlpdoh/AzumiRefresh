@@ -65,7 +65,7 @@ namespace com.dogonahorse
         private static LevelPlayerData newOpenLevel = null;
 
         private int highestOpenChapter = 1;
-
+        private static bool newChapterOpened = false;
         public static LevelManager Instance
         {
             // return reference to private instance 
@@ -75,7 +75,14 @@ namespace com.dogonahorse
             }
         }
         //public  GameState defaultState;
-
+        public static bool NewChapterOpened 
+        {
+            // return reference to private instance 
+            get
+            {
+                return newChapterOpened;
+            }
+}
         void Awake()
         {
             // Check if existing instance of class exists in scene 35 
@@ -110,6 +117,7 @@ namespace com.dogonahorse
                 SetUpNewPlayerData();
             }
         }
+
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWon);
@@ -125,11 +133,9 @@ namespace com.dogonahorse
         }
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
-            //  print("=============OnLevelWon ");
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
-			int numberOfStars = myScoreManager.NumberOfStars;
+            int numberOfStars = myScoreManager.NumberOfStars;
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             if (totalScore > currentLevelData.HighScore)
             {
@@ -162,6 +168,7 @@ namespace com.dogonahorse
             }
             else if (chapterNumber < 4)
             {
+                newChapterOpened = true;
                 return ChapterPlayerDataList[chapterNumber].LevelPlayerDataList[0];
             }
             else
@@ -174,7 +181,7 @@ namespace com.dogonahorse
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
         }
-          public static int GetGetHighestChapterOpened()
+        public static int GetGetHighestChapterOpened()
         {
             return Instance.highestOpenChapter;
         }
