@@ -169,7 +169,7 @@ namespace com.dogonahorse
         }
         void SaveSettings()
         {
-
+       
 
             PlayerPrefs.SetFloat("musicVolume", musicVolume);
             PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
