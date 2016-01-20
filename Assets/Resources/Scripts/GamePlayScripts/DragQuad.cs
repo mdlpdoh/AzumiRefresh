@@ -23,7 +23,7 @@ namespace com.dogonahorse
 
         public Transform TabDots;
 
-        private float handlePositionDifference;
+   //     private float handlePositionDifference;
 
 
         public float fudge = 2;
@@ -122,7 +122,7 @@ namespace com.dogonahorse
             handle11.localPosition -= difference;
             wallSegment.localPosition -= difference;
             wallStripes.localPosition = wallSegment.localPosition;
-            handlePositionDifference = (handle00.position - transform.position).magnitude;
+//            handlePositionDifference = (handle00.position - transform.position).magnitude;
             TabTop.position = handle01.position;
             TabBottom.position = handle11.position;
             TabQuad.position = new Vector3(handle01.position.x, TabQuad.position.y, -1);

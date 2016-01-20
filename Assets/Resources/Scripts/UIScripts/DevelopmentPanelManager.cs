@@ -171,8 +171,8 @@ namespace com.dogonahorse
 			clampSlider.SetStartValue (maxVelocity);
 			hitWallsCostsPointsToggle.isOn = hitWallsCostsPoints;
 			actionsCostPointsToggle.isOn = actionsCostPoints;
-			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
-			scoreManager.PlayerActionsCostPoints(actionsCostPoints);
+//			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
+//			scoreManager.PlayerActionsCostPoints(actionsCostPoints);
 			if (smushEnabled) {
 				smushToggle.isOn = true;
 				swipeToggle.isOn = false;
@@ -202,13 +202,13 @@ namespace com.dogonahorse
 		public void onHittingWallsSelected ()
 		{ 
 			hitWallsCostsPoints = hitWallsCostsPointsToggle.isOn;
-			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
+//			scoreManager.SetHitWallsCostsPoints(hitWallsCostsPoints);
 		}
 		
 		public void onPlayerActionsCostPointsSelected ()
 		{ 
 			actionsCostPoints = actionsCostPointsToggle.isOn;
-			scoreManager.PlayerActionsCostPoints(actionsCostPoints);
+//			scoreManager.PlayerActionsCostPoints(actionsCostPoints);
 		}
 
 		public void onForceChanged (float newValue)
@@ -216,6 +216,7 @@ namespace com.dogonahorse
 			minVelocity = newValue;
 			ball.GetComponent<AzumiBallRoll>().MinimumVelocity = minVelocity;
 		}
+        
 		public void onPointsChanged (int newValue)
 		{
 			MaxTaps = newValue;

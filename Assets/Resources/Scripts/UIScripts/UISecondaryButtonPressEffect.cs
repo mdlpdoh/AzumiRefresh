@@ -19,7 +19,7 @@ namespace com.dogonahorse
             inactiveColor = new Color(originalColor.r, originalColor.g, originalColor.b, originalColor.a / 2);
         }
 
-        public void SetActiveStatus(bool status)
+        public void SetActiveStatus(bool  status)
 
         {
             buttonIsActive = status;

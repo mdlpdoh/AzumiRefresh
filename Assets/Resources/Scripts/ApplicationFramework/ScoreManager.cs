@@ -24,8 +24,8 @@ namespace com.dogonahorse
         private int swipesRemaining;
         public int CoinsInLevel = 0;
         private int coinsEarned = 0;
-        private bool hitWallsCostsPoints = true;
-        private bool playerActionsCostPoints = true;
+    
+//        private bool playerActionsCostPoints = true;
         private bool exitedDoorSafely = false;
 
 
@@ -94,55 +94,6 @@ namespace com.dogonahorse
                 }
             }
         }
-        public int WinAndLoseMessageInfo
-        // This gives the LevelResultsModalWindow information so it can spit out correct win/lose message
-        // number of stars given based on percentage of ants(coins) cleared in level
-        {
-            // return reference to private instance 
-            get
-            {
-
-                float twentyPercent = 0.2f * CoinsInLevel;
-                int oneStar = (int)Math.Round(twentyPercent);
-
-                float sixtyPercent = 0.6f * CoinsInLevel;
-                int twoStar = (int)Math.Round(sixtyPercent);
-
-                float ninetyPercent = 0.9f * CoinsInLevel;
-                int threeStar = (int)Math.Round(ninetyPercent);
-
-                if (exitedDoorSafely == true && coinsEarned >= threeStar)
-                {
-                    return 3;
-                }
-                else if (exitedDoorSafely == true && coinsEarned >= twoStar)
-                {
-                    return 2;
-                }
-                else if (exitedDoorSafely == true && coinsEarned >= oneStar)
-                {
-                    return 1;
-                }
-                else if (exitedDoorSafely == false && coinsEarned >= oneStar)
-                {
-                    return 4;
-                }
-                else if (exitedDoorSafely == false && coinsEarned < oneStar)
-                {
-
-                    return 5;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
-        /*public bool DidIWin()
-        {
-
-
-        }*/
         public int TotalScore
         // number of stars given based on percentage of ants(coins) cleared in level
         {
@@ -163,8 +114,8 @@ namespace com.dogonahorse
 
 
         //private float elapsedTime;
-        private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
-        private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
+//        private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
+ //       private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
 
         private SceneManager sceneManager;
 
@@ -210,14 +161,11 @@ namespace com.dogonahorse
             scoreCounter.SetStartingAmount(MaxTaps);
             coinCounter.SetStartingAmount(0);// <--need to get from account
         }
-        public void SetHitWallsCostsPoints(bool newValue)
-        {
-            hitWallsCostsPoints = newValue;
-        }
+/*
         public void PlayerActionsCostPoints(bool newValue)
         {
             playerActionsCostPoints = newValue;
-        }
+        }*/
         public void OnHitWallEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 
@@ -292,7 +240,7 @@ namespace com.dogonahorse
         {
             exitedDoorSafely = true;
 
-            if (WinAndLoseMessageInfo > 0)
+            if (NumberOfStars > 0)
             {
                 print("posting level won event");
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);

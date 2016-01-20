@@ -169,7 +169,8 @@ namespace com.dogonahorse
 
             else if (buttonAction == ButtonAction.ResetLevel)
             {
-                if (GameManager.GetCurrentState() == GameState.EndGame)
+ 
+                if (GameManager.GetCurrentState() == GameState.EndGame || GameManager.GetCurrentState() == GameState.GameLevel)
                 {
                     Time.timeScale = 1;
                     ChangeState(SceneState.Ready);

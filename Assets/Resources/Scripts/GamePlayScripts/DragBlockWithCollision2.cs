@@ -12,13 +12,13 @@ namespace com.dogonahorse
 		public DragAxis dragAxis;
         private Vector3 boundsSize;
         private Vector2 touchOffset;
-        private Collider2D myCollider;
+//        private Collider2D myCollider;
         // Use this for initialization
 		 private Rigidbody2D rigidBody;
 		
         void Start()
         {
-            myCollider = GetComponent<Collider2D>();
+//            myCollider = GetComponent<Collider2D>();
 			rigidBody = GetComponent<Rigidbody2D>();
            // boundsSize = myCollider.bounds.size;
         }
