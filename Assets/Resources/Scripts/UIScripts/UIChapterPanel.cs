@@ -101,13 +101,24 @@ namespace com.dogonahorse
         }
         public static void ShiftToNewActivePanel(int newActiveChapter)
         {
+
             activeChapter = newActiveChapter;
             UIChapterPanel.UpdateAllRestingY();
 
         }
         void Start()
-        {  
-            activeChapter = LevelManager.GetGetHighestChapterOpened();
+        {
+            if (LevelManager.NewChapterOpened)
+            {
+                
+                activeChapter = Mathf.Clamp( LevelManager.GetGetHighestChapterOpened() - 1 , 0, int.MaxValue);
+            }
+            else
+            {
+
+                activeChapter = LevelManager.GetGetHighestChapterOpened();
+            }
+
             activePanelY = rectTransform.anchoredPosition.y;
             if (!dummyChapterPanel)
             {
