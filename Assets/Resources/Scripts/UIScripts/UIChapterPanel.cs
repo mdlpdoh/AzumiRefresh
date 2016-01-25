@@ -55,8 +55,27 @@ namespace com.dogonahorse
 
         private Color ChapterThirdColor;
 
+        private float momentum;
+
+        private float lastDragY;
+        public bool isBallistic = false;
+        private float startmomentum = 0;
+        public float ballisticFriction = 1f;
+
+        public float minMomentum = 0.001f;
+        
+        
+        public float RestPositionMass = 10;
+        
+        public float ChapterPanelMass = 1;
+        
+            public float Force = 1;    
+        
+       public float maxMomentum = 100;
         static void AdjustPanels(float newY)
         {
+
+
             for (int i = 0; i < chapterPanels.Length; i++)
             {
                 chapterPanels[i].MovePanel(newY);
@@ -110,8 +129,8 @@ namespace com.dogonahorse
         {
             if (LevelManager.NewChapterOpened)
             {
-                
-                activeChapter = Mathf.Clamp( LevelManager.GetGetHighestChapterOpened() - 1 , 0, int.MaxValue);
+
+                activeChapter = Mathf.Clamp(LevelManager.GetGetHighestChapterOpened() - 1, 0, int.MaxValue);
             }
             else
             {
@@ -183,7 +202,22 @@ namespace com.dogonahorse
 
         void Update()
         {
-            if (!UIChapterPanel.drag && restingY != rectTransform.anchoredPosition.y)
+            if (isBallistic)
+            {
+                momentum = momentum * (momentum / startmomentum) * ballisticFriction;
+                if (Mathf.Abs(momentum) > minMomentum)
+                {
+                    moveBallistic(momentum);
+                }
+                else
+                {
+                    DetermineActiveChapter();
+                    momentum = 0;
+                    isBallistic = false;
+                    UIChapterPanel.drag = false;
+                }
+            }
+            else if (!UIChapterPanel.drag && restingY != rectTransform.anchoredPosition.y)
             {
                 rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, restingY + (rectTransform.anchoredPosition.y - restingY) / springBackRatio);
             }
@@ -194,6 +228,7 @@ namespace com.dogonahorse
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
+            isBallistic = false;
             InitPanelsStartY();
             pointStartY = eventData.pressPosition.y;
         }
@@ -203,6 +238,31 @@ namespace com.dogonahorse
         {
             pointCurrentY = eventData.position.y;
             UIChapterPanel.drag = true;
+            momentum = Mathf.Clamp((momentum + (pointCurrentY - lastDragY)) / 2,-maxMomentum, maxMomentum);
+            startmomentum = momentum;
+            print ("startmomentum " + startmomentum);
+            lastDragY = pointCurrentY;
+
+            if (activeChapter == 1 && pointCurrentY < pointStartY)
+            {
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / endPanelDragFriction) / Screen.height);
+            }
+            else if (activeChapter == 4 && pointCurrentY > pointStartY)
+            {
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / endPanelDragFriction) / Screen.height);
+            }
+            else
+            {
+                UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / dragFriction) / Screen.height);
+            }
+        }
+        public void moveBallistic(float motion)
+        {
+
+            pointCurrentY = lastDragY + motion;
+
+            lastDragY = pointCurrentY;
+
 
             if (activeChapter == 1 && pointCurrentY < pointStartY)
             {
@@ -222,8 +282,6 @@ namespace com.dogonahorse
         public void MovePanel(float newY)
         {
             float difference = 800;
-            //   print (4 + (chapterNumber -activeChapter) );
-            //  difference = restingY - restPositions[4 + (chapterNumber -activeChapter) ];
 
             if (newY > 0)
             {
@@ -236,19 +294,16 @@ namespace com.dogonahorse
 
             }
 
-            if (chapterNumber == activeChapter)
-            {
-                //     print ("activeChapter " + activeChapter + " | " + (restingY - restPositions[chapterNumber - activeChapter + 5]));
-            }
-            // print(chapterNumber - activeChapter + 4 );
-
-            // 
-            //print (difference);
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, rectStartY + newY * difference);
         }
-
         public void OnEndDrag(PointerEventData eventData)
         {
+            isBallistic = true;
+        }
+        void DetermineActiveChapter()
+        {
+
+
             if (Mathf.Abs(rectTransform.anchoredPosition.y - restingY) > basePanelSeparation / 2)
             {
                 if (activeChapter < chapterPanels.Length && rectTransform.anchoredPosition.y > restingY)
@@ -264,8 +319,8 @@ namespace com.dogonahorse
                 }
 
             }
-            // print("activeChapter " + activeChapter);
-            UIChapterPanel.drag = false;
+
+
         }
     }
 }

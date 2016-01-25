@@ -107,6 +107,12 @@ MonoBehaviour:
   springBackRatio: 1.1
   basePanelSeparation: 800
   restingY: 0
+  isBallistic: 0
+  ballisticFriction: 0.95
+  minimumInertia: 0.001
+  RestPositionMass: 10
+  ChapterPanelMass: 1
+  Force: 1
 --- !u!1 &74837741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,6 +2956,12 @@ MonoBehaviour:
   springBackRatio: 1.1
   basePanelSeparation: 800
   restingY: 0
+  isBallistic: 0
+  ballisticFriction: 0.95
+  minimumInertia: 0.001
+  RestPositionMass: 10
+  ChapterPanelMass: 1
+  Force: 1
 --- !u!1 &1248234633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6719,6 +6731,12 @@ MonoBehaviour:
   springBackRatio: 1.1
   basePanelSeparation: 800
   restingY: 0
+  isBallistic: 0
+  ballisticFriction: 0.95
+  minimumInertia: 0.001
+  RestPositionMass: 10
+  ChapterPanelMass: 1
+  Force: 1
 --- !u!1 &1599041965
 GameObject:
   m_ObjectHideFlags: 0
@@ -9317,6 +9335,10 @@ Prefab:
     - target: {fileID: 19871762, guid: a394c2beb575b4625918ab45ccb86b89, type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11424048, guid: a394c2beb575b4625918ab45ccb86b89, type: 2}
+      propertyPath: ballisticFriction
+      value: 0.95
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a394c2beb575b4625918ab45ccb86b89, type: 2}
@@ -16121,6 +16143,12 @@ MonoBehaviour:
   springBackRatio: 1.1
   basePanelSeparation: 800
   restingY: 0
+  isBallistic: 0
+  ballisticFriction: 0.95
+  minimumInertia: 0.001
+  RestPositionMass: 10
+  ChapterPanelMass: 1
+  Force: 1
 --- !u!114 &1836793510
 MonoBehaviour:
   m_ObjectHideFlags: 0
