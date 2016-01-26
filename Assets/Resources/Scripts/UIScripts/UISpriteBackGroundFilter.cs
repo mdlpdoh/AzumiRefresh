@@ -5,17 +5,17 @@ using UnityEngine.EventSystems;
 
 namespace com.dogonahorse
 {
-	public class UIControlActiveFilter : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+	public class UISpriteBackGroundFilter : MonoBehaviour
 	{
 
-		public void OnPointerDown (PointerEventData eventData)
+		public void OnMouseDown ()
 		{
-            
+            print("OnMouseDown " );
  
 			InputManager.Instance.ControlActive ();
 		
 		}
-		public void OnPointerUp (PointerEventData eventData)
+		public void OnMouseUp ()
 		{
 
 	
