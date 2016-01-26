@@ -1,0 +1,93 @@
+﻿using UnityEngine;
+using System.Collections;
+
+namespace com.dogonahorse
+{
+    public class ForceArrowSprite : MonoBehaviour
+    {
+
+        public float fadeInTime = 0.3f;
+        public AnimationCurve fadeInCurve;
+        public float fadeOutTime = 0.1f;
+        public AnimationCurve fadeOutCurve;
+
+        public float MaxOpacity = 1.0f;
+
+        private SpriteRenderer mySprite;
+
+
+
+        // Use this for initialization
+        void Start()
+        {
+            mySprite = GetComponent<SpriteRenderer>();
+             Color color = mySprite.color;
+            color.a = 0;
+            mySprite.color = color;
+        }
+
+        // Update is called once per frame
+        public void StartFadeIn()
+        {
+                        StopAllCoroutines();
+            StartCoroutine("FadeIn");
+        }
+
+        public void StopAllActivity()
+        {
+            StopAllCoroutines();
+            Color color = mySprite.color;
+            color.a = 0;
+            mySprite.color = color;
+
+        }
+
+
+        public void StartFadeOut()
+        {
+                        StopAllCoroutines();
+            StartCoroutine("FadeOut");
+        }
+
+        private IEnumerator FadeIn()
+        {
+            float currentTime = 0f;
+            Color color;
+            while (currentTime < fadeInTime)
+            {
+                float normalizedTime = currentTime / fadeInTime;
+                float curveProgress = fadeInCurve.Evaluate(normalizedTime);
+                color = mySprite.color;
+                color.a = curveProgress * MaxOpacity;
+
+                mySprite.color = color;
+                currentTime += Time.deltaTime;
+                yield return null;
+            }
+
+            color = mySprite.color;
+            color.a = MaxOpacity;
+            mySprite.color = color;
+            StartFadeOut();
+        }
+        private IEnumerator FadeOut()
+        {
+            float currentTime = 0f;
+            Color color;
+            while (currentTime < fadeOutTime)
+            {
+                float normalizedTime = currentTime / fadeOutTime;
+                float curveProgress = fadeOutCurve.Evaluate(normalizedTime);
+                color = mySprite.color;
+                color.a = MaxOpacity - curveProgress * MaxOpacity;
+                mySprite.color = color;
+                currentTime += Time.deltaTime;
+                yield return null;
+            }
+
+            color = mySprite.color;
+            color.a = 0;
+            mySprite.color = color;
+        }
+    }
+}
