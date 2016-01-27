@@ -96,7 +96,7 @@ namespace com.dogonahorse
 		{
             
             
-            print ("-----------------StartFlashing " + alreadyFlashing);
+           // print ("-----------------StartFlashing " + alreadyFlashing);
 			if (alreadyFlashing == false) 
 			{
 				EventManager.PostEvent (AzumiEventType.SwipesLowFadeIn, this);

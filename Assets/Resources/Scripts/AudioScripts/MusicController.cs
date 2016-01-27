@@ -76,25 +76,23 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AudioEventType audioEventType, Component Sender, object Param = null)
         {
-
+            print("----------------------" + audioEventType + ", " + audioTriggers[audioEventType]);
             switch (audioTriggers[audioEventType])
             {
                 case AudioActionType.HardStart:
 
-                    Invoke("Play", IntroDelay);
-
+                    Invoker.InvokeDelayed(Play, IntroDelay);
                     break;
                 case AudioActionType.HardStop:
                     Invoke("Stop", 0);
                     break;
                 case AudioActionType.FadeIn:
-
-                    Invoke("StartFadeIn", IntroDelay);
+                    Invoker.InvokeDelayed(StartFadeIn, IntroDelay);
+                    // Invoke("StartFadeIn", IntroDelay);
                     break;
                 case AudioActionType.FadeOut:
 
                     Invoke("StartFadeOut", 0);
-
                     break;
                 default:
                     print("Audio Trigger ot recognized");
@@ -131,7 +129,7 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void Play()
         {
-
+            print("audioSource.isPlaying----------------------" + audioSource.isPlaying);
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
                 audioSource.Play();

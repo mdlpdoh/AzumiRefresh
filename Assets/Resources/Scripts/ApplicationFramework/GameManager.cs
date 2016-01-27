@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MonsterLove.StateMachine;
 using System;
+using UnityEngine.Analytics;
+
 namespace com.dogonahorse
 {
 
@@ -71,7 +74,7 @@ namespace com.dogonahorse
             {
                 case GameState.Title:
                     newState = GameState.Progress;
-                       UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
                     //Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
@@ -79,7 +82,7 @@ namespace com.dogonahorse
                 case GameState.GameLevel:
                     newState = GameState.Progress;
                     EventManager.ClearGameLevelListeners();
-                      UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
                     // Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
@@ -149,7 +152,7 @@ namespace com.dogonahorse
 
         void Title_Enter()
         {
-            EventManager.PostEvent(AzumiEventType.EnterTitle, this, null);
+
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Title Screen");
         }
@@ -169,6 +172,7 @@ namespace com.dogonahorse
         }
         void GameLevel_Enter()
         {
+
             EventManager.PostEvent(AzumiEventType.EnterLevel, this, null);
             Debug.Log("Game Manager: GameLevel");
             Instance.sceneManager.InitScene();
@@ -187,10 +191,10 @@ namespace com.dogonahorse
         }
         void Reset_Enter()
         {
-            
-             Debug.Log("Game Manager: Reset_Enter" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+
+            Debug.Log("Game Manager: Reset_Enter" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             EventManager.ClearGameLevelListeners();
-               UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             //Application.LoadLevel(Application.loadedLevel);
 
 
