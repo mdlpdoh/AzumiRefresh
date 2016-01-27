@@ -162,6 +162,7 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.EnterLevel, OnEnterLevel);
             EventManager.ListenForEvent(AzumiEventType.CancelSettings, OnCancelSettings);
             EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
+            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLost);
 
             actualSoundLevelsLoaded = true;
             mixer.SetFloat(musicMixerVolumeID, deNormalizeVolume(musicVolume * musicVolumeAdjustment));
@@ -169,7 +170,7 @@ namespace com.dogonahorse
         }
         void SaveSettings()
         {
-       
+
 
             PlayerPrefs.SetFloat("musicVolume", musicVolume);
             PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
@@ -194,6 +195,7 @@ namespace com.dogonahorse
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
                 AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);
+                AudioEventManager.PostEvent(AudioEventType.LossThemeFadeOut, this);
             }
 
         }
@@ -205,6 +207,16 @@ namespace com.dogonahorse
             {
                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeHardStart, this);
+                AudioEventManager.PostEvent(AudioEventType.LossThemeFadeOut, this);
+            }
+        }
+        void OnLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
+        {
+            // print("***********************************OnEnterLevel");
+            if (musicEnabled)
+            {
+                AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
+                AudioEventManager.PostEvent(AudioEventType.LossThemeHardStart, this);
             }
         }
 

@@ -21,7 +21,7 @@ namespace com.dogonahorse
         void Start()
         {
             mySprite = GetComponent<SpriteRenderer>();
-             Color color = mySprite.color;
+            Color color = mySprite.color;
             color.a = 0;
             mySprite.color = color;
         }
@@ -29,7 +29,7 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void StartFadeIn()
         {
-                        StopAllCoroutines();
+            StopAllCoroutines();
             StartCoroutine("FadeIn");
         }
 
@@ -45,7 +45,7 @@ namespace com.dogonahorse
 
         public void StartFadeOut()
         {
-                        StopAllCoroutines();
+            StopAllCoroutines();
             StartCoroutine("FadeOut");
         }
 
