@@ -24,18 +24,23 @@ namespace com.dogonahorse
 		private string failureMessage3 = "The ants got you!\nYou didn't eat enough of them! Try again!";
 
         private ScoreManager scoreManager;
+        
+        private UIStarGiveout starGiveout;
+        
         public Material failPandaMat;
 
         override public void InitWindow()
         {
 			scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-			// int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
+            // starGiveout = GameObject.Find("SetStars").GetComponent<UIStarGiveout>();//put  INSIDE LRModal instead
+			starGiveout = gameObject.GetComponent<UIStarGiveout>();
+            // int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
             int numberOfSwipes = scoreManager.numberOfBounces;
             int numberOfCoins = scoreManager.CoinsEarned;
             int totalScore = scoreManager.TotalScore;
             string typeOfAnimal = scoreManager.ChapterAnimalName;
             string resultsMessage;
-
+            
 			// pairs the win or lose condition with a message
 			if (GetWinOrLoseCondition () == WinOrLoseCondition.Won) 
 			{
@@ -63,7 +68,11 @@ namespace com.dogonahorse
                 {
                     Text messageText = childTransforms[i].GetComponent<Text>();
                     messageText.text = resultsMessage;
-                    SetStars(scoreManager.NumberOfStars);
+                    //SetStars(scoreManager.NumberOfStars); // what we used to give out stars using this script
+                   //get the number of stars from the score manager into a variable
+                   int stars = scoreManager.NumberOfStars;
+                   //use the setstars method in the UIstargiveout script instead  
+                   starGiveout.GiveOutStars(stars);
                 }
                 if (childTransforms[i].name == "FinalScoreTextNumeral")
                 {
@@ -96,9 +105,9 @@ namespace com.dogonahorse
 		}
 
 
-		void SetStars(int theNumberOfStars)
+		void SetStars(int theNumberOfStars) 
         {
-
+            // put this in the UIstargiveout 
             if (scoreManager.NumberOfStars == 0)
             {
                 //It will give 3 broken grey stars
