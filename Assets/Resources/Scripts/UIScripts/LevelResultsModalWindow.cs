@@ -30,22 +30,18 @@ namespace com.dogonahorse
         public Material failPandaMat;
 
 
-        public UILevelResultsStar[] resultsStars;
+        public UILevelResultsStar[] resultsStars;// array of the Star Parent game objects in the inspector
 
 
         override public void InitWindow()
         {
             scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-            // starGiveout = GameObject.Find("SetStars").GetComponent<UIStarGiveout>();//put  INSIDE LRModal instead
-            //starGiveout = gameObject.GetComponent<UIStarGiveout>();
             // int correctWinOrLoseMessage = scoreManager.WinAndLoseMessageInfo;
             int numberOfSwipes = scoreManager.numberOfBounces;
             int numberOfCoins = scoreManager.CoinsEarned;
             int totalScore = scoreManager.TotalScore;
             string typeOfAnimal = scoreManager.ChapterAnimalName;
             string resultsMessage;
-
-            //  resultsStars = GetComponentsInChildren<UILevelResultsStar>();
 
             // pairs the win or lose condition with a message
             if (GetWinOrLoseCondition() == WinOrLoseCondition.Won)
@@ -74,11 +70,7 @@ namespace com.dogonahorse
                 {
                     Text messageText = childTransforms[i].GetComponent<Text>();
                     messageText.text = resultsMessage;
-                    SetStars(scoreManager.NumberOfStars); // what we used to give out stars using this script
-                                                          //get the number of stars from the score manager into a variable
-                                                          // int stars = scoreManager.NumberOfStars;
-                                                          //use the setstars method in the UIstargiveout script instead  
-                                                          //  starGiveout.GiveOutStars(stars);
+                    SetStars(scoreManager.NumberOfStars); 
                 }
                 if (childTransforms[i].name == "FinalScoreTextNumeral")
                 {

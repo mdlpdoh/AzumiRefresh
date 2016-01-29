@@ -30,7 +30,6 @@ namespace com.dogonahorse
             failStar.enabled = false;
         }
 
-        // Use this for initialization
         public void ShowWinStar()
         {
             print("ShowWinStar " + transform.name);
@@ -40,7 +39,6 @@ namespace com.dogonahorse
             Invoker.InvokeDelayed(ShowStar, delay);
         }
 
-        // Update is called once per frame
         public void ShowFailStar()
         {
             print("ShowFailStar " + transform.name);
