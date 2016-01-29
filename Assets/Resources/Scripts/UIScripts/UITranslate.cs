@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
+
 
 
 namespace  com.dogonahorse
@@ -38,7 +38,7 @@ namespace  com.dogonahorse
         }
 
         // Update is called once per frame
-        public void StartTranslation(AzumiEventType Event_Type, Component Sender, object Param = null)
+        public void StartTranslation(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
 
             if (gameObject.activeSelf == true) {

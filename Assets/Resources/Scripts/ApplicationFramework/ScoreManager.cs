@@ -251,7 +251,7 @@ namespace com.dogonahorse
 
             if (NumberOfStars > 0)
             {
-                print("posting level won event");
+         
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
             }
             else

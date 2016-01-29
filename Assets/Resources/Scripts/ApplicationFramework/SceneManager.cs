@@ -19,7 +19,7 @@ namespace com.dogonahorse
         Locked,
         GameOver,
         Closing,
-        Resetting
+        GameWinSequence
 
     }
 
@@ -101,6 +101,8 @@ namespace com.dogonahorse
 
             EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLostEvent);
             EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWonEvent);
+            EventManager.ListenForEvent(AzumiEventType.FinishEndGameSequence, OnOpenLevelResults);
+
         }
 
 
@@ -169,7 +171,7 @@ namespace com.dogonahorse
 
             else if (buttonAction == ButtonAction.ResetLevel)
             {
- 
+
                 if (GameManager.GetCurrentState() == GameState.EndGame || GameManager.GetCurrentState() == GameState.GameLevel)
                 {
                     Time.timeScale = 1;
@@ -197,13 +199,19 @@ namespace com.dogonahorse
 
         public void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            ChangeState(SceneState.GameOver);
+            ChangeState(SceneState.GameWinSequence);
         }
 
         public void OnLevelLostEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ChangeState(SceneState.GameOver);
         }
+
+        public void OnOpenLevelResults(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            ChangeState(SceneState.GameOver);
+        }
+
 
         #region State methods
         //Enter Actions
@@ -250,6 +258,19 @@ namespace com.dogonahorse
         {
             EventManager.ClearGameLevelListeners();
         }
+
+
+        void GameWinSequence_Enter()
+        {
+
+            Debug.Log("Scene Manager: GameWinSequence_Enter");
+            EventManager.PostEvent(AzumiEventType.StartEndGameSequence, this);
+            //  ChangeState(SceneState.GameOver);
+
+
+        }
+
+
         void GameOver_Enter()
         {
             Debug.Log("Scene Manager: GameOver");

@@ -52,7 +52,10 @@ namespace com.dogonahorse
         LevelLost,
         inAttractor,
         inDirectionalMover,
-        UITap
+        UITap,
+        StartEndGameSequence,
+        
+        FinishEndGameSequence
 
     }
     //-----------------------------------------------------------
@@ -75,7 +78,7 @@ namespace com.dogonahorse
         private static EventManager instance = null;
 
         // Declare a delegate type for events
-        public delegate void OnEvent(AzumiEventType AzumiEventType, Component Sender, object Param = null);
+        public delegate void OnEvent(AzumiEventType azumiEventType, Component Sender, object Param = null);
 
         //Array of listener objects (all objects registered to listen for events)
         private Dictionary<AzumiEventType, List<OnEvent>> Listeners = new Dictionary<AzumiEventType, List<OnEvent>>();
@@ -100,13 +103,13 @@ namespace com.dogonahorse
         /// </summary>
         /// <param name="AzumiEventType">Event to Listen for</param>
         /// <param name="Listener">Object to listen for event</param>
-        public void AddListener(AzumiEventType AzumiEventType, OnEvent Listener)
+        public void AddListener(AzumiEventType azumiEventType, OnEvent Listener)
         {
             //List of listeners for this event
             List<OnEvent> ListenList = null;
 
             //New item to be added. Check for existing event type key. If one exists, add to list
-            if (Listeners.TryGetValue(AzumiEventType, out ListenList))
+            if (Listeners.TryGetValue(azumiEventType, out ListenList))
             {
                 //List exists, so add new item
                 ListenList.Add(Listener);
@@ -116,7 +119,7 @@ namespace com.dogonahorse
             //Otherwise create new list as dictionary key
             ListenList = new List<OnEvent>();
             ListenList.Add(Listener);
-            Listeners.Add(AzumiEventType, ListenList); //Add to internal listeners list
+            Listeners.Add(azumiEventType, ListenList); //Add to internal listeners list
         }
         //-----------------------------------------------------------
         /// <summary>
@@ -136,7 +139,7 @@ namespace com.dogonahorse
             Instance.AddListener(azumiEventType, Listener);
         }
 
-        public void PostNotification(AzumiEventType AzumiEventType, Component Sender, object Param = null)
+        public void PostNotification(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
             //Notify all listeners of an event
 
@@ -144,14 +147,14 @@ namespace com.dogonahorse
             List<OnEvent> ListenList = null;
 
             //If no event entry exists, then exit because there are no listeners to notify
-            if (!Listeners.TryGetValue(AzumiEventType, out ListenList))
+            if (!Listeners.TryGetValue(azumiEventType, out ListenList))
                 return;
 
             //Entry exists. Now notify appropriate listeners
             for (int i = 0; i < ListenList.Count; i++)
             {
                 if (!ListenList[i].Equals(null)) //If object is not null, then send message via interfaces
-                    ListenList[i](AzumiEventType, Sender, Param);
+                    ListenList[i](azumiEventType, Sender, Param);
             }
         }
 
