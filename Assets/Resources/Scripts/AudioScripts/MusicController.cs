@@ -76,7 +76,7 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AudioEventType audioEventType, Component Sender, object Param = null)
         {
-            print("----------------------" + audioEventType + ", " + audioTriggers[audioEventType]);
+           
             switch (audioTriggers[audioEventType])
             {
                 case AudioActionType.HardStart:
@@ -129,7 +129,7 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void Play()
         {
-            print("audioSource.isPlaying----------------------" + audioSource.isPlaying);
+   
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
                 audioSource.Play();
