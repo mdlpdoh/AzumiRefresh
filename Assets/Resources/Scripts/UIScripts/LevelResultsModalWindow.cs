@@ -25,7 +25,7 @@ namespace com.dogonahorse
 
         private ScoreManager scoreManager;
 
-        private UIStarGiveout starGiveout;
+
 
         public Material failPandaMat;
 
