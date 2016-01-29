@@ -18,26 +18,30 @@ namespace com.dogonahorse
         public float droneVolumeIncreaseRatio = 100f;
 
         public float droneVolumeDecreaseRatio = 50f;
-
+        public float StartDelay = 0;
         private bool droneIsActive = false;
 
         public float panLevel = 1.0f;
-      //  private AudioMixer mixer;
+        //  private AudioMixer mixer;
 
         private AudioMixerGroup mixerGroup;
 
-       // public string mixerGroupVolumeParameter;
+        // public string mixerGroupVolumeParameter;
         //private AudioSource[] audioSources;
         private List<AudioSource> audioSources = new List<AudioSource>();
         private AudioSource audioSource;
         private List<int> randomList;
         private int randomIndex = 0;
+        private Transform soundLocation;
+
+
+
         void Awake()
         {
 
             audioSource = GetComponent<AudioSource>();
             mixerGroup = audioSource.outputAudioMixerGroup;
-           // mixer = (AudioMixer)Resources.Load("AzumiAudio");
+            // mixer = (AudioMixer)Resources.Load("AzumiAudio");
 
         }
 
@@ -51,14 +55,14 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(myEvent, DoAudioEvent);
         }
 
-        AudioSource getNewAudioSource(AudioClip newClip, Transform objectLocation )
+        AudioSource getNewAudioSource(AudioClip newClip, Transform objectLocation)
         {
 
             GameObject child = new GameObject("tempPlayer");
-            
-            
-           // child.transform.parent = gameObject.transform;
-          child.transform.position =  objectLocation.position;
+
+
+            // child.transform.parent = gameObject.transform;
+            child.transform.position = objectLocation.position;
             AudioSource newAudioSource = child.AddComponent<AudioSource>();
             newAudioSource.outputAudioMixerGroup = mixerGroup;
 
@@ -82,17 +86,21 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
+            print ("DoAudioEvent AzumiEventType " + azumiEventType);
             switch (myAction)
             {
                 case AudioActionType.HardStart:
-                    Play(Sender.gameObject.transform);
+                    soundLocation = Sender.gameObject.transform;
+                     Invoker.InvokeDelayed(Play, StartDelay);
+                    
                     break;
                 case AudioActionType.HardStop:
                     Stop();
                     break;
 
                 case AudioActionType.FadingDrone:
-                    Drone(Sender.gameObject.transform);
+                    soundLocation = Sender.gameObject.transform;
+                    Drone();
                     break;
 
                 default:
@@ -101,15 +109,17 @@ namespace com.dogonahorse
             }
         }
 
-        public void Drone(Transform objectLocation)
+        public void Drone()
         {
             droneIsActive = true;
             if (audioSources.Count < 1 || !audioSources[0].isPlaying)
             {
                 //no sound--start sound up
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[0], objectLocation);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0], soundLocation);
                 newAudioSource.volume = 0;
+                newAudioSource.loop = true;
                 newAudioSource.Play();
+
                 audioSources.Add(newAudioSource); ;
             }
             else if (audioSources.Count == 1 || audioSources[0].isPlaying)
@@ -118,7 +128,7 @@ namespace com.dogonahorse
                 audioSources[0].volume += (maxVolume - audioSources[0].volume) / droneVolumeIncreaseRatio;
             }
         }
-        public void Play(Transform objectLocation)
+        public void Play()
         {
             // audioSource.Stop();
             //clip needs to be randomized between a number of different clips
@@ -140,17 +150,13 @@ namespace com.dogonahorse
                     randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
                 }
 
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], objectLocation);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], soundLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
-
-                //audioSource.clip = R;
-                //    audioSources[randomIndex].Stop();
-                //audioSources[randomIndex].Play();
             }
             else
             {
-                AudioSource newAudioSource = getNewAudioSource(RandomClips[0],  objectLocation);
+                AudioSource newAudioSource = getNewAudioSource(RandomClips[0], soundLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
             }
@@ -172,7 +178,7 @@ namespace com.dogonahorse
                     }
                     i--;
                 }
-                if (audioSources.Count > 0  && myAction == AudioActionType.FadingDrone)
+                if (audioSources.Count > 0 && myAction == AudioActionType.FadingDrone)
                 {
                     if (droneIsActive)
                     {
@@ -180,15 +186,18 @@ namespace com.dogonahorse
                     }
                     else
                     {
+
                         float decreaseAmount = audioSources[0].volume / droneVolumeDecreaseRatio;
-                        if (audioSources[0].volume - decreaseAmount > 0)
+
+                        if (audioSources[0].volume - decreaseAmount > 0.001f)
                         {
                             audioSources[0].volume -= decreaseAmount;
                         }
                         else
                         {
-                            audioSources[0].volume = 0;
 
+                            audioSources[0].volume = 0;
+                            audioSources[0].Stop();
                         }
                     }
                 }
@@ -196,7 +205,7 @@ namespace com.dogonahorse
         }
         void OnDestroy()
         {
-            EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
+          // EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
         }
         public void Stop()
         {

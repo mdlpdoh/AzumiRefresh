@@ -24,6 +24,7 @@ namespace com.dogonahorse
         {
             if (col.gameObject.name == "Ball")
             {
+                                EventManager.PostEvent(AzumiEventType.inDirectionalMover, this);
                  //set starting value
                 currentAmount = transitionAmountPerFrame;
                 AdjustVelocity(col);
@@ -35,6 +36,7 @@ namespace com.dogonahorse
         {
             if (col.gameObject.name == "Ball")
             {
+                           //     EventManager.PostEvent(AzumiEventType.inDirectionalMover, this);
                 AdjustVelocity(col);
             }
         }

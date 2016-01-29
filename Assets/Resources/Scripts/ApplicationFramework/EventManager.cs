@@ -49,8 +49,12 @@ namespace com.dogonahorse
         SwipesLowFadeOut,
         StartTimer,
         LevelWon,
-        LevelLost
-        
+        LevelLost,
+
+
+
+        inAttractor,
+        inDirectionalMover
 
     }
     //-----------------------------------------------------------
@@ -175,16 +179,17 @@ namespace com.dogonahorse
             Instance.RemoveEvent(AzumiEventType.StartTimer);
             Instance.RemoveEvent(AzumiEventType.OutOfBounces);
             Instance.RemoveEvent(AzumiEventType.OutOfTime);
-           // Instance.RemoveEvent(AzumiEventType.LevelWon);
-          //  Instance.RemoveEvent(AzumiEventType.LevelLost);
+            // Instance.RemoveEvent(AzumiEventType.LevelWon);
+            //  Instance.RemoveEvent(AzumiEventType.LevelLost);
         }
 
         //---------------------------------------------------------
         //Remove event type entry from dictionary, including all listeners
-        public void RemoveEvent(AzumiEventType AzumiEventType)
+        public void RemoveEvent(AzumiEventType azumiEventType)
         {
+            
             //Remove entry from dictionary
-            Listeners.Remove(AzumiEventType);
+            Listeners.Remove(azumiEventType);
         }
 
         public void RemoveListener(AzumiEventType azumiEventType, OnEvent Listener)
@@ -197,7 +202,7 @@ namespace com.dogonahorse
                     if (Listeners[azumiEventType][i] == Listener)
                     {
                         //do nothing--this is the listener we want to eliminate
-                        print("Found one " + Listener);
+                        // print("Found one " + Listener);
                     }
                     else
                     {

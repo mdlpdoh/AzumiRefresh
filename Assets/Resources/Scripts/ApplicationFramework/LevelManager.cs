@@ -136,6 +136,8 @@ namespace com.dogonahorse
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
             int numberOfStars = myScoreManager.NumberOfStars;
+            
+          //  print (" lastChapterNumber "+ lastChapterNumber + " lastLevelNumber " + lastLevelNumber );
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             if (totalScore > currentLevelData.HighScore)
             {
@@ -261,7 +263,7 @@ namespace com.dogonahorse
         }
 
 
-        public static void InitializateLevelValues(ScoreManager newScoreManager)
+        public static void InitializeLevelValues(ScoreManager newScoreManager)
         {
 
             //if both numbers are zero it means level is being tested from within the editor
@@ -311,6 +313,10 @@ namespace com.dogonahorse
                     newScoreManager.ChapterSecondColor = GetChapterThirdColor(chapterNumber);
                     newScoreManager.ChapterNumber = chapterNumber;
                     newScoreManager.LevelNumber = levelNumber;
+                    
+                    lastChapterNumber = chapterNumber; 
+                    
+                    lastLevelNumber= levelNumber;
                 }
             }
 

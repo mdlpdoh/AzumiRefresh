@@ -152,7 +152,7 @@ namespace com.dogonahorse
 
         void Title_Enter()
         {
-
+   EventManager.PostEvent(AzumiEventType.EnterTitle, this, null);
             Instance.sceneManager.InitScene();
             Debug.Log("Game Manager: Title Screen");
         }

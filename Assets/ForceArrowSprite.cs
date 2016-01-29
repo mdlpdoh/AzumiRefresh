@@ -8,7 +8,8 @@ namespace com.dogonahorse
 
         public float fadeInTime = 0.3f;
         public AnimationCurve fadeInCurve;
-        public float fadeOutTime = 0.1f;
+        public float BasefadeOutTime = 0.1f;
+        private float adjustedfadeOutTime = 1;
         public AnimationCurve fadeOutCurve;
 
         public float MaxOpacity = 1.0f;
@@ -31,6 +32,10 @@ namespace com.dogonahorse
         {
             StopAllCoroutines();
             StartCoroutine("FadeIn");
+        }
+        public void AdjustFadeoutSpeed(float fadeOutSpeedAdjustment)
+        {
+           adjustedfadeOutTime   = BasefadeOutTime * (1-fadeOutSpeedAdjustment/2);
         }
 
         public void StopAllActivity()
@@ -74,9 +79,9 @@ namespace com.dogonahorse
         {
             float currentTime = 0f;
             Color color;
-            while (currentTime < fadeOutTime)
+            while (currentTime < adjustedfadeOutTime)
             {
-                float normalizedTime = currentTime / fadeOutTime;
+                float normalizedTime = currentTime / adjustedfadeOutTime;
                 float curveProgress = fadeOutCurve.Evaluate(normalizedTime);
                 color = mySprite.color;
                 color.a = MaxOpacity - curveProgress * MaxOpacity;

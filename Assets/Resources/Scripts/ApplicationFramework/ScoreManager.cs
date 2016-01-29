@@ -137,7 +137,7 @@ namespace com.dogonahorse
 
         void Start()
         {
-            LevelManager.InitializateLevelValues(this);
+            LevelManager.InitializeLevelValues(this);
             sceneManager = GameObject.Find("SceneScripts").GetComponent<SceneManager>();
             EventManager.ListenForEvent(AzumiEventType.HitWall, OnHitWallEvent);
             EventManager.ListenForEvent(AzumiEventType.GameSwipe, OnPlayerActionEvent);

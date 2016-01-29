@@ -26,7 +26,7 @@ namespace com.dogonahorse
         private float lastFlickerTime = 0;
         private int lastFlickerSpriteNum = 0;
 
-
+        public AnimationCurve SpeedCurve;
         private bool flickering;
 
         // Use this for initialization
@@ -142,7 +142,11 @@ namespace com.dogonahorse
             }
             else
             {
-                forceNormal = currentMagnitude / MaxPullDistance;
+                forceNormal = SpeedCurve.Evaluate(currentMagnitude / MaxPullDistance);
+            }
+            for (int i = 0; i < ArrowLights.Length; i++)
+            {
+                ArrowLights[i].AdjustFadeoutSpeed(forceNormal);
             }
             currentFlickerInterval = MaxFlickerInterval - ((MaxFlickerInterval - MinFlickerInterval) * forceNormal);
 

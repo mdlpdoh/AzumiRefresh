@@ -180,7 +180,6 @@ namespace com.dogonahorse
 
         void OnEnterTitle(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-            // print("***********************************OnEnterTitle");
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.MainThemeHardStart, this);

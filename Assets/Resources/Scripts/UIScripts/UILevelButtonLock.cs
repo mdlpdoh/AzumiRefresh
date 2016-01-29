@@ -29,6 +29,8 @@ namespace com.dogonahorse
         public AnimationCurve mainFadeCurve;
         public int numberOfParticles = 50;
 
+
+        private bool openAnimationInProgress = false;
         void Awake()
         {
             Transform[] childTransforms = GetComponentsInChildren<Transform>();
@@ -55,30 +57,39 @@ namespace com.dogonahorse
             maxAlpha = mainlockImage.color.a;
         }
 
-        void Start()
-        {
-            EventManager.ListenForEvent(AzumiEventType.OpenModal, OnOpenModal);
-        }
+
         public void OnOpenModal(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
+            openAnimationInProgress = false;
+            EventManager.Instance.RemoveListener(AzumiEventType.OpenModal, OnOpenModal);
             lockParticles.Clear();
         }
-        void onDestroy(){
-            EventManager.Instance.RemoveListener(AzumiEventType.OpenModal, OnOpenModal);
-        }
+
         public void PrepareToBreakOpen()
         {
+            openAnimationInProgress = true;
+            EventManager.ListenForEvent(AzumiEventType.OpenModal, OnOpenModal);
             Invoke("breakOpen", BreakDelay);
         }
         public void PrepareToBreakOpenAfterShift()
         {
+            openAnimationInProgress = true;
+            EventManager.ListenForEvent(AzumiEventType.OpenModal, OnOpenModal);
             Invoke("breakOpen", BreakDelay * 2);
         }
 
         public void breakOpen()
         {
-            lockParticles.Emit(numberOfParticles);
-            StartCoroutine("Shake");
+
+            if (openAnimationInProgress)
+            {
+                lockParticles.Emit(numberOfParticles);
+                StartCoroutine("Shake");
+            }
+            else
+            {
+                parentButton.Unlock();
+            }
         }
 
         private IEnumerator Shake()
@@ -113,6 +124,8 @@ namespace com.dogonahorse
             rectTransform.anchoredPosition = new Vector2(0, rectTransform.anchoredPosition.y);
             leftLockImage.enabled = false;
             rightLockImage.enabled = false;
+            EventManager.Instance.RemoveListener(AzumiEventType.OpenModal, OnOpenModal);
+            openAnimationInProgress = false;
             parentButton.Unlock();
         }
 
