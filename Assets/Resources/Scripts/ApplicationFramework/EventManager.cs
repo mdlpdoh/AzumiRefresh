@@ -50,11 +50,9 @@ namespace com.dogonahorse
         StartTimer,
         LevelWon,
         LevelLost,
-
-
-
         inAttractor,
-        inDirectionalMover
+        inDirectionalMover,
+        UITap
 
     }
     //-----------------------------------------------------------
@@ -187,7 +185,7 @@ namespace com.dogonahorse
         //Remove event type entry from dictionary, including all listeners
         public void RemoveEvent(AzumiEventType azumiEventType)
         {
-            
+
             //Remove entry from dictionary
             Listeners.Remove(azumiEventType);
         }

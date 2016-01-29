@@ -19,6 +19,7 @@ GameObject:
   - 114: {fileID: 11418424}
   - 114: {fileID: 11467246}
   - 114: {fileID: 11479796}
+  - 114: {fileID: 11403714}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -245,7 +246,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92, y: 4.12, z: 0}
+  m_LocalPosition: {x: 0.01, y: 3.99, z: 0}
   m_LocalScale: {x: 0.31364247, y: 0.31364247, z: 0.31364247}
   m_Children:
   - {fileID: 472782}
@@ -348,7 +349,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24331924, guid: c91ab27dd98b94ddeaeeae13575bb34a,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7ec7593ddc6fb4283a42d488b79f0412, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -413,6 +414,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &11403714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9509b077e7ab349f89a18d60373ca9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAction: 5
+  myEvent: 35
+  isRandom: 0
+  dontRepeat: 0
+  RandomClips:
+  - {fileID: 8300000, guid: 7ec7593ddc6fb4283a42d488b79f0412, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
+  StartDelay: 0
+  panLevel: 1
 --- !u!114 &11405594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -542,6 +565,7 @@ MonoBehaviour:
   maxVolume: 1
   droneVolumeIncreaseRatio: 100
   droneVolumeDecreaseRatio: 50
+  StartDelay: 0
   panLevel: 1
 --- !u!114 &11420680
 MonoBehaviour:
@@ -828,11 +852,11 @@ MonoBehaviour:
   isRandom: 1
   dontRepeat: 1
   RandomClips:
-  - {fileID: 8300000, guid: 8a43a1060699e40d582114acc6922f82, type: 3}
-  - {fileID: 8300000, guid: 30ce8279c10344560bbbd7111333aed2, type: 3}
+  - {fileID: 8300000, guid: ced0ef120173d4e74ac97dd1e04867ed, type: 3}
   maxVolume: 1
   droneVolumeIncreaseRatio: 100
   droneVolumeDecreaseRatio: 50
+  StartDelay: 0
   panLevel: 1
 --- !u!114 &11467246
 MonoBehaviour:
@@ -854,6 +878,7 @@ MonoBehaviour:
   maxVolume: 1
   droneVolumeIncreaseRatio: 100
   droneVolumeDecreaseRatio: 50
+  StartDelay: 0
   panLevel: 1
 --- !u!114 &11470046
 MonoBehaviour:
@@ -893,6 +918,7 @@ MonoBehaviour:
   maxVolume: 1
   droneVolumeIncreaseRatio: 100
   droneVolumeDecreaseRatio: 50
+  StartDelay: 0
   panLevel: 1
 --- !u!114 &11479796
 MonoBehaviour:
@@ -914,6 +940,7 @@ MonoBehaviour:
   maxVolume: 1
   droneVolumeIncreaseRatio: 1
   droneVolumeDecreaseRatio: 50
+  StartDelay: 0
   panLevel: 1
 --- !u!114 &11486284
 MonoBehaviour:
