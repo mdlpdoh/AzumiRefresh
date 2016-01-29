@@ -70,7 +70,12 @@ namespace com.dogonahorse
 
 		// Update is called once per frame
 		public virtual void DoButtonAction ()
-		{	if (buttonType== ButtonType.MainWindowButton) {
+		{	
+            print ("-------------------------------TApping" );
+            EventManager.PostEvent(AzumiEventType.UITap, this);
+            
+    
+            if (buttonType== ButtonType.MainWindowButton) {
 				InputManager.Instance.MainButtonClicked(buttonID, buttonAction);
 			} else if  (buttonType== ButtonType.ModalWindowButton) {
 				InputManager.Instance.ModalButtonClicked(buttonID, buttonAction);

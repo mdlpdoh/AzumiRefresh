@@ -205,7 +205,7 @@ namespace com.dogonahorse
         }
         void OnDestroy()
         {
-          // EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
+          EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
         }
         public void Stop()
         {
