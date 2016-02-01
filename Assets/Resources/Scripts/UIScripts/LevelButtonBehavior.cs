@@ -129,6 +129,7 @@ namespace com.dogonahorse
         // Update is called once per frame
         override public void DoButtonAction()
         {
+            EventManager.PostEvent(AzumiEventType.UITap, this);
             if (buttonType == ButtonType.LevelButton)
             {
                 InputManager.Instance.LevelButtonClicked(levelNumber, chapterNumber);

@@ -49,6 +49,14 @@ namespace com.dogonahorse
         }
         public void ShowStar()
         {
+            if (StarIsWinner)
+            {
+                EventManager.PostEvent(AzumiEventType.WinStar, this, gameObject.name);
+            }
+            else
+            {
+                EventManager.PostEvent(AzumiEventType.FailStar, this, gameObject.name);
+            }
             StartCoroutine("ShowStarAnimation");
         }
 

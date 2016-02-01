@@ -22,6 +22,10 @@ namespace com.dogonahorse
         private bool droneIsActive = false;
 
         public float panLevel = 1.0f;
+
+        public string SoundID = "";
+
+        public bool useControllerLocation = false;
         //  private AudioMixer mixer;
 
         private AudioMixerGroup mixerGroup;
@@ -60,12 +64,15 @@ namespace com.dogonahorse
 
             GameObject child = new GameObject("tempPlayer");
 
-
+            if (!useControllerLocation)
+            {
+                child.transform.position = objectLocation.position;
+            }
             // child.transform.parent = gameObject.transform;
-            child.transform.position = objectLocation.position;
+
             AudioSource newAudioSource = child.AddComponent<AudioSource>();
             newAudioSource.outputAudioMixerGroup = mixerGroup;
-
+            newAudioSource.volume = maxVolume;
             newAudioSource.spatialBlend = panLevel;
             newAudioSource.clip = newClip;
 
@@ -86,29 +93,32 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-            print ("DoAudioEvent AzumiEventType " + azumiEventType);
-            switch (myAction)
+
+            if (SoundID == "" || Param.ToString() == SoundID)
             {
-                case AudioActionType.HardStart:
-                    soundLocation = Sender.gameObject.transform;
-                     Invoker.InvokeDelayed(Play, StartDelay);
-                    
-                    break;
-                case AudioActionType.HardStop:
-                    Stop();
-                    break;
+                print("DoAudioEvent AzumiEventType " + azumiEventType + " " + SoundID);
+                switch (myAction)
+                {
+                    case AudioActionType.HardStart:
+                        soundLocation = Sender.gameObject.transform;
+                        Invoker.InvokeDelayed(Play, StartDelay);
 
-                case AudioActionType.FadingDrone:
-                    soundLocation = Sender.gameObject.transform;
-                    Drone();
-                    break;
+                        break;
+                    case AudioActionType.HardStop:
+                        Stop();
+                        break;
 
-                default:
-                    print("Audio Trigger not recognized");
-                    break;
+                    case AudioActionType.FadingDrone:
+                        soundLocation = Sender.gameObject.transform;
+                        Drone();
+                        break;
+
+                    default:
+                        print("Audio Trigger not recognized");
+                        break;
+                }
             }
         }
-
         public void Drone()
         {
             droneIsActive = true;
@@ -171,7 +181,7 @@ namespace com.dogonahorse
                 int i = audioSources.Count - 1;
                 while (i >= 0)
                 {
-                    if (!audioSources[i].isPlaying)
+                        if (!audioSources[i].isPlaying)
                     {
                         GameObject.Destroy(audioSources[i].gameObject);
                         audioSources.RemoveAt(i);
@@ -205,7 +215,7 @@ namespace com.dogonahorse
         }
         void OnDestroy()
         {
-          EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
+            EventManager.Instance.RemoveListener(myEvent, DoAudioEvent);
         }
         public void Stop()
         {
