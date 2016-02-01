@@ -34,8 +34,8 @@ namespace com.dogonahorse
         public AnimationCurve fadeInCurve;
         public float fadeOutTime;
         public AnimationCurve fadeOutCurve;
-        
-        
+
+
         void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -78,11 +78,15 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AudioEventType audioEventType, Component Sender, object Param = null)
         {
-           
+
             switch (audioTriggers[audioEventType])
             {
                 case AudioActionType.HardStart:
-
+                    Stop();
+                    StopAllCoroutines();
+                    float musicVol = Mathf.Lerp(-80f, 0f, 1);
+                    mixer.SetFloat(mixerGroupVolumeParameter, musicVol);
+                    loopIsRunning = false;
                     Invoker.InvokeDelayed(Play, IntroDelay);
                     break;
                 case AudioActionType.HardStop:
@@ -114,8 +118,9 @@ namespace com.dogonahorse
 
                 audioSources[clipIndex].clip = loopClips[clipIndex];
                 audioSources[clipIndex].PlayScheduled(nextEventTime);
-             //   Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
+
                 nextEventTime += 60.0F / bpm * numBeatsPerSegment;
+
                 if (clipIndex < audioSources.Length - 1)
                 {
                     clipIndex++;
@@ -131,13 +136,14 @@ namespace com.dogonahorse
         // Update is called once per frame
         public void Play()
         {
-   
+
             if (audioSource.clip != null && !audioSource.isPlaying)
             {
                 audioSource.Play();
             }
             else if (loopClips.Length > 0 & !loopIsRunning)
             {
+                print("preparing to start loops");
                 nextEventTime = AudioSettings.dspTime + 2.0F;
                 loopIsRunning = true;
 
