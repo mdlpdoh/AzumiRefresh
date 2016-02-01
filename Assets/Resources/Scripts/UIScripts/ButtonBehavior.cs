@@ -71,7 +71,6 @@ namespace com.dogonahorse
 		// Update is called once per frame
 		public virtual void DoButtonAction ()
 		{	
-            print ("-------------------------------TApping" );
             EventManager.PostEvent(AzumiEventType.UITap, this);
             
     

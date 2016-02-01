@@ -54,9 +54,11 @@ namespace com.dogonahorse
         inDirectionalMover,
         UITap,
         StartEndGameSequence,
-        
-        FinishEndGameSequence
-
+        FinishEndGameSequence,
+        WinStar,
+        FailStar,
+        DoorOpen,
+        unLockLevel
     }
     //-----------------------------------------------------------
     //Singleton EventManager to send events to listeners
