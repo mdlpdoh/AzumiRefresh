@@ -83,7 +83,7 @@ namespace com.dogonahorse
 
             if (openAnimationInProgress)
             {
-                print ("about to emit particles");
+            
                 lockParticles.Emit(numberOfParticles);
                 StartCoroutine("Shake");
                 EventManager.PostEvent(AzumiEventType.unLockLevel, this);
