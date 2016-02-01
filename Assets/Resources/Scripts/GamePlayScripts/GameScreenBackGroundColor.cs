@@ -11,7 +11,6 @@ namespace com.dogonahorse
         void Start()
         {
             scoreManager=GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-            print (" scoreManager.ChapterMainColor; " +  scoreManager.ChapterMainColor);
             GetComponent<SpriteRenderer>().material.color = scoreManager.ChapterMainColor;
         }
 

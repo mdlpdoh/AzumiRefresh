@@ -96,7 +96,7 @@ namespace com.dogonahorse
 
             if (SoundID == "" || Param.ToString() == SoundID)
             {
-                print("DoAudioEvent AzumiEventType " + azumiEventType + " " + SoundID);
+
                 switch (myAction)
                 {
                     case AudioActionType.HardStart:

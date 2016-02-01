@@ -26,12 +26,8 @@ namespace com.dogonahorse
         public string SoundID = "";
 
         public bool useControllerLocation = false;
-        //  private AudioMixer mixer;
 
-        private AudioMixerGroup mixerGroup;
 
-        // public string mixerGroupVolumeParameter;
-        //private AudioSource[] audioSources;
         private List<AudioSource> audioSources = new List<AudioSource>();
         private AudioSource audioSource;
         private List<int> randomList;
@@ -51,7 +47,7 @@ namespace com.dogonahorse
         {
 
             audioSource = GetComponent<AudioSource>();
-            mixerGroup = audioSource.outputAudioMixerGroup;
+            //            mixerGroup = audioSource.outputAudioMixerGroup;
             if (instance)
             {
                 DestroyImmediate(gameObject);
@@ -72,26 +68,7 @@ namespace com.dogonahorse
             // setUpAudioSources();
             EventManager.ListenForEvent(myEvent, DoAudioEvent);
         }
-/*
-        AudioSource getNewAudioSource(AudioClip newClip, Transform objectLocation)
-        {
 
-            GameObject child = new GameObject("tempPlayer");
-
-            if (!useControllerLocation)
-            {
-                child.transform.position = objectLocation.position;
-            }
-            // child.transform.parent = gameObject.transform;
-
-            AudioSource newAudioSource = child.AddComponent<AudioSource>();
-            newAudioSource.outputAudioMixerGroup = mixerGroup;
-            newAudioSource.volume = maxVolume;
-            newAudioSource.spatialBlend = panLevel;
-            newAudioSource.clip = newClip;
-
-            return newAudioSource;
-        }*/
         void refreshRandomList()
         {
             randomList = new List<int>();
@@ -138,11 +115,11 @@ namespace com.dogonahorse
             droneIsActive = true;
             if (audioSources.Count < 1 || !audioSources[0].isPlaying)
             {
-                //no sound--start sound up
-                
 
-                          AudioSource newAudioSource = audioSource;
-               // AudioSource newAudioSource = getNewAudioSource(RandomClips[0], soundLocation);
+
+
+                AudioSource newAudioSource = audioSource;
+
                 newAudioSource.volume = 0;
                 newAudioSource.loop = true;
                 newAudioSource.Play();
@@ -157,7 +134,7 @@ namespace com.dogonahorse
         }
         public void Play()
         {
-            // audioSource.Stop();
+
             //clip needs to be randomized between a number of different clips
             if (isRandom && RandomClips.Length > 0)
             {
@@ -177,16 +154,16 @@ namespace com.dogonahorse
                     randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
                 }
                 //horrible kludge to make audio persist between scenes 
-                 AudioSource newAudioSource = audioSource;
-//                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], soundLocation);
+                AudioSource newAudioSource = audioSource;
+                //                AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], soundLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
             }
             else
             {
-                
-                       AudioSource newAudioSource = audioSource;
-                 //AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], soundLocation);
+
+                AudioSource newAudioSource = audioSource;
+                //AudioSource newAudioSource = getNewAudioSource(RandomClips[randomIndex], soundLocation);
                 newAudioSource.Play();
                 audioSources.Add(newAudioSource); ;
             }

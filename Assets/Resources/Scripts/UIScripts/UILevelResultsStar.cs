@@ -32,7 +32,7 @@ namespace com.dogonahorse
 
         public void ShowWinStar()
         {
-            print("ShowWinStar " + transform.name);
+
             StarIsWinner = true;
             winStar.enabled = true;
             transform.localScale = new Vector3(startScale, startScale, startScale);
@@ -41,7 +41,7 @@ namespace com.dogonahorse
 
         public void ShowFailStar()
         {
-            print("ShowFailStar " + transform.name);
+     
             StarIsWinner = false;
             failStar.enabled = true;
             transform.localScale = new Vector3(startScale, startScale, startScale);

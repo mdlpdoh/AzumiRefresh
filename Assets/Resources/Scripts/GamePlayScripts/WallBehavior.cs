@@ -17,10 +17,14 @@ namespace com.dogonahorse
         private int remainingActivations;
         private bool wallIsActive = true;
         // Update is called once per frame
-
+    
         void Start()
         {
             remainingActivations = MaxNumberOfActivations;
+            
+            if (WallScoreValue == 0){
+            wallIsActive = false;
+            }
         }
 
         public int GetWallScoreValue()
@@ -32,25 +36,28 @@ namespace com.dogonahorse
             }
             else if (wallIsActive && remainingActivations == 1)
             {
-                KillWallBehavior();
+               
                 wallIsActive = false;
                 remainingActivations--;
+                 KillWallBehavior();
                 return WallScoreValue;
             }
             else
             {
                 return 0;
-             }
+            }
         }
-        
-         void KillWallBehavior(){
-             EventManager.PostEvent(AzumiEventType.HealWallExpired, this,null);
-       
-             
-             
-         }
-         
-         
-         
+
+        void KillWallBehavior()
+        {
+
+            EventManager.PostEvent(AzumiEventType.HealWallExpired, this, null);
+
+
+
+        }
+
+
+
     }
 }

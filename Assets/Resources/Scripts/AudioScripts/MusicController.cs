@@ -34,6 +34,8 @@ namespace com.dogonahorse
         public AnimationCurve fadeInCurve;
         public float fadeOutTime;
         public AnimationCurve fadeOutCurve;
+        
+        
         void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -112,7 +114,7 @@ namespace com.dogonahorse
 
                 audioSources[clipIndex].clip = loopClips[clipIndex];
                 audioSources[clipIndex].PlayScheduled(nextEventTime);
-                Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
+             //   Debug.Log("Scheduled source " + clipIndex + " to start at time " + nextEventTime);
                 nextEventTime += 60.0F / bpm * numBeatsPerSegment;
                 if (clipIndex < audioSources.Length - 1)
                 {
