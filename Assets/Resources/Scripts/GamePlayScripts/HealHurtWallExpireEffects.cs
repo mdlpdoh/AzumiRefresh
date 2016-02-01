@@ -23,6 +23,9 @@ namespace com.dogonahorse
 
         private ParticleSystem fadeParticles;
         // Use this for initialization
+        private bool notExpiredAlready = true;
+
+        private ParticleSystem.EmissionModule emission;
 
         void Start()
         {
@@ -31,13 +34,19 @@ namespace com.dogonahorse
             myWall = GetComponent<WallBehavior>();
             heartSprites = heartSpriteContainer.GetComponentsInChildren<SpriteRenderer>();
             fadeParticles = GetComponent<ParticleSystem>();
+            emission = fadeParticles.emission;
+            emission.enabled = false;
+
         }
 
         // Update is called once per frame
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            if (Sender == myWall)
+            if (Sender == myWall && notExpiredAlready)
             {
+                notExpiredAlready = false;
+                fadeParticles.Play();
+                emission.enabled = true;
                 StartCoroutine("FadeOut");
             }
         }
@@ -60,7 +69,9 @@ namespace com.dogonahorse
             }
             FadeMainQuad(0);
             FadeHearts(0);
-            EmitParticles(0);
+
+            fadeParticles.Stop();
+            emission.enabled = false;
         }
 
         void FadeMainQuad(float fadeLevel)
@@ -86,8 +97,8 @@ namespace com.dogonahorse
 
         void EmitParticles(float particleLevel)
         {
-            var em = fadeParticles.emission;
-            em.rate = new ParticleSystem.MinMaxCurve(particleLevel * MaxParticles);
+            // var em = fadeParticles.emission;
+            emission.rate = new ParticleSystem.MinMaxCurve(particleLevel * MaxParticles);
 
         }
 

@@ -249,6 +249,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 785877ed945b84e70a19830bc2687146, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &40643998 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 109698, guid: 785877ed945b84e70a19830bc2687146, type: 2}
+  m_PrefabInternal: {fileID: 40643997}
+--- !u!114 &40643999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 40643998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9509b077e7ab349f89a18d60373ca9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAction: 1
+  myEvent: 28
+  isRandom: 0
+  dontRepeat: 0
+  RandomClips:
+  - {fileID: 8300000, guid: bc0e6a1bae61e4838b28d44d31750bf5, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
+  StartDelay: 0
+  panLevel: 1
+  SoundID: 
+  useControllerLocation: 0
 --- !u!4 &69760131 stripped
 Transform:
   m_PrefabParentObject: {fileID: 466740, guid: 549406f8b88294c04bdde29d408fe451, type: 2}
@@ -298,7 +326,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433384, guid: 07e4869e5296841a3af73423b843076f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.16326547
+      value: -0.16326499
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07e4869e5296841a3af73423b843076f, type: 2}
@@ -427,7 +455,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -762,7 +790,7 @@ ParticleSystem:
     m_UseMeshColors: 0
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:
@@ -3312,7 +3340,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -3647,7 +3675,7 @@ ParticleSystem:
     m_UseMeshColors: 0
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:
@@ -5077,7 +5105,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -5412,7 +5440,7 @@ ParticleSystem:
     m_UseMeshColors: 0
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:
@@ -7836,19 +7864,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22487200, guid: e550279721fb6415d9825b529c3ce65d, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22482762, guid: e550279721fb6415d9825b529c3ce65d, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22440872, guid: e550279721fb6415d9825b529c3ce65d, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22486734, guid: e550279721fb6415d9825b529c3ce65d, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e550279721fb6415d9825b529c3ce65d, type: 2}
@@ -10041,7 +10069,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -10376,7 +10404,7 @@ ParticleSystem:
     m_UseMeshColors: 1
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:
@@ -12081,8 +12109,7 @@ Transform:
 --- !u!114 &2053534376
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11491360, guid: 4296d27df57a64163ace286ccbf2d68b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2053534374}
   m_Enabled: 1
@@ -12090,8 +12117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc17e63b95f5f48a4889682eedf478d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallScoreValue: 0
-  MaxNumberOfActivations: 5
+  WallScoreValue: -1
+  MaxNumberOfActivations: 3
 --- !u!61 &2053534377
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12336,7 +12363,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -12671,7 +12698,7 @@ ParticleSystem:
     m_UseMeshColors: 1
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:

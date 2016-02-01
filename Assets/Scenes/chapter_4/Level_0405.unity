@@ -378,6 +378,14 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.32
       objectReference: {fileID: 0}
+    - target: {fileID: 19895024, guid: 4296d27df57a64163ace286ccbf2d68b, type: 2}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19895024, guid: 4296d27df57a64163ace286ccbf2d68b, type: 2}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4296d27df57a64163ace286ccbf2d68b, type: 2}
   m_IsPrefabParent: 0
@@ -4794,7 +4802,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 2
   InitialModule:
@@ -5129,7 +5137,7 @@ ParticleSystem:
     m_UseMeshColors: 1
     randomDirection: 0
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     m_Type: 0
     rate:
