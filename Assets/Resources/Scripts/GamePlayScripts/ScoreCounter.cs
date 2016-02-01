@@ -82,21 +82,11 @@ namespace com.dogonahorse
         }
 
 //***** Is this needed? ****
-//		public int numberOfBounces
-//		{
-//			// return reference to private instance 
-//			get
-//			{
-//				return swipesRemaining;
-//			}
-//		}
 
 
 		void StartFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
-            
-            
-           // print ("-----------------StartFlashing " + alreadyFlashing);
+
 			if (alreadyFlashing == false) 
 			{
 				EventManager.PostEvent (AzumiEventType.SwipesLowFadeIn, this);
