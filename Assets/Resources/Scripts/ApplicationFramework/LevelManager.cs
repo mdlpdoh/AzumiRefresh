@@ -108,13 +108,13 @@ namespace com.dogonahorse
             string playerData;
             if (File.Exists(datapath + "/playerdata.json"))
             {
-                print("retrieving existing player data");
+                // print("retrieving existing player data");
                 playerData = System.IO.File.ReadAllText(datapath + "/playerdata.json");
                 SetUpPlayerData(playerData);
             }
             else
             {
-                print("setting up new player data");
+                // print("setting up new player data");
                 SetUpNewPlayerData();
             }
         }

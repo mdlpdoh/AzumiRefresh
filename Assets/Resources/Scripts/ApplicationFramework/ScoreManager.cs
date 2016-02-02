@@ -204,7 +204,7 @@ namespace com.dogonahorse
 
                 catch
                 {
-                    Debug.Log("Horrible things happened! No WallBehavior script was found!");
+                    // Debug.Log("Horrible things happened! No WallBehavior script was found!");
                 }
             }
         }

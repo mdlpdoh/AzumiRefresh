@@ -35,14 +35,15 @@ public class MoveXandY: MonoBehaviour {
 			//send the block to that position.
 			transform.position = new Vector2 (transform.position.x, objPos.y);
 
-			print (otherBlock.transform.position);
+			// print (otherBlock.transform.position);
 
-		if (this.GetComponent<Renderer> ().bounds.Intersects (otherBlock.GetComponent<Renderer> ().bounds) ) {
-			    //or statement also works:  | this.GetComponent<Renderer> ().bounds.Intersects (wallBlock.GetComponent<Renderer> ().bounds)
-				print ("I INTERSECTED *********");
-				//move block to previous position
-				transform.position = new Vector2 (newPos.x, newPos.y);
-			}
+            if (this.GetComponent<Renderer> ().bounds.Intersects (otherBlock.GetComponent<Renderer> ().bounds) ) 
+            {
+                //or statement also works:  | this.GetComponent<Renderer> ().bounds.Intersects (wallBlock.GetComponent<Renderer> ().bounds)
+                // print ("I INTERSECTED *********");
+                //move block to previous position
+                transform.position = new Vector2 (newPos.x, newPos.y);
+            }
 
 		}	
 		// Update is called once per frame
