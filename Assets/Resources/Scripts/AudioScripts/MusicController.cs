@@ -49,7 +49,7 @@ namespace com.dogonahorse
             }
             else
             {
-                print("audioEvents and audioActions do not match");
+                // print("audioEvents and audioActions do not match");
             }
         }
 
@@ -108,7 +108,7 @@ namespace com.dogonahorse
                     Invoke("StartFadeOut", 0);
                     break;
                 default:
-                    print("Audio Trigger ot recognized");
+                    // print("Audio Trigger ot recognized");
                     break;
             }
 

@@ -35,7 +35,7 @@ namespace com.dogonahorse
         }
         public void AdjustFadeoutSpeed(float fadeOutSpeedAdjustment)
         {
-           adjustedfadeOutTime   = BasefadeOutTime * (1-fadeOutSpeedAdjustment/2);
+           adjustedfadeOutTime = BasefadeOutTime * (1-fadeOutSpeedAdjustment/2);
         }
 
         public void StopAllActivity()

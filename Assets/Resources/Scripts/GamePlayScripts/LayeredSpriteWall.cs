@@ -93,9 +93,9 @@ namespace com.dogonahorse
 		
 			Vector3 startPosition = handle01.transform.position - startOffset * vectorDirection;
 			
-            for (int i = 0; i < numberOfSprites; i++) {
-				spritesInWall[i].position = startPosition - vectorDirection * gapLength * i;
-				
+            for (int i = 0; i < numberOfSprites; i++) 
+            {
+                spritesInWall[i].position = startPosition - vectorDirection * gapLength * i;			
 			}
 
         }
@@ -135,7 +135,6 @@ namespace com.dogonahorse
                     GameObject extraSprite = spritesInWall[spritesInWall.Count - 1].gameObject;
                     spritesInWall.RemoveAt(spritesInWall.Count - 1);
                     GameObject.DestroyImmediate(extraSprite);
-
                 }
             }
 

@@ -114,7 +114,7 @@ namespace com.dogonahorse
                         break;
 
                     default:
-                        print("Audio Trigger not recognized");
+                        // print("Audio Trigger not recognized");
                         break;
                 }
             }

@@ -47,13 +47,13 @@ namespace com.dogonahorse
         public Vector3 tabDotsYOffset;
         
         public Vector4 normalColor;
-         public Vector4 highlightColor;
+        public Vector4 highlightColor;
      
         
         
         
         
-  		 void Start()
+  		void Start()
 		{
               normalColor = wallSegment.gameObject.GetComponent<MeshRenderer>().material.color;
          
