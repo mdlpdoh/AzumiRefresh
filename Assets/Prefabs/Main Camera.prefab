@@ -17,6 +17,7 @@ GameObject:
   - 114: {fileID: 11438226}
   - 114: {fileID: 11427972}
   - 114: {fileID: 11469152}
+  - 114: {fileID: 11494646}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -62,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -0.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 461232}
@@ -332,6 +333,30 @@ MonoBehaviour:
   dontRepeat: 0
   RandomClips:
   - {fileID: 8300000, guid: 1319dccd75cfe47e89643e3b6caf8ab4, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
+  StartDelay: 0.2
+  panLevel: 1
+  SoundID: 
+  useControllerLocation: 1
+--- !u!114 &11494646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9509b077e7ab349f89a18d60373ca9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAction: 1
+  myEvent: 43
+  isRandom: 0
+  dontRepeat: 0
+  RandomClips:
+  - {fileID: 8300000, guid: badaed6d728054c96b2f3d8ff365cfc1, type: 3}
   maxVolume: 1
   droneVolumeIncreaseRatio: 100
   droneVolumeDecreaseRatio: 50

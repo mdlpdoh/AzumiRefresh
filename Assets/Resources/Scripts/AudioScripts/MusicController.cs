@@ -34,7 +34,7 @@ namespace com.dogonahorse
         public AnimationCurve fadeInCurve;
         public float fadeOutTime;
         public AnimationCurve fadeOutCurve;
-
+        private bool fadingOut = false;
 
         void Awake()
         {
@@ -78,12 +78,17 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AudioEventType audioEventType, Component Sender, object Param = null)
         {
-
+            //print (">>>>>>>>>>>>>>>>>>>>>>>DoAudioEvent " + audioEventType);
             switch (audioTriggers[audioEventType])
             {
                 case AudioActionType.HardStart:
-                    Stop();
-                    StopAllCoroutines();
+                    //  print ("=================Trying to play " + gameObject.name);
+                    if (fadingOut)
+                    {
+                        Stop();
+                        StopAllCoroutines();
+                        fadingOut = false;
+                    }
                     float musicVol = Mathf.Lerp(-80f, 0f, 1);
                     mixer.SetFloat(mixerGroupVolumeParameter, musicVol);
                     loopIsRunning = false;
@@ -93,11 +98,12 @@ namespace com.dogonahorse
                     Invoke("Stop", 0);
                     break;
                 case AudioActionType.FadeIn:
+
                     Invoker.InvokeDelayed(StartFadeIn, IntroDelay);
                     // Invoke("StartFadeIn", IntroDelay);
                     break;
                 case AudioActionType.FadeOut:
-
+                    fadingOut = true;
                     Invoke("StartFadeOut", 0);
                     break;
                 default:
@@ -218,7 +224,7 @@ namespace com.dogonahorse
                 yield return null;
             }
             mixer.SetFloat(mixerGroupVolumeParameter, 0f);
-
+            fadingOut = false;
             Stop();
         }
     }

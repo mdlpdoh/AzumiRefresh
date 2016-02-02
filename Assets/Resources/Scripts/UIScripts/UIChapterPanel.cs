@@ -240,9 +240,7 @@ namespace com.dogonahorse
             UIChapterPanel.drag = true;
             momentum = Mathf.Clamp((momentum + (pointCurrentY - lastDragY)) / 2,-maxMomentum, maxMomentum);
             startmomentum = momentum;
-            print ("startmomentum " + startmomentum);
             lastDragY = pointCurrentY;
-
             if (activeChapter == 1 && pointCurrentY < pointStartY)
             {
                 UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / endPanelDragFriction) / Screen.height);
@@ -256,6 +254,7 @@ namespace com.dogonahorse
                 UIChapterPanel.AdjustPanels(((pointCurrentY - pointStartY) / dragFriction) / Screen.height);
             }
         }
+        
         public void moveBallistic(float motion)
         {
 
