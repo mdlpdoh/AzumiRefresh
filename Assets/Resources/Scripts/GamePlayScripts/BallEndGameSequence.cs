@@ -55,7 +55,7 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / translateTime1;
                 float curveProgress = translationCurve1.Evaluate(normalizedTime);
                 transform.position = startPosition1 + (difference1 * curveProgress);
-                currentTime += Time.deltaTime * 5;
+                currentTime += Time.deltaTime;
                 yield return null;
             }
             //  print (" endPosition " + endPosition);
@@ -71,7 +71,7 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / translateTime2;
                 float curveProgress = translationCurve2.Evaluate(normalizedTime);
                 transform.position = startPosition2 + (difference2 * curveProgress);
-                currentTime += Time.deltaTime * 10;
+                currentTime += Time.deltaTime;
                 yield return null;
             }
             //  print (" endPosition " + endPosition);
