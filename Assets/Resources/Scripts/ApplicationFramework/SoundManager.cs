@@ -34,7 +34,7 @@ namespace com.dogonahorse
 
 
         private bool musicEnabled = true;
-        private bool soundFXEnabled = true;
+//        private bool soundFXEnabled = true;
 
         public float musicVolumeAdjustment = 1;
         public float soundFXVolumeAdjustment = 1;
@@ -110,7 +110,7 @@ namespace com.dogonahorse
         {
             if (actualSoundLevelsLoaded)
             {
-                //print (deNormalizeVolume(soundFXVolume *soundFXVolumeAdjustment)));
+
                 cacheOriginalSettings();
                 soundFXVolume = value;
                 mixer.SetFloat(soundEffectsMixerVolumeID, deNormalizeVolume(soundFXVolume * soundFXVolumeAdjustment));
@@ -200,7 +200,7 @@ namespace com.dogonahorse
         }
 
         void OnEnterLevel(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {        print("***********************************OnEnterLevel");
+        {     
 
             if (musicEnabled)
             {
@@ -211,7 +211,7 @@ namespace com.dogonahorse
         }
         void OnLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-            print("***********************************OnLevelLost");
+     
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);

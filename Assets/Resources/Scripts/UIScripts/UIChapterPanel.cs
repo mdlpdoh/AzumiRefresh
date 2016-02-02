@@ -168,7 +168,7 @@ namespace com.dogonahorse
             }
             else
             {
-                print("REST POSITIONS ALREADY CALCULATED");
+              //  print("REST POSITIONS ALREADY CALCULATED");
             }
         }
         void SetUpChildObjects()

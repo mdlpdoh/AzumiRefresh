@@ -82,16 +82,17 @@ namespace com.dogonahorse
             switch (audioTriggers[audioEventType])
             {
                 case AudioActionType.HardStart:
-                    //  print ("=================Trying to play " + gameObject.name);
+
                     if (fadingOut)
                     {
                         Stop();
-                        StopAllCoroutines();
+
                         fadingOut = false;
+                        float musicVol = Mathf.Lerp(-80f, 0f, 1);
+                        mixer.SetFloat(mixerGroupVolumeParameter, musicVol);
+                        loopIsRunning = false;
                     }
-                    float musicVol = Mathf.Lerp(-80f, 0f, 1);
-                    mixer.SetFloat(mixerGroupVolumeParameter, musicVol);
-                    loopIsRunning = false;
+
                     Invoker.InvokeDelayed(Play, IntroDelay);
                     break;
                 case AudioActionType.HardStop:
@@ -149,7 +150,6 @@ namespace com.dogonahorse
             }
             else if (loopClips.Length > 0 & !loopIsRunning)
             {
-                print("preparing to start loops");
                 nextEventTime = AudioSettings.dspTime + 2.0F;
                 loopIsRunning = true;
 
@@ -166,13 +166,16 @@ namespace com.dogonahorse
 
             if (audioSource.clip != null && audioSource.isPlaying)
             {
+                StopAllCoroutines();
                 audioSource.Stop();
             }
             else if (loopClips.Length > 0 & loopIsRunning)
             {
+                StopAllCoroutines();
                 loopIsRunning = false;
                 for (int i = 0; i < audioSources.Length; i++)
                 {
+
                     audioSources[i].Stop();
                 }
             }
@@ -185,6 +188,7 @@ namespace com.dogonahorse
         {
             if (audioSource.isPlaying || loopIsRunning)
             {
+
                 StartCoroutine("FadeOut");
             }
         }

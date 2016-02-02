@@ -10,8 +10,7 @@ namespace com.dogonahorse
 
 		public void OnMouseDown ()
 		{
-            print("OnMouseDown " );
- 
+
 			InputManager.Instance.ControlActive ();
 		
 		}
