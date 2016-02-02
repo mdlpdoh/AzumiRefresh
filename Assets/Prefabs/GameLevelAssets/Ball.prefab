@@ -20,6 +20,7 @@ GameObject:
   - 114: {fileID: 11467246}
   - 114: {fileID: 11479796}
   - 114: {fileID: 11490666}
+  - 114: {fileID: 11434572}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -246,7 +247,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 4.36, z: 0}
+  m_LocalPosition: {x: -0.003, y: 4.12, z: 0}
   m_LocalScale: {x: 0.31364247, y: 0.31364247, z: 0.31364247}
   m_Children:
   - {fileID: 472782}
@@ -639,6 +640,30 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   MaxOpacity: 1
+--- !u!114 &11434572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9509b077e7ab349f89a18d60373ca9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAction: 1
+  myEvent: 28
+  isRandom: 0
+  dontRepeat: 0
+  RandomClips:
+  - {fileID: 8300000, guid: bc0e6a1bae61e4838b28d44d31750bf5, type: 3}
+  maxVolume: 1
+  droneVolumeIncreaseRatio: 100
+  droneVolumeDecreaseRatio: 50
+  StartDelay: 0
+  panLevel: 1
+  SoundID: 
+  useControllerLocation: 0
 --- !u!114 &11447254
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -80,6 +80,7 @@ namespace com.dogonahorse
             // return reference to private instance 
             get
             {
+   
                 return newChapterOpened;
             }
 }
@@ -166,6 +167,7 @@ namespace com.dogonahorse
         {
             if (levelNumber < 10)
             {
+                 newChapterOpened = false;
                 return ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber];
             }
             else if (chapterNumber < 4)

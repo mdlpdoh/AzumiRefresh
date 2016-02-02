@@ -37,20 +37,24 @@ namespace com.dogonahorse
         {
             Init();
         }
-        
+
         public void Init()
         {
             LevelIsNewlyOpen = LevelManager.GetPlayerLevelStatusChanged(chapterNumber, levelNumber);
             if (LevelIsNewlyOpen)
             {
                 button.interactable = false;
-               if ( UIChapterPanel.ActiveChapter == chapterNumber && chapterNumber < 4){
-                   lockIcon.PrepareToBreakOpenAfterShift();
-               } else {
-                   lockIcon.PrepareToBreakOpen();
-                   UIChapterPanel.ShiftToNewActivePanel(chapterNumber);
-               }
-                
+                if (UIChapterPanel.ActiveChapter == chapterNumber && chapterNumber < 4)
+                {
+                    lockIcon.PrepareToBreakOpen();
+                }
+                else
+                {
+                    lockIcon.PrepareToBreakOpenAfterShift();
+
+                    UIChapterPanel.ShiftToNewActivePanel(chapterNumber);
+                }
+
             }
             else
             {
@@ -163,11 +167,12 @@ namespace com.dogonahorse
         }
         public void OnUnlockLevel(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-        Unlock();
+            Unlock();
 
         }
-         public void Unlock(){
-                 lockIcon.Hide();
+        public void Unlock()
+        {
+            lockIcon.Hide();
             highScoreText.enabled = true;
             button.interactable = true;
             whitePanel.SetActiveStatus(button.interactable);
@@ -182,7 +187,7 @@ namespace com.dogonahorse
                     stars[i].ShowGrey();
                 }
             }
-         }
+        }
         string padWithZeroes(string numberString)
         {
             if (numberString.Length < 2)

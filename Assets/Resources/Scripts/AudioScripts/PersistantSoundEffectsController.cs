@@ -19,7 +19,7 @@ namespace com.dogonahorse
 
         public float droneVolumeDecreaseRatio = 50f;
         public float StartDelay = 0;
-        private bool droneIsActive = false;
+
 
         public float panLevel = 1.0f;
 
@@ -31,8 +31,8 @@ namespace com.dogonahorse
         private List<AudioSource> audioSources = new List<AudioSource>();
         private AudioSource audioSource;
         private List<int> randomList;
-        private int randomIndex = 0;
-        private Transform soundLocation;
+        //private int randomIndex = 0;
+//        private Transform soundLocation;
 
         private static PersistantSoundEffectsController instance = null;
         public static PersistantSoundEffectsController Instance
@@ -87,11 +87,11 @@ namespace com.dogonahorse
 
             if (SoundID == "" || Param.ToString() == SoundID)
             {
-                print("DoAudioEvent AzumiEventType " + azumiEventType + " " + SoundID);
+
                 switch (myAction)
                 {
                     case AudioActionType.HardStart:
-                        soundLocation = Sender.gameObject.transform;
+                      //  soundLocation = Sender.gameObject.transform;
                         Invoker.InvokeDelayed(Play, StartDelay);
 
                         break;
@@ -100,7 +100,7 @@ namespace com.dogonahorse
                         break;
 
                     case AudioActionType.FadingDrone:
-                        soundLocation = Sender.gameObject.transform;
+                       // soundLocation = Sender.gameObject.transform;
                         Drone();
                         break;
 
@@ -112,7 +112,7 @@ namespace com.dogonahorse
         }
         public void Drone()
         {
-            droneIsActive = true;
+           // droneIsActive = true;
             if (audioSources.Count < 1 || !audioSources[0].isPlaying)
             {
 
@@ -146,12 +146,12 @@ namespace com.dogonahorse
                     }
                     int newRandomIndex = Mathf.RoundToInt(Random.Range(0, randomList.Count));
 
-                    randomIndex = randomList[newRandomIndex];
+                //    randomIndex = randomList[newRandomIndex];
                     randomList.RemoveAt(newRandomIndex);
                 }
                 else
                 {
-                    randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
+                   // randomIndex = Mathf.RoundToInt(Random.Range(0, RandomClips.Length));
                 }
                 //horrible kludge to make audio persist between scenes 
                 AudioSource newAudioSource = audioSource;

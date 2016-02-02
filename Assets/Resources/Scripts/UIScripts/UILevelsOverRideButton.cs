@@ -11,8 +11,7 @@ namespace com.dogonahorse
 
      public void OnEnable()
         {
-            print ("============OnEnable " +InputManager.Instance.LevelProgressOverride );
-            if(InputManager.Instance.LevelProgressOverride) {
+             if(InputManager.Instance.LevelProgressOverride) {
                 toggle.isOn = true;
             } else {
                 toggle.isOn = false;
