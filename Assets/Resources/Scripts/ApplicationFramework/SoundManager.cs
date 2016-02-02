@@ -200,8 +200,8 @@ namespace com.dogonahorse
         }
 
         void OnEnterLevel(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {
-             print("***********************************OnEnterLevel");
+        {        print("***********************************OnEnterLevel");
+
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
@@ -211,7 +211,7 @@ namespace com.dogonahorse
         }
         void OnLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-            // print("***********************************OnEnterLevel");
+            print("***********************************OnLevelLost");
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
