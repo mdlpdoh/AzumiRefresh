@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443604eafd03442efa2ac1f1fb129e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translateTime1: 1
+  translateTime1: 0.05
   endPosition1: {x: 0, y: -4.6, z: 0}
   translationCurve1:
     serializedVersion: 2
@@ -1353,6 +1353,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: translateTime1
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
