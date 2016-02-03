@@ -17,6 +17,8 @@ namespace com.dogonahorse
         private LevelButtonBehavior parentButton;
         private float maxAlpha;
         public float BreakDelay = 1f;
+
+        public float shiftDelay = 0.5f;
         public float shakeTime = 1f;
 
 
@@ -75,7 +77,7 @@ namespace com.dogonahorse
         {
             openAnimationInProgress = true;
             EventManager.ListenForEvent(AzumiEventType.OpenModal, OnOpenModal);
-            Invoke("breakOpen", BreakDelay * 2);
+            Invoke("breakOpen", BreakDelay + shiftDelay);
         }
 
         public void breakOpen()
@@ -83,7 +85,7 @@ namespace com.dogonahorse
 
             if (openAnimationInProgress)
             {
-            
+
                 lockParticles.Emit(numberOfParticles);
                 StartCoroutine("Shake");
                 EventManager.PostEvent(AzumiEventType.unLockLevel, this);

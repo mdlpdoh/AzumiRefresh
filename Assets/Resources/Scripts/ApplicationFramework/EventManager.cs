@@ -163,7 +163,7 @@ namespace com.dogonahorse
         public static void ClearGameLevelListeners()
         {
             print("Clearing Game Listeners");
-            //		Instance.RemoveEvent(AzumiEventType.GameTap);
+   
             Instance.RemoveEvent(AzumiEventType.GameSwipe);
             Instance.RemoveEvent(AzumiEventType.SetCoins);
             Instance.RemoveEvent(AzumiEventType.SetBounces);
