@@ -136,7 +136,7 @@ namespace com.dogonahorse
             else
             {
                 //It will give 3 broken grey stars
-                print("Number of Stars does not make any sense ");
+                // print("Number of Stars does not make any sense ");
                 // show the player the filled in red panda				
 
             }

@@ -8,7 +8,7 @@
          
          // Use this for initialization
          void Start () {
-             print (SortingLayer.layers.Length);
+            //  print (SortingLayer.layers.Length);
              if (MyRenderer == null) {
                  MyRenderer = this.GetComponent<Renderer>();
              }
