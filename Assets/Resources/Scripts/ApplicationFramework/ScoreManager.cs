@@ -24,19 +24,19 @@ namespace com.dogonahorse
         private int swipesRemaining;
         public int CoinsInLevel = 0;
         private int coinsEarned = 0;
-    
-//        private bool playerActionsCostPoints = true;
-        private bool exitedDoorSafely = false;
-		private bool ranOutOfTime = false;
 
-		public bool RanOutOfTime
-		{
-			// return reference to private instance 
-			get
-			{
-				return ranOutOfTime;
-			}
-		}
+        //        private bool playerActionsCostPoints = true;
+        private bool exitedDoorSafely = false;
+        private bool ranOutOfTime = false;
+
+        public bool RanOutOfTime
+        {
+            // return reference to private instance 
+            get
+            {
+                return ranOutOfTime;
+            }
+        }
 
         public bool ExitedDoorSafely
         {
@@ -67,7 +67,7 @@ namespace com.dogonahorse
             }
         }
 
-       public int NumberOfStars
+        public int NumberOfStars
         // This gives the LevelResultsModalWindow information so it can spit out correct win/lose message
         // and show the correct number of stars given based on percentage of ants(coins) cleared in level
         {
@@ -96,7 +96,7 @@ namespace com.dogonahorse
                 {
                     return 1;
                 }
-     
+
                 else
                 {
                     return 0;
@@ -123,8 +123,8 @@ namespace com.dogonahorse
 
 
         //private float elapsedTime;
-//        private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
- //       private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
+        //        private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
+        //       private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
 
         private SceneManager sceneManager;
 
@@ -170,11 +170,11 @@ namespace com.dogonahorse
             scoreCounter.SetStartingAmount(MaxTaps);
             coinCounter.SetStartingAmount(0);// <--need to get from account
         }
-/*
-        public void PlayerActionsCostPoints(bool newValue)
-        {
-            playerActionsCostPoints = newValue;
-        }*/
+        /*
+                public void PlayerActionsCostPoints(bool newValue)
+                {
+                    playerActionsCostPoints = newValue;
+                }*/
         public void OnHitWallEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 
@@ -186,19 +186,20 @@ namespace com.dogonahorse
                     Collision2D wallCollider = (Collision2D)Param;
                     int currentWallValue = wallCollider.gameObject.GetComponent<WallBehavior>().GetWallScoreValue(); ;
 
-                    //don't do anything if ball hit an ordinary wall
+                    //don't do anything if ball hit an ordinary wall or an expired special wall
                     if (currentWallValue != 0)
                     {
                         if (swipesRemaining + currentWallValue >= 0)
                         {
                             swipesRemaining += currentWallValue;
                         }
-                        if (swipesRemaining == 0)
+                        else
                         {
                             EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                         }
 
-                        EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
+                        doSwipesUpdate();
+
                     }
                 }
 
@@ -208,31 +209,48 @@ namespace com.dogonahorse
                 }
             }
         }
+
+        public void doSwipesUpdate()
+        {
+
+
+            if (swipesRemaining < 0)
+            {
+                exitedDoorSafely = false;
+                EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
+            }
+
+
+            if (swipesRemaining == 0)
+            {
+                EventManager.PostEvent(AzumiEventType.StartTimer, this);
+            }
+            else if (swipesRemaining < 5)
+            {
+                EventManager.PostEvent(AzumiEventType.SwipesLow, this);
+            }
+            else
+            {
+
+                EventManager.PostEvent(AzumiEventType.SwipesAboveMinimum, this);
+            }
+
+            EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
+        }
         public void OnPlayerActionEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
-                //if (playerActionsCostPoints) 
+
                 if (swipesRemaining > 0)
                 {
                     swipesRemaining--;
-
+                    doSwipesUpdate();
                 }
                 else
                 {
-                    exitedDoorSafely = false;
                     EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                 }
-                if (swipesRemaining < 5)
-                {
-                    EventManager.PostEvent(AzumiEventType.SwipesLow, this);
-                }
-                if (swipesRemaining == 0)
-                {
-                    EventManager.PostEvent(AzumiEventType.StartTimer, this);
-                }
-                EventManager.PostEvent(AzumiEventType.SetBounces, this, swipesRemaining);
-
             }
 
         }
@@ -251,7 +269,7 @@ namespace com.dogonahorse
 
             if (NumberOfStars > 0)
             {
-         
+
                 EventManager.PostEvent(AzumiEventType.LevelWon, this);
             }
             else
@@ -268,7 +286,7 @@ namespace com.dogonahorse
 
         public void OnOutOfTime(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-			ranOutOfTime = true;
+            ranOutOfTime = true;
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
 

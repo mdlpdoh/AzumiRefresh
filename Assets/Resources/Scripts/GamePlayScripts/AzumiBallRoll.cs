@@ -52,7 +52,7 @@ namespace com.dogonahorse
 
 			// Listen For Input
 //
-			//EventManager.ListenForEvent (AzumiEventType.GameTap, OnGameTap);
+
 			EventManager.ListenForEvent (AzumiEventType.GameSwipe, OnGameSwipe);
 			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 		}

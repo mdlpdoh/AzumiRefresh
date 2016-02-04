@@ -41,6 +41,7 @@ namespace com.dogonahorse
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.SetBounces, OnSetBouncesEvent);
+            EventManager.ListenForEvent(AzumiEventType.SwipesAboveMinimum, StopFlashing);
             EventManager.ListenForEvent(AzumiEventType.SwipesLow, StartFlashing);
             EventManager.ListenForEvent(AzumiEventType.LevelLost, StopFlashing);
             EventManager.ListenForEvent(AzumiEventType.LevelWon, StopFlashing);
@@ -76,8 +77,9 @@ namespace com.dogonahorse
         }
         void OnDestroy()
         {
-            EventManager.Instance.RemoveListener(AzumiEventType.SetBounces,OnSetBouncesEvent);
+            EventManager.Instance.RemoveListener(AzumiEventType.SetBounces, OnSetBouncesEvent);
             EventManager.Instance.RemoveListener(AzumiEventType.SwipesLow, StartFlashing);
+            EventManager.Instance.RemoveListener(AzumiEventType.SwipesAboveMinimum, StopFlashing);
             EventManager.Instance.RemoveListener(AzumiEventType.LevelLost, StopFlashing);
             EventManager.Instance.RemoveListener(AzumiEventType.LevelWon, StopFlashing);
         }
@@ -104,6 +106,7 @@ namespace com.dogonahorse
 
             if (alreadyFlashing == true)
             {
+                alreadyFlashing = false;
                 StopAllCoroutines();
             }
         }

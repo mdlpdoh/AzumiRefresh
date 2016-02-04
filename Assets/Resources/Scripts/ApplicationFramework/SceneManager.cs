@@ -126,7 +126,7 @@ namespace com.dogonahorse
                 //pause Game if opening modal while game is running re ready to start
                 if (GameManager.GetCurrentState() == GameState.GameLevel && (GetCurrentState() == SceneState.Ready || GetCurrentState() == SceneState.Playing))
                 {
-                    //print ("opening other modal");
+           
                     Time.timeScale = 0;
                     //nextState = GetCurrentState();
                 }
@@ -217,7 +217,7 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
-            // Debug.Log("Scene Manager:  Inited");
+            Debug.Log("Scene Manager:  Inited");
             ChangeState(SceneState.PreGame);
 
         }
@@ -239,7 +239,7 @@ namespace com.dogonahorse
         }
         void Ready_Enter()
         {
-            // Debug.Log("Scene Manager: Ready");
+             Debug.Log("Scene Manager: Ready");
             if (GameManager.GetCurrentState() == GameState.GameLevel)
             {
 
@@ -248,7 +248,7 @@ namespace com.dogonahorse
 
         void Playing_Enter()
         {
-            // Debug.Log("Scene Manager: Playing");
+             Debug.Log("Scene Manager: Playing");
 
         }
 
@@ -276,6 +276,7 @@ namespace com.dogonahorse
             // Debug.Log("Scene Manager: GameOver");
             //LevelReset();
             GameManager.GameOver();
+
             Time.timeScale = 0;
             //devSettingsPanel.SetActive(false);
             modalWindowDictionary[ButtonID.LevelResults].DoButtonAction(ButtonAction.OpenModal);
@@ -284,7 +285,7 @@ namespace com.dogonahorse
 
         void Modal_Enter()
         {
-            // Debug.Log("Modal open");
+             Debug.Log("Modal open");
         }
 
         void DebugMode_Enter()

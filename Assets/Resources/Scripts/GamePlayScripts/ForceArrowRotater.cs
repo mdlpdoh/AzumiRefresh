@@ -36,25 +36,19 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.GamePress, OnGamePress);
             EventManager.ListenForEvent(AzumiEventType.GameShift, OnGameShift);
             EventManager.ListenForEvent(AzumiEventType.GameRelease, OnGameRelease);
-
-            //	ArrowSpriteRenderer.enabled = false;
-
+            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnGameRelease);
+            EventManager.ListenForEvent(AzumiEventType.LevelWon, OnGameRelease);
         }
 
-        // Update is called once per frame
-        //public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
-        //{
-        //print ("ArrowPivot == " +;
-        //if (InputManager.MainDirectionSelected){
-        //	ArrowSpriteRenderer.sprite = MainSprite;
-        //	} else {
-        //	ArrowSpriteRenderer.sprite = AltSprite;
-        //}
-        //	startLocation =  Camera.main.ViewportToWorldPoint( FixCoordinates((Vector3)Param));
+       void OnDestroy()
+        {
+            EventManager.Instance.RemoveListener(AzumiEventType.GamePress, OnGamePress);
+            EventManager.Instance.RemoveListener(AzumiEventType.GameShift, OnGameShift);
+            EventManager.Instance.RemoveListener(AzumiEventType.GameRelease, OnGameRelease);
+            EventManager.Instance.RemoveListener(AzumiEventType.LevelLost, OnGameRelease);
+            EventManager.Instance.RemoveListener(AzumiEventType.LevelWon, OnGameRelease);
+        }
 
-        //transform.position = startLocation;
-
-        //}
         void Update()
         {
             if (flickering)
@@ -152,16 +146,19 @@ namespace com.dogonahorse
 
         }
 
-
-
-        public void OnGameRelease(AzumiEventType Event_Type, Component Sender, object Param = null)
+        void HideArrow()
         {
-
             flickering = false;
             for (int i = 0; i < ArrowLights.Length; i++)
             {
                 ArrowLights[i].StopAllActivity();
             }
+        }
+
+        public void OnGameRelease(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+
+            HideArrow();
 
         }
 
