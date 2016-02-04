@@ -79,7 +79,7 @@ namespace com.dogonahorse
 			} else if  (buttonType== ButtonType.ModalWindowButton) {
 				InputManager.Instance.ModalButtonClicked(buttonID, buttonAction);
 			}else {
-				print ("ERROR: Button type is "+ buttonType);
+				// print ("ERROR: Button type is "+ buttonType);
 			}
 
 		

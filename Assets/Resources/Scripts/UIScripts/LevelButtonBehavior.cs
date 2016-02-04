@@ -140,7 +140,7 @@ namespace com.dogonahorse
             }
             else
             {
-                print("ERROR: Button type is " + buttonType);
+                // print("ERROR: Button type is " + buttonType);
             }
         }
 
