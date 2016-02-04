@@ -13,7 +13,7 @@ namespace com.dogonahorse
             FadeOut
         }
         public float fadeTime = 0.5f;
-        
+
         public float MaxOpacity = 1.0f;
         public FadeDirection fadeDirection;
         public AzumiEventType eventType;
@@ -24,6 +24,7 @@ namespace com.dogonahorse
         {
             myImage = GetComponent<Image>();
             EventManager.ListenForEvent(eventType, StartFade);
+            EventManager.ListenForEvent(AzumiEventType.SwipesAboveMinimum, StopFade);
         }
 
         // Update is called once per frame
@@ -40,8 +41,13 @@ namespace com.dogonahorse
             }
 
         }
-
-
+        public void StopFade(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            StopAllCoroutines();
+            Color color = myImage.color;
+            color.a = MaxOpacity;
+            myImage.color = color;
+        }
         private IEnumerator FadeIn()
         {
             float currentTime = 0f;
@@ -70,7 +76,7 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / fadeTime;
                 float curveProgress = fadeCurve.Evaluate(normalizedTime);
                 Color color = myImage.color;
-                color.a = MaxOpacity - curveProgress  * MaxOpacity;
+                color.a = MaxOpacity - curveProgress * MaxOpacity;
                 myImage.color = color;
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;
@@ -81,7 +87,8 @@ namespace com.dogonahorse
         void OnDestroy()
         {
 
-            EventManager.Instance.RemoveEvent(eventType);
+            EventManager.Instance.RemoveListener(eventType, StartFade);
+            EventManager.Instance.RemoveListener (AzumiEventType.SwipesAboveMinimum, StopFade);
         }
     }
 }

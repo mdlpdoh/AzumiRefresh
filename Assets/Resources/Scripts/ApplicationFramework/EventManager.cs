@@ -58,7 +58,8 @@ namespace com.dogonahorse
         WinStar,
         FailStar,
         DoorOpen,
-        unLockLevel
+        unLockLevel,
+        SwipesAboveMinimum
     }
     //-----------------------------------------------------------
     //Singleton EventManager to send events to listeners
