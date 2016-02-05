@@ -83,6 +83,12 @@ namespace com.dogonahorse
             Initialize<SceneState>();
         }
 
+        void Start()
+        {
+            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLostEvent);
+            EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWonEvent);
+            EventManager.ListenForEvent(AzumiEventType.FinishEndGameSequence, OnOpenLevelResults);
+        }
         public void InitScene()
         {
 
@@ -95,13 +101,9 @@ namespace com.dogonahorse
                 modalWindowDictionary.Add(modals[i].buttonID, modals[i]);
             }
             inputManager = GameObject.Find("GameScripts").GetComponent<InputManager>();
-
-            // blurBackground = GameObject.Find("BlurPanel").GetComponent<BlurBackground>();
             ChangeState(SceneState.Init);
 
-            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLostEvent);
-            EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWonEvent);
-            EventManager.ListenForEvent(AzumiEventType.FinishEndGameSequence, OnOpenLevelResults);
+
 
         }
 
@@ -126,9 +128,8 @@ namespace com.dogonahorse
                 //pause Game if opening modal while game is running re ready to start
                 if (GameManager.GetCurrentState() == GameState.GameLevel && (GetCurrentState() == SceneState.Ready || GetCurrentState() == SceneState.Playing))
                 {
-           
+                    EventManager.PostEvent(AzumiEventType.PauseLevel, this);
                     Time.timeScale = 0;
-                    //nextState = GetCurrentState();
                 }
                 ChangeState(SceneState.Modal);
 
@@ -144,15 +145,13 @@ namespace com.dogonahorse
                 {
                     EventManager.PostEvent(AzumiEventType.SaveSettings, this);
                 }
-                // }
+      
                 EventManager.PostEvent(AzumiEventType.CloseModal, this, buttonID);
                 Time.timeScale = 1;
 
                 ChangeState(SceneState.Ready);
-
-
-                // modalWindowDictionary[buttonID].DoButtonAction(buttonAction);
             }
+            
             else if (buttonAction == ButtonAction.NextScreen)
             {
 
@@ -174,6 +173,7 @@ namespace com.dogonahorse
 
                 if (GameManager.GetCurrentState() == GameState.EndGame || GameManager.GetCurrentState() == GameState.GameLevel)
                 {
+                    EventManager.PostEvent(AzumiEventType.RestartLevel, this);
                     Time.timeScale = 1;
                     ChangeState(SceneState.Ready);
                     modalWindowDictionary[buttonID].DoButtonAction(ButtonAction.CloseModal);
@@ -199,6 +199,7 @@ namespace com.dogonahorse
 
         public void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
+           
             ChangeState(SceneState.GameWinSequence);
         }
 
@@ -217,7 +218,7 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
-            // Debug.Log("Scene Manager:  Inited");
+            //Debug.Log("Scene Manager:  Inited");
             ChangeState(SceneState.PreGame);
 
         }
@@ -225,32 +226,29 @@ namespace com.dogonahorse
         {
             if (modalWindowDictionary.ContainsKey(ButtonID.Instructions))
             {
-                //nextState = SceneState.Ready;
                 ChangeState(SceneState.Modal);
-
                 modalWindowDictionary[ButtonID.Instructions].DoButtonAction(ButtonAction.OpenModal);
-
             }
             else
             {
                 ChangeState(SceneState.Ready);
-
             }
         }
+        
         void Ready_Enter()
         {
-            //  Debug.Log("Scene Manager: Ready");
+             //Debug.Log("Scene Manager: Ready");
             if (GameManager.GetCurrentState() == GameState.GameLevel)
             {
 
             }
         }
 
-        // void Playing_Enter()
-        // {
-        //      Debug.Log("Scene Manager: Playing");
+        void Playing_Enter()
+        {
+            // Debug.Log("Scene Manager: Playing");
 
-        // }
+        }
 
 
 
@@ -263,9 +261,9 @@ namespace com.dogonahorse
         void GameWinSequence_Enter()
         {
 
-            // Debug.Log("Scene Manager: GameWinSequence_Enter");
+
             EventManager.PostEvent(AzumiEventType.StartEndGameSequence, this);
-            //  ChangeState(SceneState.GameOver);
+
 
 
         }
@@ -274,19 +272,17 @@ namespace com.dogonahorse
         void GameOver_Enter()
         {
             // Debug.Log("Scene Manager: GameOver");
-            //LevelReset();
-            GameManager.GameOver();
 
+            GameManager.GameOver();
             Time.timeScale = 0;
-            //devSettingsPanel.SetActive(false);
             modalWindowDictionary[ButtonID.LevelResults].DoButtonAction(ButtonAction.OpenModal);
             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
         }
 
-        // void Modal_Enter()
-        // {
-        //      Debug.Log("Modal open");
-        // }
+        void Modal_Enter()
+        {
+             //Debug.Log("Modal open");
+        }
 
         void DebugMode_Enter()
         {

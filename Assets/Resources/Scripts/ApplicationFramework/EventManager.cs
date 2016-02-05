@@ -58,8 +58,13 @@ namespace com.dogonahorse
         WinStar,
         FailStar,
         DoorOpen,
-        unLockLevel,
-        SwipesAboveMinimum
+        UnLockLevel,
+        SwipesAboveMinimum,
+        PauseLevel,
+        ResumeLevel,
+        RestartLevel,
+        ExitLevelEarly
+
     }
     //-----------------------------------------------------------
     //Singleton EventManager to send events to listeners
@@ -71,8 +76,14 @@ namespace com.dogonahorse
         //Public access to instance
         public static EventManager Instance
         {
-            get { return instance; }
-            set { }
+            get
+            {
+                return instance;
+            }
+            set
+            {
+
+            }
         }
         #endregion
 
@@ -164,7 +175,7 @@ namespace com.dogonahorse
         public static void ClearGameLevelListeners()
         {
             print("Clearing Game Listeners");
-   
+
             Instance.RemoveEvent(AzumiEventType.GameSwipe);
             Instance.RemoveEvent(AzumiEventType.SetCoins);
             Instance.RemoveEvent(AzumiEventType.SetBounces);
@@ -183,8 +194,7 @@ namespace com.dogonahorse
             Instance.RemoveEvent(AzumiEventType.StartTimer);
             Instance.RemoveEvent(AzumiEventType.OutOfBounces);
             Instance.RemoveEvent(AzumiEventType.OutOfTime);
-            // Instance.RemoveEvent(AzumiEventType.LevelWon);
-            //  Instance.RemoveEvent(AzumiEventType.LevelLost);
+
         }
 
         //---------------------------------------------------------

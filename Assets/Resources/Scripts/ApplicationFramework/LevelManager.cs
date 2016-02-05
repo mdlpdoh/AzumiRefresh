@@ -33,12 +33,14 @@ namespace com.dogonahorse
     }
     public class LevelPlayerData
     {
+        public int Wins;
+        public int Losses;
         public int ChapterNumber;
         public int LevelNumber;
         public int HighScore;
         public int MaxStarsEarned;
         public bool LevelIsOpen;
-
+        public int timesPlayedThisSession;
         public bool LevelIsNewlyOpen = false;
     }
 
@@ -53,14 +55,32 @@ namespace com.dogonahorse
 
         public int expectedChapters = 4;
         private static LevelManager instance = null;
-        //private List<LevelPlayerData> LevelPlayerList = new List<LevelPlayerData> ();
         private List<ChapterInitData> ChapterInitList = new List<ChapterInitData>();
 
         private List<ChapterPlayerData> ChapterPlayerDataList = new List<ChapterPlayerData>();
         private string datapath;
 
         private static int lastLevelNumber = 0;
+
+
+        public static int LastLevelNumber
+        {
+            // return reference to private instance 
+            get
+            {
+                return lastLevelNumber;
+            }
+        }
+
         private static int lastChapterNumber = 0;
+        public static int LastChapterNumber
+        {
+            // return reference to private instance 
+            get
+            {
+                return lastChapterNumber;
+            }
+        }
 
         private static LevelPlayerData newOpenLevel = null;
 
@@ -75,15 +95,17 @@ namespace com.dogonahorse
             }
         }
         //public  GameState defaultState;
-        public static bool NewChapterOpened 
+        public static bool NewChapterOpened
         {
             // return reference to private instance 
             get
             {
-   
+
                 return newChapterOpened;
             }
-}
+        }
+
+
         void Awake()
         {
             // Check if existing instance of class exists in scene 35 
@@ -132,14 +154,28 @@ namespace com.dogonahorse
             SetUpNewPlayerData();
             WritePlayerLevelSettings();
         }
+
+
+        public void IncrementTimesPlayed()
+        {
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            currentLevelData.timesPlayedThisSession++;
+        }
+
+        public int GetTimesLevelPlayed()
+        {
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            return currentLevelData.timesPlayedThisSession;
+        }
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
             int numberOfStars = myScoreManager.NumberOfStars;
-            
-          //  print (" lastChapterNumber "+ lastChapterNumber + " lastLevelNumber " + lastLevelNumber );
+
+            //  print (" lastChapterNumber "+ lastChapterNumber + " lastLevelNumber " + lastLevelNumber );
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            currentLevelData.Wins++;
             if (totalScore > currentLevelData.HighScore)
             {
                 currentLevelData.HighScore = totalScore;
@@ -167,7 +203,7 @@ namespace com.dogonahorse
         {
             if (levelNumber < 10)
             {
-                 newChapterOpened = false;
+                newChapterOpened = false;
                 return ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber];
             }
             else if (chapterNumber < 4)
@@ -273,6 +309,9 @@ namespace com.dogonahorse
             if (lastChapterNumber != 0 && lastLevelNumber != 0)
             {
 
+                //for analytics
+                Instance.IncrementTimesPlayed();
+
                 //print(Instance.ChapterInitList.Count);
                 LevelInitData currentLevel = Instance.ChapterInitList[lastChapterNumber - 1].LevelInitList[lastLevelNumber - 1];
 
@@ -301,7 +340,8 @@ namespace com.dogonahorse
                 int.TryParse(levelNumberString, out levelNumber))
                 {
 
-
+                    //for analytics
+                    Instance.IncrementTimesPlayed();
                     LevelInitData currentLevel = Instance.ChapterInitList[chapterNumber - 1].LevelInitList[levelNumber - 1];
                     newScoreManager.ChapterAnimalName = currentLevel.ChapterAnimalName;
                     newScoreManager.MaxTaps = currentLevel.MaxTaps;
@@ -315,10 +355,10 @@ namespace com.dogonahorse
                     newScoreManager.ChapterSecondColor = GetChapterThirdColor(chapterNumber);
                     newScoreManager.ChapterNumber = chapterNumber;
                     newScoreManager.LevelNumber = levelNumber;
-                    
-                    lastChapterNumber = chapterNumber; 
-                    
-                    lastLevelNumber= levelNumber;
+
+                    lastChapterNumber = chapterNumber;
+
+                    lastLevelNumber = levelNumber;
                 }
             }
 
@@ -357,7 +397,8 @@ namespace com.dogonahorse
                 nextLevel.HighScore = levelInfo[i]["HighScore"].AsInt;
                 nextLevel.MaxStarsEarned = levelInfo[i]["MaxStarsEarned"].AsInt;
                 nextLevel.LevelIsOpen = levelInfo[i]["LevelIsOpen"].AsBool;
-
+                nextLevel.Wins = levelInfo[i]["Wins"].AsInt;
+                nextLevel.Losses = levelInfo[i]["Losses"].AsInt;
 
                 if (nextLevel.LevelIsOpen)
                 {
@@ -385,6 +426,8 @@ namespace com.dogonahorse
                     nextLevel.LevelNumber = j + 1;
                     nextLevel.HighScore = 0;
                     nextLevel.MaxStarsEarned = 0;
+                    nextLevel.Wins = 0;
+                    nextLevel.Losses = 0;
                     newLevels.Add(nextLevel);
 
                     if (i == 0 && j == 0)
@@ -404,12 +447,10 @@ namespace com.dogonahorse
         void SetUpChapters(string chapterInfo)
         {
             JSONNode json = JSONNode.Parse(chapterInfo);
-            //print("chapterInfo " + chapterInfo);
+
             for (int i = 0; i < json.Count; i++)
             {
-                //print(json[i]["ChapterAnimalName"]);
                 ChapterInitData nextChapter = new ChapterInitData();
-
                 nextChapter.ChapterNumber = json[i]["ChapterNumber"].AsInt;
                 nextChapter.ChapterAnimalName = json[i]["ChapterAnimalName"];
                 nextChapter.ChapterMainColor = HexUtility.HexToColor(json[i]["ChapterMainColor"]);
@@ -465,13 +506,14 @@ namespace com.dogonahorse
         public void WritePlayerLevelSettings()
         {
             JSONArray newJson = GetPlayerChaptersData(new JSONArray());
+
             System.IO.File.WriteAllText(datapath + "/playerdata.json", newJson.ToString(""));
         }
 
 
         JSONArray GetPlayerChaptersData(JSONArray baseArray)
         {
-            //JSONArray baseArray = new JSONArray();
+
             for (int i = 0; i < ChapterPlayerDataList.Count; i++)
             {
                 JSONClass newNode = new JSONClass();
@@ -480,7 +522,7 @@ namespace com.dogonahorse
                 newNode["Levels"] = GetPlayerLevelsData(new JSONArray(), currentChapter);
                 baseArray.Add(newNode);
             }
-            //newClass.Add(baseArray);
+
             return baseArray;
         }
 
@@ -496,6 +538,9 @@ namespace com.dogonahorse
                 newNode["HighScore"].AsInt = currentLevel.HighScore;
                 newNode["MaxStarsEarned"].AsInt = currentLevel.MaxStarsEarned;
                 newNode["LevelIsOpen"].AsBool = currentLevel.LevelIsOpen;
+                newNode["Wins"].AsInt = currentLevel.Wins;
+                newNode["Losses"].AsInt = currentLevel.Losses;
+
                 newArray.Add(newNode);
             }
             return newArray;
@@ -503,7 +548,7 @@ namespace com.dogonahorse
 
         JSONArray GetChaptersData(JSONArray baseArray)
         {
-            //JSONArray baseArray = new JSONArray();
+
             for (int i = 0; i < ChapterInitList.Count; i++)
             {
                 JSONClass newNode = new JSONClass();
@@ -519,7 +564,6 @@ namespace com.dogonahorse
                 newNode["Levels"] = GetLevelsData(new JSONArray(), currentChapter);
                 baseArray.Add(newNode);
             }
-            //newClass.Add(baseArray);
             return baseArray;
         }
         JSONArray GetLevelsData(JSONArray newArray, ChapterInitData currentChapter)

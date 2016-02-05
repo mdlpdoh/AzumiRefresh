@@ -34,19 +34,12 @@ namespace com.dogonahorse
 
 
         private bool musicEnabled = true;
-//        private bool soundFXEnabled = true;
+        //        private bool soundFXEnabled = true;
 
         public float musicVolumeAdjustment = 1;
         public float soundFXVolumeAdjustment = 1;
         private float musicVolume = 1;
-        private float soundFXVolume = 1;
 
-        private float formerMusicVolume = 1;
-        private float formerSoundFXVolume = 1;
-
-        private bool editingSoundLevels = false;
-
-        private bool actualSoundLevelsLoaded = false;
         public static SoundManager Instance
         {
             // return reference to private instance 
@@ -55,6 +48,28 @@ namespace com.dogonahorse
                 return instance;
             }
         }
+        private float soundFXVolume = 1;
+
+        private float formerMusicVolume = 1;
+        public static float FormerMusicVolume
+        {
+            get
+            {
+                return instance.formerMusicVolume;
+            }
+        }
+        private float formerSoundFXVolume = 1;
+        public static float FormerSoundFXVolume
+        {
+            get
+            {
+                return instance.formerSoundFXVolume;
+            }
+        }
+        private bool editingSoundLevels = false;
+
+        private bool actualSoundLevelsLoaded = false;
+
 
         public static float MusicVolume
         {
@@ -132,6 +147,8 @@ namespace com.dogonahorse
 
         void Start()
         {
+
+
             if (!PlayerPrefs.HasKey("musicVolume"))
             {
                 PlayerPrefs.SetFloat("musicVolume", musicVolume);
@@ -184,7 +201,8 @@ namespace com.dogonahorse
         }
 
         void OnEnterProgress(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        { 
+        {
+
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
@@ -195,7 +213,8 @@ namespace com.dogonahorse
         }
 
         void OnEnterLevel(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {     
+        {
+
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
@@ -204,7 +223,8 @@ namespace com.dogonahorse
             }
         }
         void OnLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {  
+        {
+
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
@@ -222,8 +242,8 @@ namespace com.dogonahorse
         void OnSaveSettings(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
             SaveSettings();
-            formerMusicVolume = musicVolume;
-            formerSoundFXVolume = soundFXVolume;
+            //formerMusicVolume = musicVolume;
+            //formerSoundFXVolume = soundFXVolume;
             editingSoundLevels = false;
         }
 
