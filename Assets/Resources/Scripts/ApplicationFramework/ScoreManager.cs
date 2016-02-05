@@ -28,13 +28,20 @@ namespace com.dogonahorse
         //        private bool playerActionsCostPoints = true;
         private bool exitedDoorSafely = false;
         private bool ranOutOfTime = false;
-
         public bool RanOutOfTime
         {
             // return reference to private instance 
             get
             {
                 return ranOutOfTime;
+            }
+        }
+        public int SwipesRemaining
+        {
+            // return reference to private instance 
+            get
+            {
+                return swipesRemaining;
             }
         }
 
@@ -149,17 +156,6 @@ namespace com.dogonahorse
             swipesRemaining = MaxTaps;
         }
 
-        //#if UNITY_EDITOR
-        /*
-		void OnEnable (){
-			print ("OnEnable Called: " +  Application.isPlaying);
-		}
-		void OnValidate ()
-		{
-			print ("OnValidate Called: " +  Application.isPlaying);
-			//LevelManager.UpdateLevelValues(this);
-		}
-*/
 
 
         void InitScoreUI()
@@ -261,18 +257,22 @@ namespace com.dogonahorse
 
         public void OnHitDoorEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            exitedDoorSafely = true;
 
-            if (NumberOfStars > 0)
+            if (!exitedDoorSafely)
             {
+                print("exitedDoorSafely " + exitedDoorSafely);
+                exitedDoorSafely = true;
 
-                EventManager.PostEvent(AzumiEventType.LevelWon, this);
-            }
-            else
-            {
-                EventManager.PostEvent(AzumiEventType.LevelLost, this);
-            }
+                if (NumberOfStars > 0)
+                {
 
+                    EventManager.PostEvent(AzumiEventType.LevelWon, this);
+                }
+                else
+                {
+                    EventManager.PostEvent(AzumiEventType.LevelLost, this);
+                }
+            }
         }
 
         public void OnOutOfBounces(AzumiEventType Event_Type, Component Sender, object Param = null)
@@ -286,5 +286,17 @@ namespace com.dogonahorse
             EventManager.PostEvent(AzumiEventType.LevelLost, this);
         }
 
-    }//end class
+
+        public string GetReasonForLoss()
+        {
+            if (ranOutOfTime){
+                return "time";
+                
+            } else if (exitedDoorSafely){
+                return "ants";
+            } else {
+                return "swipes";
+            }
+        }
+    }  //end class
 }//end namespace

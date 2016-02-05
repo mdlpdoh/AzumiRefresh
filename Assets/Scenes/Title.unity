@@ -1314,6 +1314,10 @@ Prefab:
       propertyPath: LevelProgressOverride
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11446762, guid: 953ecd1e6980c40599286a725a05b05b, type: 2}
+      propertyPath: expectedChapters
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 953ecd1e6980c40599286a725a05b05b, type: 2}
   m_IsPrefabParent: 0
@@ -1940,7 +1944,6 @@ GameObject:
   - 114: {fileID: 1187714126}
   - 114: {fileID: 1187714128}
   - 114: {fileID: 1187714127}
-  - 114: {fileID: 1187714129}
   m_Layer: 5
   m_Name: SettingsModal
   m_TagString: Untagged
@@ -2080,17 +2083,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &1187714129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1187714122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e36cd2afb2bd14357a65844ae2cfa0c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1191409916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,7 +2863,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1598447234}
   - 114: {fileID: 1598447233}
-  - 114: {fileID: 1598447235}
   m_Layer: 0
   m_Name: AnalyticsScripts
   m_TagString: Untagged
@@ -2902,20 +2893,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &1598447235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1598447232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541b203eee2114e57895b348a083b043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  analyticsEvent: 0
-  startEvent: 5
-  closeEvent: 0
 --- !u!1 &1721344950
 GameObject:
   m_ObjectHideFlags: 0

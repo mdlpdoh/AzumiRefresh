@@ -88,7 +88,7 @@ namespace com.dogonahorse
 
                 lockParticles.Emit(numberOfParticles);
                 StartCoroutine("Shake");
-                EventManager.PostEvent(AzumiEventType.unLockLevel, this);
+                EventManager.PostEvent(AzumiEventType.UnLockLevel, this);
             }
             else
             {
