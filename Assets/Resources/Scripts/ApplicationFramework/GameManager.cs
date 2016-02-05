@@ -174,9 +174,7 @@ namespace com.dogonahorse
         {
 
             // Debug.Log("Game Manager: Game is Over");
-            //  if (){
-            //  UpdatePlayerProgress   
-            /// }
+
 
         }
         void Reset_Enter()
@@ -185,7 +183,7 @@ namespace com.dogonahorse
             // Debug.Log("Game Manager: Reset_Enter" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             EventManager.ClearGameLevelListeners();
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-            //Application.LoadLevel(Application.loadedLevel);
+           
             Instance.ChangeState(GameState.GameLevel);
         }
 

@@ -144,13 +144,13 @@ namespace com.dogonahorse
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWon);
+            EventManager.ListenForEvent(AzumiEventType.LevelLost, OnLevelLost);
             EventManager.ListenForEvent(AzumiEventType.ResetProgress, OnResetProgress);
+
         }
 
         public void OnResetProgress(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            //   print("OnResetProgress");
-
             SetUpNewPlayerData();
             WritePlayerLevelSettings();
         }
@@ -158,8 +158,12 @@ namespace com.dogonahorse
 
         public void IncrementTimesPlayed()
         {
-            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
-            currentLevelData.timesPlayedThisSession++;
+            if (lastChapterNumber != 0)
+            {
+                LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+               currentLevelData.timesPlayedThisSession++;
+            }
+        
         }
 
         public int GetTimesLevelPlayed()
@@ -167,13 +171,29 @@ namespace com.dogonahorse
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             return currentLevelData.timesPlayedThisSession;
         }
+        public int GetWins()
+        {
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            return currentLevelData.Wins;
+        }
+        public int GetLosses()
+        {
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            return currentLevelData.Losses;
+        }
+        public void OnLevelLost(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+
+            LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
+            currentLevelData.Losses++;
+        }
+
         public void OnLevelWon(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ScoreManager myScoreManager = Sender as ScoreManager;
             int totalScore = myScoreManager.TotalScore;
             int numberOfStars = myScoreManager.NumberOfStars;
 
-            //  print (" lastChapterNumber "+ lastChapterNumber + " lastLevelNumber " + lastLevelNumber );
             LevelPlayerData currentLevelData = ChapterPlayerDataList[lastChapterNumber - 1].LevelPlayerDataList[lastLevelNumber - 1];
             currentLevelData.Wins++;
             if (totalScore > currentLevelData.HighScore)
@@ -217,6 +237,7 @@ namespace com.dogonahorse
             }
         }
 
+
         public static int GetPlayerLevelMaxStars(int chapterNumber, int levelNumber)
         {
             return Instance.ChapterPlayerDataList[chapterNumber - 1].LevelPlayerDataList[levelNumber - 1].MaxStarsEarned;
@@ -245,7 +266,6 @@ namespace com.dogonahorse
             {
                 return false;
             }
-
         }
 
         public static int GetMaxTaps(int chapterNumber, int levelNumber)
