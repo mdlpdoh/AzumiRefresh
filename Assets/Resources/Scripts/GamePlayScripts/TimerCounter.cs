@@ -8,12 +8,13 @@ namespace com.dogonahorse
     public class TimerCounter : MonoBehaviour
     {
         private Text myText;
-        public float timer = 7.0f;
+        public float Timer = 7.0f;
 
-
+        private float currentTimer;
         void Awake()
         {
             myText = GetComponent<Text>();
+            currentTimer = Timer;
         }
 
         void Start()
@@ -21,14 +22,22 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.StartTimer, EndGameStartTimer);
             EventManager.ListenForEvent(AzumiEventType.LevelLost, StopTimer);
             EventManager.ListenForEvent(AzumiEventType.LevelWon, StopTimer);
+            EventManager.ListenForEvent(AzumiEventType.CancelTimer, OnResetTimer);
         }
-             void OnDestroy()
+        void OnDestroy()
         {
             EventManager.Instance.RemoveListener(AzumiEventType.StartTimer, EndGameStartTimer);
             EventManager.Instance.RemoveListener(AzumiEventType.LevelLost, StopTimer);
             EventManager.Instance.RemoveListener(AzumiEventType.LevelWon, StopTimer);
 
         }
+
+        void OnResetTimer(AzumiEventType Event_Type, Component Sender, object Param = null)
+        {
+            StopAllCoroutines();
+            currentTimer = Timer;
+        }
+
         void StopTimer(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             StopAllCoroutines();
@@ -39,10 +48,10 @@ namespace com.dogonahorse
         }
         private IEnumerator EndTimer()
         {
-            while (timer > 0)
+            while (currentTimer > 0)
             {
-                timer -= Time.deltaTime;
-                myText.text = timer.ToString("F1");
+                currentTimer -= Time.deltaTime;
+                myText.text = currentTimer.ToString("F1");
                 yield return null;
             }
             myText.text = "0";

@@ -63,7 +63,8 @@ namespace com.dogonahorse
         PauseLevel,
         ResumeLevel,
         RestartLevel,
-        ExitLevelEarly
+        ExitLevelEarly,
+        CancelTimer
 
     }
     //-----------------------------------------------------------
@@ -174,7 +175,7 @@ namespace com.dogonahorse
 
         public static void ClearGameLevelListeners()
         {
-            print("Clearing Game Listeners");
+           // print("Clearing Game Listeners");
 
             Instance.RemoveEvent(AzumiEventType.GameSwipe);
             Instance.RemoveEvent(AzumiEventType.SetCoins);

@@ -87,29 +87,32 @@ namespace com.dogonahorse
         }
         void Start()
         {
-            dev = SystemInfo.deviceModel;
-            OS = SystemInfo.operatingSystem;
-            ID = SystemInfo.deviceUniqueIdentifier;
-            //timerDict.Add(AnalyticsEventType.Quit, GetNewTimer(AnalyticsEventType.Quit));
-            AddNewTimerObject(AnalyticsEventType.StartApp);
-            //listeners
-            EventManager.ListenForEvent(AzumiEventType.EnterLevel, onEnterLevel);
-            EventManager.ListenForEvent(AzumiEventType.LevelWon, onLevelWon);
-            EventManager.ListenForEvent(AzumiEventType.LevelLost, onLevelLost);
-            EventManager.ListenForEvent(AzumiEventType.PauseLevel, onLevelPaused);
-            EventManager.ListenForEvent(AzumiEventType.RestartLevel, OnLevelRestart);
-            EventManager.ListenForEvent(AzumiEventType.EnterProgress, OnClearLevelRestarts);
-            EventManager.ListenForEvent(AzumiEventType.ExitLevelEarly, OnExitLevelEarly);
-            EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
-            StartApp();
+            //don't gather analytics from editor
+            if (SystemInfo.deviceType == DeviceType.Handheld)
+            {
+                dev = SystemInfo.deviceModel;
+                OS = SystemInfo.operatingSystem;
+                ID = SystemInfo.deviceUniqueIdentifier;
 
+                AddNewTimerObject(AnalyticsEventType.StartApp);
+                //listeners
+                EventManager.ListenForEvent(AzumiEventType.EnterLevel, onEnterLevel);
+                EventManager.ListenForEvent(AzumiEventType.LevelWon, onLevelWon);
+                EventManager.ListenForEvent(AzumiEventType.LevelLost, onLevelLost);
+                EventManager.ListenForEvent(AzumiEventType.PauseLevel, onLevelPaused);
+                EventManager.ListenForEvent(AzumiEventType.RestartLevel, OnLevelRestart);
+                EventManager.ListenForEvent(AzumiEventType.EnterProgress, OnClearLevelRestarts);
+                EventManager.ListenForEvent(AzumiEventType.ExitLevelEarly, OnExitLevelEarly);
+                EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
+                StartApp();
+            }
         }
-   
-        AnalyticsTimer GetNewTimer(AnalyticsEventType newType)
+
+        AnalyticsTimer GetNewTimer()
         {
             AnalyticsTimer newTimer = ScriptableObject.CreateInstance("AnalyticsTimer") as AnalyticsTimer;
 
-            newTimer.Init(newType);
+            newTimer.Init();
             return newTimer;
         }
 
@@ -127,11 +130,11 @@ namespace com.dogonahorse
         {
             if (timerDict.ContainsKey(newType))
             {
-                timerDict[newType] = GetNewTimer(newType);
+                timerDict[newType] = GetNewTimer();
             }
             else
             {
-                timerDict.Add(newType, GetNewTimer(newType));
+                timerDict.Add(newType, GetNewTimer());
             }
         }
 
@@ -144,9 +147,13 @@ namespace com.dogonahorse
             AddNewTimerObject(AnalyticsEventType.StartLevel);
             Dictionary<string, object> paramList = AddStandardParameters(new Dictionary<string, object>());
             paramList.Add("Level", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-            paramList.Add("NumPlays", LevelManager.Instance.GetTimesLevelPlayed());
-            print("Analytics onEnterLevel:" + Analytics.CustomEvent("StartLevel", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            paramList.Add("NumPlaysThisSession", LevelManager.Instance.GetTimesLevelPlayed());
+            paramList.Add("Wins", LevelManager.Instance.GetWins());
+            paramList.Add("Losses", LevelManager.Instance.GetLosses());
+
+            Analytics.CustomEvent("StartLevel", paramList);
+            // print("Analytics onEnterLevel:" + Analytics.CustomEvent("StartLevel", paramList));
+            // OutputParams(azumiEventType.ToString(), paramList);
         }
 
         public void onLevelWon(AzumiEventType azumiEventType, Component Sender, object Param = null)
@@ -161,8 +168,9 @@ namespace com.dogonahorse
             paramList.Add("Swipes", scoreManager.SwipesRemaining);
             paramList.Add("Coins", scoreManager.CoinsEarned);
             paramList.Add("fps", fpsDisplay.GetAverageFPS());
-            print("Analytics onLevelWon:" + Analytics.CustomEvent("Win", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            Analytics.CustomEvent("Win", paramList);
+            // print("Analytics onLevelWon:" + Analytics.CustomEvent("Win", paramList));
+            //OutputParams(azumiEventType.ToString(), paramList);
         }
 
         public void onLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
@@ -177,8 +185,9 @@ namespace com.dogonahorse
             paramList.Add("result", scoreManager.GetReasonForLoss());
             paramList.Add("Coins", scoreManager.CoinsEarned);
             paramList.Add("fps", fpsDisplay.GetAverageFPS());
-            print("Analytics onLevelLost:" + Analytics.CustomEvent("Loss", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            Analytics.CustomEvent("Loss", paramList);
+            // print("Analytics onLevelLost:" + Analytics.CustomEvent("Loss", paramList));
+            //OutputParams(azumiEventType.ToString(), paramList);
         }
 
         public void onLevelPaused(AzumiEventType azumiEventType, Component Sender, object Param = null)
@@ -188,8 +197,9 @@ namespace com.dogonahorse
             paramList.Add("Level", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             paramList.Add("Time", timerDict[AnalyticsEventType.StartLevel].GetElapsedTime());
             paramList.Add("timesPaused", numberOfTimesPaused);
-            print("Analytics onLevelPaused:" + Analytics.CustomEvent("Pause", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            Analytics.CustomEvent("Pause", paramList);
+            //print("Analytics onLevelPaused:" + Analytics.CustomEvent("Pause", paramList));
+            // OutputParams(azumiEventType.ToString(), paramList);
         }
         public void OnLevelRestart(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
@@ -198,8 +208,9 @@ namespace com.dogonahorse
             paramList.Add("Level", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             paramList.Add("Time", timerDict[AnalyticsEventType.StartLevel].GetElapsedTime());
             paramList.Add("timesRestarted", numberOfTimesRestarted);
-            OutputParams(azumiEventType.ToString(), paramList);
-            print("Analytics OnLevelRestart:" + Analytics.CustomEvent("Restart", paramList));
+            Analytics.CustomEvent("Restart", paramList);
+            //OutputParams(azumiEventType.ToString(), paramList);
+            //print("Analytics OnLevelRestart:" + Analytics.CustomEvent("Restart", paramList));
         }
         public void OnClearLevelRestarts(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
@@ -212,8 +223,9 @@ namespace com.dogonahorse
             Dictionary<string, object> paramList = AddStandardParameters(new Dictionary<string, object>());
             paramList.Add("Level", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             paramList.Add("Time", timerDict[AnalyticsEventType.StartLevel].GetElapsedTime());
-            print("Analytics OnExitLevelEarly:" + Analytics.CustomEvent("Exit", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            Analytics.CustomEvent("Exit", paramList);
+            //print("Analytics OnExitLevelEarly:" + Analytics.CustomEvent("Exit", paramList));
+            //OutputParams(azumiEventType.ToString(), paramList);
         }
 
         public void OnSaveSettings(AzumiEventType azumiEventType, Component Sender, object Param = null)
@@ -223,9 +235,11 @@ namespace com.dogonahorse
             paramList.Add("NewFx", SoundManager.SoundFXVolume);
             paramList.Add("OldMusic", SoundManager.FormerMusicVolume);
             paramList.Add("OldFx", SoundManager.FormerSoundFXVolume);
-            print("Analytics OnSavedSettings:" + Analytics.CustomEvent("Settings", paramList));
-            OutputParams(azumiEventType.ToString(), paramList);
+            Analytics.CustomEvent("Settings", paramList);
+            //print("Analytics OnSavedSettings:" + Analytics.CustomEvent("Settings", paramList));
+            //OutputParams(azumiEventType.ToString(), paramList);
         }
+        /*
         void OutputParams(string listID, Dictionary<string, object> paramList)
         {
             print("--- Start " + listID + " ---");
@@ -238,12 +252,13 @@ namespace com.dogonahorse
 
 
         }
-
+*/
         void StartApp()
         {
             Dictionary<string, object> paramList = AddStandardParameters(new Dictionary<string, object>());
-            print("Analytics StartApp:" + Analytics.CustomEvent("StartApp", paramList));
-            OutputParams("StartApp", paramList);
+            Analytics.CustomEvent("StartApp", paramList);
+            //print("Analytics StartApp:" + Analytics.CustomEvent("StartApp", paramList));
+            //OutputParams("StartApp", paramList);
         }
 
 

@@ -173,10 +173,8 @@ namespace com.dogonahorse
                 }*/
         public void OnHitWallEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             if (sceneManager.GetCurrentState() == SceneState.Playing)
             {
-
                 try
                 {
                     Collision2D wallCollider = (Collision2D)Param;
@@ -185,6 +183,12 @@ namespace com.dogonahorse
                     //don't do anything if ball hit an ordinary wall or an expired special wall
                     if (currentWallValue != 0)
                     {
+                        if (swipesRemaining == 0 && currentWallValue > 0)
+                        {
+                            //kill timer as a heal wall has puished the total abve zero
+                            EventManager.PostEvent(AzumiEventType.CancelTimer, this);
+                        }
+
                         if (swipesRemaining + currentWallValue >= 0)
                         {
                             swipesRemaining += currentWallValue;
@@ -193,12 +197,9 @@ namespace com.dogonahorse
                         {
                             EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
                         }
-
                         doSwipesUpdate();
-
                     }
                 }
-
                 catch
                 {
                     // Debug.Log("Horrible things happened! No WallBehavior script was found!");
@@ -260,7 +261,6 @@ namespace com.dogonahorse
 
             if (!exitedDoorSafely)
             {
-                print("exitedDoorSafely " + exitedDoorSafely);
                 exitedDoorSafely = true;
 
                 if (NumberOfStars > 0)
@@ -289,12 +289,17 @@ namespace com.dogonahorse
 
         public string GetReasonForLoss()
         {
-            if (ranOutOfTime){
+            if (ranOutOfTime)
+            {
                 return "time";
-                
-            } else if (exitedDoorSafely){
+
+            }
+            else if (exitedDoorSafely)
+            {
                 return "ants";
-            } else {
+            }
+            else
+            {
                 return "swipes";
             }
         }
