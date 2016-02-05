@@ -216,15 +216,12 @@ namespace com.dogonahorse
         }*/
         public void Stop()
         {
-
             int i = 0;
             while (i < audioSources.Count)
             {
-
                 audioSources[i].Stop();
                 i++;
             }
-
 
         }
 

@@ -18,7 +18,7 @@ public class followPath : MonoBehaviour {
 
 	public void Start() {
 		if (Path == null) {
-			Debug.LogError("Path cannot be null", gameObject);
+			// Debug.LogError("Path cannot be null", gameObject);
 			return;
 		}
 

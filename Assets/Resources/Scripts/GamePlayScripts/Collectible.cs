@@ -19,23 +19,15 @@ namespace com.dogonahorse
     public class Collectible : MonoBehaviour
     {
         public CollectibleType collectibleType;
-
-
+        
         public bool Snap = true;
         public float SnapValue = 0.25f;
 
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
 
         void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.name == "Ball")
             {
-   
                 EventManager.PostEvent(AzumiEventType.HitCollectible, this, col);
             }
         }

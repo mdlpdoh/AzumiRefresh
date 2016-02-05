@@ -25,13 +25,10 @@ namespace com.dogonahorse
 
         private ScoreManager scoreManager;
 
-
-
         public Material failPandaMat;
 
 
         public UILevelResultsStar[] resultsStars;// array of the Star Parent game objects in the inspector
-
 
         override public void InitWindow()
         {

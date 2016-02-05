@@ -10,7 +10,7 @@ namespace com.dogonahorse
 
         private Image greyStar;
         private Image goldStar;
-        // Use this for initialization
+
         void Awake()
         {
             Transform[] childTransforms = GetComponentsInChildren<Transform>();
@@ -27,15 +27,11 @@ namespace com.dogonahorse
             }
         }
 
-
-        // Update is called once per frame
         public void Hide()
         {
             greyStar.enabled = false;
             goldStar.enabled = false;
         }
-
-
 
         public void ShowGold()
         {

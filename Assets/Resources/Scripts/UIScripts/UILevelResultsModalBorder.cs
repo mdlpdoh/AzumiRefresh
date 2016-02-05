@@ -6,18 +6,14 @@ using System.Collections;
 namespace com.dogonahorse
 {
     public class UILevelResultsModalBorder : MonoBehaviour
-    {
-  
- 
+    { 
         private ScoreManager scoreManager;
         void Start()
         {
-
-            scoreManager=GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+            scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
             GetComponent<Outline>().effectColor = scoreManager.ChapterMainColor;
         }
-
    
     }
 }

@@ -25,7 +25,6 @@ namespace com.dogonahorse
             slider = GetComponent<Slider>();
         }
 
-        // Update is called once per frame
         public void Start()
         {
        

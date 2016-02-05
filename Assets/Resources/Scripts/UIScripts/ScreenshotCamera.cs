@@ -43,8 +43,6 @@ namespace com.dogonahorse
                 screenshot.ReadPixels(captureRect, 0, 0, false);
                 screenshot.Apply();
 
-              
-
                 QualitySettings.antiAliasing = oldAntiAliasingSettings;
 
                 if (capturing)

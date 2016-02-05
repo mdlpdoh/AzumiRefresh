@@ -30,7 +30,7 @@ namespace com.dogonahorse
 			ArrowSpriteRenderer.enabled = false;
 		}
 	
-		// Update is called once per frame
+
 		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 			//print ("ArrowPivot == " +;

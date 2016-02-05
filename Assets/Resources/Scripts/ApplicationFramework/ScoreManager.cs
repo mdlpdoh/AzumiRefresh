@@ -212,14 +212,11 @@ namespace com.dogonahorse
 
         public void doSwipesUpdate()
         {
-
-
             if (swipesRemaining < 0)
             {
                 exitedDoorSafely = false;
                 EventManager.PostEvent(AzumiEventType.OutOfBounces, this);
             }
-
 
             if (swipesRemaining == 0)
             {
@@ -231,7 +228,6 @@ namespace com.dogonahorse
             }
             else
             {
-
                 EventManager.PostEvent(AzumiEventType.SwipesAboveMinimum, this);
             }
 

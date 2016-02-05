@@ -17,7 +17,6 @@ namespace com.dogonahorse
                 toggle.isOn = false;
             }
         }
-        // Use this for initialization
         public void LockUnlock()
         {
             if (toggle.isOn)

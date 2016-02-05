@@ -8,7 +8,6 @@ namespace com.dogonahorse
         // Use this for initialization
         public float RepelStrength = 0.1f;
 
-        // Update is called once per frame
         public float startDistance = 0f;
         public Transform particleWiggler;
         public Transform rotator;

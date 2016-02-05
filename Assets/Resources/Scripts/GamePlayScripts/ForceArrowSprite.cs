@@ -27,7 +27,6 @@ namespace com.dogonahorse
             mySprite.color = color;
         }
 
-        // Update is called once per frame
         public void StartFadeIn()
         {
             StopAllCoroutines();

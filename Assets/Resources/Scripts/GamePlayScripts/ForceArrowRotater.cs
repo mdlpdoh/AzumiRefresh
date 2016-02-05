@@ -72,7 +72,7 @@ namespace com.dogonahorse
             }
 
         }
-        // Update is called once per frame
+
         public void OnGamePress(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             startLocation = (Vector3)Param;

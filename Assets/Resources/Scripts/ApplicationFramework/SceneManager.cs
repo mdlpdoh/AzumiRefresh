@@ -217,7 +217,7 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
-            Debug.Log("Scene Manager:  Inited");
+            // Debug.Log("Scene Manager:  Inited");
             ChangeState(SceneState.PreGame);
 
         }
@@ -239,18 +239,18 @@ namespace com.dogonahorse
         }
         void Ready_Enter()
         {
-             Debug.Log("Scene Manager: Ready");
+            //  Debug.Log("Scene Manager: Ready");
             if (GameManager.GetCurrentState() == GameState.GameLevel)
             {
 
             }
         }
 
-        void Playing_Enter()
-        {
-             Debug.Log("Scene Manager: Playing");
+        // void Playing_Enter()
+        // {
+        //      Debug.Log("Scene Manager: Playing");
 
-        }
+        // }
 
 
 
@@ -283,10 +283,10 @@ namespace com.dogonahorse
             EventManager.PostEvent(AzumiEventType.OpenModal, this, null);
         }
 
-        void Modal_Enter()
-        {
-             Debug.Log("Modal open");
-        }
+        // void Modal_Enter()
+        // {
+        //      Debug.Log("Modal open");
+        // }
 
         void DebugMode_Enter()
         {

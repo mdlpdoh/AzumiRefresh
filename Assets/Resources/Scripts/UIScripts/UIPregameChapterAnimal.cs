@@ -10,7 +10,6 @@ namespace com.dogonahorse
     public class UIPregameChapterAnimal : MonoBehaviour
     {
 
-        // Use this for initialization
         public Sprite[] animalImages;
 
         private Image animalImage;
@@ -24,8 +23,6 @@ namespace com.dogonahorse
           animalImage.sprite = animalImages[UIChapterPanel.ActiveChapter - 1];
           animalImage.color = LevelManager.GetChapterMainColor(UIChapterPanel.ActiveChapter);
         }
-
-        // Update is called once per frame
 
     }
 }

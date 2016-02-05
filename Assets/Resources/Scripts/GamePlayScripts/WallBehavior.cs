@@ -16,7 +16,7 @@ namespace com.dogonahorse
 
         private int remainingActivations;
         private bool wallIsActive = true;
-        // Update is called once per frame
+
     
         void Start()
         {

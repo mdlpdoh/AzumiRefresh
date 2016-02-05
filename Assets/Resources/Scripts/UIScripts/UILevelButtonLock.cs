@@ -140,7 +140,6 @@ namespace com.dogonahorse
             mainlockImage.enabled = true;
         }
 
-        // Update is called once per frame
         public void Hide()
         {
             mainlockImage.enabled = false;
