@@ -22,14 +22,10 @@ namespace com.dogonahorse
         {
             animalImage = GetComponent<Image>();
             scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-
-
         }
         void OnEnable()
         {
             // find out if player lost or won from the score manager
-
-
             // default is the loseAnimal material - shows outline of animal
             animalImage.sprite = animalImages[scoreManager.ChapterNumber - 1];
 

@@ -56,13 +56,6 @@ namespace com.dogonahorse
 			EventManager.ListenForEvent (AzumiEventType.GameSwipe, OnGameSwipe);
 			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-			
-			//myRb.velocity = Vector2.ClampMagnitude (myRb.velocity, clampSpeed);
-		}
 
 		void FixedUpdate ()
 		{

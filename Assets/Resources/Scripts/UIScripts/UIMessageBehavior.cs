@@ -30,15 +30,12 @@ namespace com.dogonahorse
 
 		private Text myText;
 
-
-		// Use this for initialization
 		void Start ()
 		{
 			myText = GetComponent<Text> ();
 			myText.enabled = false;
 		}
 	
-		// Update is called once per frame
 		public void StartEntry ()
 		{	
 			switch (entryStyle) {

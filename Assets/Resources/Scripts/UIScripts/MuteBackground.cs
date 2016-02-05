@@ -15,9 +15,7 @@ namespace com.dogonahorse
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.ScreenShotReady, enableBlurBackGround);
-            EventManager.ListenForEvent(AzumiEventType.BlurFadeOutComplete, disableBlurBackGround);
-            
-      
+            EventManager.ListenForEvent(AzumiEventType.BlurFadeOutComplete, disableBlurBackGround);  
             // renderCamera.ScreenReadyEvent += GetScreen;
             myImage = GetComponent<Image>();
         }
@@ -25,8 +23,6 @@ namespace com.dogonahorse
 
         void enableBlurBackGround(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
-
      
             myImage.enabled = true;
         }

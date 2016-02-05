@@ -7,7 +7,6 @@ using UnityEngine.Analytics;
 
 namespace com.dogonahorse
 {
-
     public enum GameState
     {
         Unassigned,
@@ -23,7 +22,6 @@ namespace com.dogonahorse
 
     public class GameManager : StateBehaviour
     {
-
         private static GameManager instance = null;
         public static GameManager Instance
         {
@@ -88,22 +86,16 @@ namespace com.dogonahorse
                     break;
                 default:
                     break;
-
             }
-
         }
 
         public static void ReloadScene()
         {
-
             Instance.ChangeState(GameState.Reset);
-
-
         }
 
         public static bool ChangeScene(int levelNumber, int chapterNumber)
         {
-
             GameState currentState = GetCurrentState();
 
             if (currentState == GameState.Progress)
@@ -117,7 +109,6 @@ namespace com.dogonahorse
                     Instance.ChangeState(GameState.GameLevel);
                     LevelManager.SetLevelIDNumbers(chapterNumber, levelNumber);
                     return true;
-
                 }
                 else
                 {
@@ -145,7 +136,6 @@ namespace com.dogonahorse
         //Enter Actions
         void Init_Enter()
         {
-
             // Debug.Log("Game Manager:  Inited");
             ChangeState(defaultState);
         }
@@ -196,8 +186,6 @@ namespace com.dogonahorse
             EventManager.ClearGameLevelListeners();
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             //Application.LoadLevel(Application.loadedLevel);
-
-
             Instance.ChangeState(GameState.GameLevel);
         }
 

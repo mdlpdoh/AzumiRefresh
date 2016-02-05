@@ -26,7 +26,6 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(eventType, StartFade);
         }
 
-        // Update is called once per frame
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 

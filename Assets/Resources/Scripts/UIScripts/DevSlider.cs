@@ -44,7 +44,6 @@ namespace com.dogonahorse
 
 		}
 	
-		// Update is called once per frame
 		public void SetStartValue(float startvalue)
 		{
 		

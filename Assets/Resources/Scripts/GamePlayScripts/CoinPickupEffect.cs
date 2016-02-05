@@ -30,7 +30,6 @@ namespace com.dogonahorse
             defaultScale = transform.localScale;
         }
 
-        // Update is called once per frame
         void OnCoinPickup(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             if (Sender == collectible)
@@ -63,10 +62,8 @@ namespace com.dogonahorse
                 
                  currentTime += Time.deltaTime;
 
-
                 yield return null;
             }
-
 
         }
 
@@ -81,9 +78,7 @@ namespace com.dogonahorse
 
                 transform.localScale = defaultScale + new Vector3(curveProgress * MaxScaleAmount , curveProgress * MaxScaleAmount, curveProgress * MaxScaleAmount);
 
-
                 currentTime += Time.deltaTime;
-
 
                 yield return null;
             }

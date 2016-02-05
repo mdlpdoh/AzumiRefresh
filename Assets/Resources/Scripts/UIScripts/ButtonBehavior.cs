@@ -67,8 +67,6 @@ namespace com.dogonahorse
 			InputManager.Instance.ControlNotActive();
 		}
 
-
-		// Update is called once per frame
 		public virtual void DoButtonAction ()
 		{	
             EventManager.PostEvent(AzumiEventType.UITap, this);

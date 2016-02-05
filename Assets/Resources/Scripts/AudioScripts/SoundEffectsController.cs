@@ -93,10 +93,8 @@ namespace com.dogonahorse
 
         public void DoAudioEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
-
             if (SoundID == "" || Param.ToString() == SoundID)
             {
-
                 switch (myAction)
                 {
                     case AudioActionType.HardStart:
@@ -175,7 +173,6 @@ namespace com.dogonahorse
 
         void Update()
         {
-
             if (audioSources.Count > 0)
             {
                 int i = audioSources.Count - 1;
@@ -196,7 +193,6 @@ namespace com.dogonahorse
                     }
                     else
                     {
-
                         float decreaseAmount = audioSources[0].volume / droneVolumeDecreaseRatio;
 
                         if (audioSources[0].volume - decreaseAmount > 0.001f)
@@ -205,7 +201,6 @@ namespace com.dogonahorse
                         }
                         else
                         {
-
                             audioSources[0].volume = 0;
                             audioSources[0].Stop();
                         }
@@ -219,15 +214,12 @@ namespace com.dogonahorse
         }
         public void Stop()
         {
-
             int i = 0;
             while (i < audioSources.Count)
             {
-
                 audioSources[i].Stop();
                 i++;
             }
-
 
         }
 

@@ -13,7 +13,7 @@ namespace  com.dogonahorse
         public Vector3 endPosition;
         public AzumiEventType eventType;
         public AnimationCurve translationCurve;
-        // Use this for initialization
+
         private RectTransform rectTransform;
 
         private Vector3 difference;
@@ -32,12 +32,8 @@ namespace  com.dogonahorse
                 endPosition = transform.localPosition;
                 
             }
-      
-               
-
         }
 
-        // Update is called once per frame
         public void StartTranslation(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
 
@@ -45,8 +41,6 @@ namespace  com.dogonahorse
               StartCoroutine("Translate");
             }
         }
-
-
 
         private IEnumerator Translate()
         {
@@ -61,7 +55,6 @@ namespace  com.dogonahorse
 
 
                 currentTime += Time.unscaledDeltaTime;
-
 
                 yield return null;
             }

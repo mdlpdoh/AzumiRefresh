@@ -27,7 +27,6 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.SwipesAboveMinimum, StopFade);
         }
 
-        // Update is called once per frame
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
 
@@ -81,7 +80,6 @@ namespace com.dogonahorse
                 currentTime += Time.unscaledDeltaTime;
                 yield return null;
             }
-
 
         }
         void OnDestroy()

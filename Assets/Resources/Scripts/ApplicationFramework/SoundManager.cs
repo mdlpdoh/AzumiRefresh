@@ -132,8 +132,6 @@ namespace com.dogonahorse
 
         void Start()
         {
-
-
             if (!PlayerPrefs.HasKey("musicVolume"))
             {
                 PlayerPrefs.SetFloat("musicVolume", musicVolume);
@@ -170,8 +168,6 @@ namespace com.dogonahorse
         }
         void SaveSettings()
         {
-
-
             PlayerPrefs.SetFloat("musicVolume", musicVolume);
             PlayerPrefs.SetFloat("soundFXVolume", soundFXVolume);
         }
@@ -188,8 +184,7 @@ namespace com.dogonahorse
         }
 
         void OnEnterProgress(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {
-          
+        { 
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);
@@ -201,7 +196,6 @@ namespace com.dogonahorse
 
         void OnEnterLevel(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {     
-
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.MainThemeFadeOut, this);
@@ -210,8 +204,7 @@ namespace com.dogonahorse
             }
         }
         void OnLevelLost(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {
-     
+        {  
             if (musicEnabled)
             {
                 AudioEventManager.PostEvent(AudioEventType.LevelThemeFadeOut, this);

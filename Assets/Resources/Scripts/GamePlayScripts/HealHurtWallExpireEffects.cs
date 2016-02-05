@@ -39,7 +39,7 @@ namespace com.dogonahorse
 
         }
 
-        // Update is called once per frame
+
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             if (Sender == myWall && notExpiredAlready)

@@ -62,8 +62,6 @@ namespace com.dogonahorse
         //swipe version
         void Update()
         {
-
-
             if (Input.GetMouseButtonDown(0) && !UIControlIsActive)
             {
                 // print("foo "+ UIControlIsActive);

@@ -6,7 +6,6 @@ namespace com.dogonahorse
 	public class TexturedWall: MonoBehaviour
 	{
 
-
 		public Transform handle01;
 		public Transform handle02;
 		public Transform WallSegment;
@@ -24,8 +23,7 @@ namespace com.dogonahorse
 		
 
 		void OnDrawGizmos ()
-		{
-			
+		{			
 		
 			if ( materialInstance == null) {
 				materialInstance = new Material(WallSegmentRenderer.sharedMaterial);
@@ -62,12 +60,6 @@ namespace com.dogonahorse
 			WallSegment.transform.localPosition -= difference;
 			//materialInstance.SetFloat("_Rotation",  wallOrientation);
 			materialInstance.mainTextureScale= new Vector2((TextureUnitScale*TextureScaleFudge) * ((handle01pos - handle02pos).magnitude * fudge),TextureUnitScale);
-
-
-			//	Rotate Texture
-			 //Quaternion rot = Quaternion.Euler (0, 0, angle + 90);
-       	//	 Matrix4x4 m = Matrix4x4.TRS (Vector3.zero, rot, Vector3.one);
-     	//	 materialInstance.SetMatrix ("_Rotation", m);
 
 		}
 

@@ -9,8 +9,6 @@ namespace com.dogonahorse
 	public class DevelopmentPanelManager : MonoBehaviour
 	{
 
-
-
 		public int MaxTaps = 0;
 		public int TwoStarLevel;
 		public int TwoStarBonus;
@@ -36,13 +34,9 @@ namespace com.dogonahorse
 		public Toggle smushToggle;
 		public Toggle swipeToggle;
 
-
 		private bool smushEnabled;
 		private bool hitWallsCostsPoints;
 		private bool actionsCostPoints;
-
-
-
 	
 		// Use this for initialization
 		 void Start ()
@@ -153,7 +147,7 @@ namespace com.dogonahorse
 			PlayerPrefs.SetString("actionsCostPoints",Convert.ToString(actionsCostPoints));
 			PlayerPrefs.Save();
 		}
-		// Update is called once per frame
+
 		void SetUpUI ()
 		{
 			forceSlider.onFloatChanged += onForceChanged;
@@ -162,7 +156,6 @@ namespace com.dogonahorse
 			pointsSlider.onIntChanged += onPointsChanged;
 			massSlider.onFloatChanged += onMassChanged;
 			dragSlider.onFloatChanged += onDragChanged;
-
 
 			forceSlider.SetStartValue (minVelocity);
 			pointsSlider.SetStartValue (MaxTaps);
