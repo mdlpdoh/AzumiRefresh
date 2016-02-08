@@ -88,7 +88,7 @@ namespace com.dogonahorse
         void Start()
         {
             //don't gather analytics from editor
-            if (SystemInfo.deviceType == DeviceType.Handheld)
+          if (SystemInfo.deviceType == DeviceType.Handheld)
             {
                 dev = SystemInfo.deviceModel;
                 OS = SystemInfo.operatingSystem;
@@ -106,7 +106,7 @@ namespace com.dogonahorse
                 EventManager.ListenForEvent(AzumiEventType.SaveSettings, OnSaveSettings);
                 StartApp();
             }
-        }
+       }
 
         AnalyticsTimer GetNewTimer()
         {

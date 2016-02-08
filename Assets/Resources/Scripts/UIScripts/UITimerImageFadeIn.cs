@@ -42,12 +42,12 @@ namespace com.dogonahorse
         }
         public void OnResetTimer(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-            
+
             StopAllCoroutines();
             Color color = myImage.color;
             color.a = 0;
             myImage.color = color;
-fadeAlreadyStarted = false;
+            fadeAlreadyStarted = false;
         }
         private IEnumerator FadeIn()
         {
