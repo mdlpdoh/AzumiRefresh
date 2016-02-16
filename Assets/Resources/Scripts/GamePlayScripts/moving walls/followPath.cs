@@ -8,7 +8,9 @@ public class followPath : MonoBehaviour {
 		MoveTowards,
 //		Lerp
 	}
-
+    // This script is used for the moving walls. It creates two points that you can position anywhere. 
+    // Place this script on the wall and the wall in between the points.
+    // In the Inspector drop in the wallMovePingPong Path script so the wall can begin to ping pong petween the points.
 	public FollowType Type = FollowType.MoveTowards;
 	public wallMovePingPong Path;
 	public float Speed = 1;
@@ -29,7 +31,7 @@ public class followPath : MonoBehaviour {
 			//if there are no points in the path just break out of this...
 			return;
 		}
-		//setting the position wto the first point in the path.
+		//setting the position to the first point in the path.
 		transform.position = _currentPoint.Current.position;
 	}
 
