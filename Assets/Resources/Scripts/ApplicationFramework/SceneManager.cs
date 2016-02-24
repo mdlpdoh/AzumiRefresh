@@ -23,15 +23,24 @@ namespace com.dogonahorse
 
     }
 
-    /**
-	 *  Manages all scene assets and behaviors. SceneManager mediates between the GameManager, SceneManager and other high level objects associated with an individual scene.
-	 */
-
-
+    //-----------------------------------------------------------
+    /// <summary>
+    /// Singleton Scene Manager manages all scene assets and behaviors.
+    /// SceneManager mediates between the GameManager, SceneManager and other high level objects associated with an individual scene.
+    /// </summary>
+    /// <remarks>
+    /// Subclass of StateBehaviour, part of the MonsterLove State Machine
+    /// Attached to SceneScripts gameObject
+    /// </remarks>
     public class SceneManager : StateBehaviour
     {
         private static SceneManager instance = null;
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Public access to instance
+        /// </summary>
+        /// <returns>unique instance of class</returns>
+        /// <returns>Apparently not necessary as it is not called from anywhere</returns>
         public static SceneManager Instance
         {
             // return reference to private instance 
@@ -40,21 +49,19 @@ namespace com.dogonahorse
                 return instance;
             }
         }
-
-        public ModalWindow AboutPangolinsWindow;
-        public UIMessageBehavior TitleText;
-        public bool developMode = false;
-        public InputManager inputManager;
-        public Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow>();
-        public GameObject devSettingsPanel;
-
-        // private SceneState nextState;
-
+        //Stores references to all modal windows
+        private Dictionary<ButtonID, ModalWindow> modalWindowDictionary = new Dictionary<ButtonID, ModalWindow>();
         private int nextChapter;
         private int nextLevel;
 
-        //  private  BlurBackground blurBackground;
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Public access to prospective next chapter number
+        /// </summary>
+        /// <returns>integer number of chapter</returns>
+        /// <remarks>
+        /// stores ID of  chapter when user has tapped a level button, but not confirmed in modal window
+        /// </remarks>
         public static int NextChapter
         {
             get
@@ -62,6 +69,15 @@ namespace com.dogonahorse
                 return instance.nextChapter;
             }
         }
+
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Public access to prospective next Level number
+        /// </summary>
+        /// <returns>integer number of level</returns>
+        /// <remarks>
+        /// stores ID of  level when user has tapped a level button, but not confirmed in modal window
+        /// </remarks>
         public static int NextLevel
         {
             get
@@ -89,36 +105,59 @@ namespace com.dogonahorse
             EventManager.ListenForEvent(AzumiEventType.LevelWon, OnLevelWonEvent);
             EventManager.ListenForEvent(AzumiEventType.FinishEndGameSequence, OnOpenLevelResults);
         }
+
+        //-----------------------------------------------------------
+        /// <summary>
+        /// initialize UI references and state machine
+        /// </summary>
+        /// <remarks>
+        /// Called by Game Manager upon enetering a new scene/state
+        /// </remarks>
         public void InitScene()
         {
-
             Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
-            devSettingsPanel = GameObject.Find("DevelopmentSettings");
             ModalWindow[] modals = canvas.GetComponentsInChildren<ModalWindow>(true);
             modalWindowDictionary.Clear();
             for (int i = 0; i < modals.Length; i++)
             {
                 modalWindowDictionary.Add(modals[i].buttonID, modals[i]);
             }
-            inputManager = GameObject.Find("GameScripts").GetComponent<InputManager>();
             ChangeState(SceneState.Init);
-
-
-
         }
 
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Gets SceneManager's current state's Enumerated ID from the state machine
+        /// </summary>
+        /// <returns>Enum of type SceneState</returns>
+        /// <remarks>
+        /// Called by Input Manager, ScoreManager and SceneManager
+        /// </remarks>
         public SceneState GetCurrentState()
         {
             return (SceneState)Enum.Parse(typeof(SceneState), GetState().ToString());
 
         }
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Changes  SceneManager's current state to Playing
+        /// </summary>
+        /// <remarks>
+        /// Called by Input Manager in level scenes when scene goes from idling to being in play
+        /// </remarks>
         public void StartGamePlay()
         {
             ChangeState(SceneState.Playing);
         }
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Interprets various button actions
+        /// </summary>
+        /// <param name="buttonID">ID of button (really of modal)</param>
+        /// <param name="buttonAction">Action dictated by button</param>
+        /// <remarks>
+        /// Ca;;ed directly by InputManager. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void ButtonClicked(ButtonID buttonID, ButtonAction buttonAction)
         {
             if (buttonAction == ButtonAction.OpenModal)
@@ -145,13 +184,13 @@ namespace com.dogonahorse
                 {
                     EventManager.PostEvent(AzumiEventType.SaveSettings, this);
                 }
-      
+
                 EventManager.PostEvent(AzumiEventType.CloseModal, this, buttonID);
                 Time.timeScale = 1;
 
                 ChangeState(SceneState.Ready);
             }
-            
+
             else if (buttonAction == ButtonAction.NextScreen)
             {
 
@@ -186,6 +225,15 @@ namespace com.dogonahorse
             }
         }
 
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Opens PreGameModal dialog box, and serts values of nextChapter and nextLevel properties
+        /// </summary>
+        /// <param name="levelNumber">level value for prospective level</param>
+        /// <param name="chapterNumber">chapter value for prospective level</param>
+        /// <remarks>
+        ///  Called directly by InputManager. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void LevelButtonClicked(int levelNumber, int chapterNumber)
         {
             nextChapter = chapterNumber;
@@ -197,18 +245,18 @@ namespace com.dogonahorse
 
 
 
-        public void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        private void OnLevelWonEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-           
+
             ChangeState(SceneState.GameWinSequence);
         }
 
-        public void OnLevelLostEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
+        private void OnLevelLostEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ChangeState(SceneState.GameOver);
         }
 
-        public void OnOpenLevelResults(AzumiEventType Event_Type, Component Sender, object Param = null)
+        private void OnOpenLevelResults(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             ChangeState(SceneState.GameOver);
         }
@@ -234,10 +282,10 @@ namespace com.dogonahorse
                 ChangeState(SceneState.Ready);
             }
         }
-        
+
         void Ready_Enter()
         {
-             //Debug.Log("Scene Manager: Ready");
+            //Debug.Log("Scene Manager: Ready");
             if (GameManager.GetCurrentState() == GameState.GameLevel)
             {
 
@@ -281,7 +329,7 @@ namespace com.dogonahorse
 
         void Modal_Enter()
         {
-             //Debug.Log("Modal open");
+            //Debug.Log("Modal open");
         }
 
         void DebugMode_Enter()
