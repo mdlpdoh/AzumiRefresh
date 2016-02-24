@@ -19,10 +19,22 @@ namespace com.dogonahorse
         Reset
     }
 
-
+    //-----------------------------------------------------------
+    /// <summary>
+    /// Singleton Game Manager to oversee top level Game states
+    /// </summary>
+    /// <remarks>
+    /// Subclass of StateBehaviour, part of the MonsterLove State Machine
+    /// Attached to GameScripts gameObject
+    /// </remarks>
     public class GameManager : StateBehaviour
     {
         private static GameManager instance = null;
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Public access to instance
+        /// </summary>
+        /// <returns>unique instance of class</returns>
         public static GameManager Instance
         {
             // return reference to private instance 
@@ -31,9 +43,9 @@ namespace com.dogonahorse
                 return instance;
             }
         }
-
-        public GameState defaultState;
-        public SceneManager sceneManager;
+        [SerializeField]
+        private GameState defaultState;
+        private SceneManager sceneManager;
         public int frameRate = 60;
         void Awake()
         {
@@ -57,31 +69,41 @@ namespace com.dogonahorse
             ChangeState(GameState.Init);
             Instance.sceneManager.InitScene();
         }
+
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Gets GameManager's current state's Enumerated ID from the state machine
+        /// </summary>
+        /// <returns>Enum of type GameState</returns>
         public static GameState GetCurrentState()
         {
             return (GameState)Enum.Parse(typeof(GameState), instance.GetState().ToString());
         }
 
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Changes Unity scene, and game state. Overloaded with different params for changing levels
+        /// </summary>
+        /// <param name="buttonID">ID of button--typically the screen it belongs to. Screen ID or Window ID would be a better name</param>
+        /// <param name="buttonAction">Type of action called by button</param>
         public static void ChangeScene(ButtonID buttonID, ButtonAction buttonAction)
         {
             GameState currentState = GetCurrentState();
             GameState newState;
-
-
             switch (currentState)
             {
+                //transition to Title Scene/State
                 case GameState.Title:
                     newState = GameState.Progress;
                     UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
-                    //Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
+                //transition to Progress Scene/State
                 case GameState.EndGame:
                 case GameState.GameLevel:
                     newState = GameState.Progress;
                     EventManager.ClearGameLevelListeners();
                     UnityEngine.SceneManagement.SceneManager.LoadScene(newState.ToString());
-                    // Application.LoadLevel(newState.ToString());
                     Instance.ChangeState(newState);
                     break;
                 default:
@@ -89,23 +111,23 @@ namespace com.dogonahorse
             }
         }
 
-        public static void ReloadScene()
-        {
-            Instance.ChangeState(GameState.Reset);
-        }
-
+        /// <summary>
+       /// Changes Unity scene, and game state. Overloaded with different params for navigating to the progress screen
+        /// </summary>
+        /// <param name="levelNumber">Level Number of the level to be opened</param>
+        /// <param name="chapterNumber">Chapter Number of the level to be opened</param>
+        /// <returns>true if level is available, false if not</returns>
         public static bool ChangeScene(int levelNumber, int chapterNumber)
         {
             GameState currentState = GetCurrentState();
 
             if (currentState == GameState.Progress)
             {
+                //concatenate scene name from level and chapter numbers
                 string levelName = "Level_" + padWithZeroes(chapterNumber.ToString()) + padWithZeroes(levelNumber.ToString()); ;
-
                 if (Application.CanStreamedLevelBeLoaded(levelName))
                 {
                     UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
-                    //Application.LoadLevel(levelName);
                     Instance.ChangeState(GameState.GameLevel);
                     LevelManager.SetLevelIDNumbers(chapterNumber, levelNumber);
                     return true;
@@ -117,6 +139,18 @@ namespace com.dogonahorse
             }
             return false;
         }
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Reload current scene
+        /// </summary>
+        /// <remarks>
+        /// called by SceneManager, in response to user pressing level reset button      
+        /// </remarks>
+        public static void ReloadScene()
+        {
+            Instance.ChangeState(GameState.Reset);
+        }
+
         static string padWithZeroes(string numberString)
         {
             if (numberString.Length < 2)
@@ -126,7 +160,14 @@ namespace com.dogonahorse
             }
             return numberString;
         }
-
+        /// <summary>
+        /// Change to endgame state
+        /// </summary>
+        /// <remarks>
+        /// called by SceneManager, in response to game ending. 
+        /// The change of GameState is a kludge to allow the level to 
+        /// reinitialize correctly without having transitioned from another scene     
+        /// </remarks>
         public static void GameOver()
         {
             Instance.ChangeState(GameState.EndGame);
@@ -142,7 +183,7 @@ namespace com.dogonahorse
 
         void Title_Enter()
         {
-   EventManager.PostEvent(AzumiEventType.EnterTitle, this, null);
+            EventManager.PostEvent(AzumiEventType.EnterTitle, this, null);
             Instance.sceneManager.InitScene();
             // Debug.Log("Game Manager: Title Screen");
         }
@@ -156,9 +197,6 @@ namespace com.dogonahorse
             {
                 EventManager.PostEvent(AzumiEventType.UnlockAllLevels, this);
             }
-
-
-
         }
         void GameLevel_Enter()
         {
@@ -166,27 +204,19 @@ namespace com.dogonahorse
             EventManager.PostEvent(AzumiEventType.EnterLevel, this, null);
             // Debug.Log("Game Manager: GameLevel");
             Instance.sceneManager.InitScene();
-
-
         }
 
         void EndGame_Enter()
         {
-
             // Debug.Log("Game Manager: Game is Over");
-
-
         }
         void Reset_Enter()
         {
-
             // Debug.Log("Game Manager: Reset_Enter" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             EventManager.ClearGameLevelListeners();
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-           
             Instance.ChangeState(GameState.GameLevel);
         }
-
         #endregion
     }
 }
