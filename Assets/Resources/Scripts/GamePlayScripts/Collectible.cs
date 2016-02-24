@@ -3,7 +3,12 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
-
+    /// <summary>
+    /// This script was created so that we can have different collectible types of game objects in a scene.
+    /// The game objects, such as coins, can have scripts that inherit from this one. 
+    /// At the moment, this just snaps the coins in place so thay are uniformly spaced from one another.
+    /// But there is more to come as we add different types of collectibles.
+    /// </summary>
     public enum CollectibleType
     {
         //Level events
@@ -15,14 +20,11 @@ namespace com.dogonahorse
         BoostBox
     }
 
-
     public class Collectible : MonoBehaviour
     {
-        public CollectibleType collectibleType;
-        
+        public CollectibleType collectibleType;      
         public bool Snap = true;
         public float SnapValue = 0.25f;
-
 
         void OnTriggerEnter2D(Collider2D col)
         {
@@ -31,7 +33,6 @@ namespace com.dogonahorse
                 EventManager.PostEvent(AzumiEventType.HitCollectible, this, col);
             }
         }
-
 
         void OnDrawGizmos()
         {
@@ -69,7 +70,5 @@ namespace com.dogonahorse
             transform.position = new Vector2(newX, newY);
         }
 
-
-
     }//end class
-}
+}//end namespace

@@ -5,16 +5,17 @@ using System;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+	/// This script is attached to the CoinsNumber game object in the CoinBGpanel to show how many ants player has eaten.
+	/// </summary>
 	public class CoinCounter : MonoBehaviour
 	{
 		private Text myText;
 	
-
 		void Awake ()
 		{
 			myText = GetComponent<Text>();
 		}
-
 
 		void Start ()
 		{
@@ -29,7 +30,6 @@ namespace com.dogonahorse
 		{
 			myText.text = Param.ToString();
 		}
-
-
-	}
-}
+        
+	}// end class
+}//end namespace

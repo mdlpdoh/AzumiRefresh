@@ -5,22 +5,23 @@ using System;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script is attached to the ScoreBGpanel in the LevelCanvas game object. 
+    ///  It monitors the amount of swipes left and begins the flashing animation when the swipes are low.
+    /// </summary>
 
     public class ScoreCounter : MonoBehaviour
     {
         private Text numeral01;
         private Text numeral02;
         private Text numeral03;
-
         public float flashInterval = 0.5f;
         private bool fadingIn = true;
-        //		private int swipesRemaining; //Don't think this is needed...?
+        //private int swipesRemaining; //Don't think this is needed...?
         private bool alreadyFlashing;
-
 
         void Awake()
         {
-
             Text[] myTexts = GetComponentsInChildren<Text>();
             for (int i = 0; i < myTexts.Length; i++)
             {
@@ -85,15 +86,11 @@ namespace com.dogonahorse
         }
         void OnSetBouncesEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             AssignNumeralsToTextBoxes((int)Param);
         }
 
-
-
         void StartFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             if (alreadyFlashing == false)
             {
                 EventManager.PostEvent(AzumiEventType.SwipesLowFadeIn, this);
@@ -103,7 +100,6 @@ namespace com.dogonahorse
 
         void StopFlashing(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             if (alreadyFlashing == true)
             {
                 alreadyFlashing = false;
@@ -116,10 +112,8 @@ namespace com.dogonahorse
             alreadyFlashing = true;
             float currentTime = 0f;
 
-
             while (true)
             {
-
                 if (currentTime < flashInterval)
                 {
                     currentTime += Time.unscaledDeltaTime;
@@ -144,9 +138,8 @@ namespace com.dogonahorse
 
             }//end while	
 
-        }
+        }//end Ienumerator
 
+    }//end class
 
-    }
-
-}
+}//end namespace

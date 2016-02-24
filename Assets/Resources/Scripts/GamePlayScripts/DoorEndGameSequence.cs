@@ -3,17 +3,18 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script lives on the left and right doors game objects. It listens for the AzumiEventType.StartEndGameSequence
+    /// to start the doors opening animation sequence.
+    /// </summary>
     public class DoorEndGameSequence : MonoBehaviour
     {
 
         public float translateTime = 0.5f;
-
         private Vector3 startPosition;
         public Vector3 endPosition;
-
         public AnimationCurve translationCurve;
         private Vector3 difference;
-        // Use this for initialization
         void Start()
         {
             EventManager.ListenForEvent(AzumiEventType.StartEndGameSequence, onStartEndGameSequence);
@@ -21,7 +22,6 @@ namespace com.dogonahorse
             difference = endPosition - startPosition;
         }
 
-        // Update is called once per frame
         void onStartEndGameSequence(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
             StartCoroutine("Translate");
@@ -39,12 +39,12 @@ namespace com.dogonahorse
                 currentTime += Time.deltaTime;
                 yield return null;
             }
-            //  print (" endPosition " + endPosition);
+            // print (" endPosition " + endPosition);
             transform.position = endPosition;
         }
         void OnDestroy()
         {
             EventManager.Instance.RemoveEvent(AzumiEventType.StartEndGameSequence);
         }
-    }
-}
+    }//end class
+}//end namespace

@@ -3,36 +3,30 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This is attached to the Force Arrow Rotater game object that is a child of the Ball game object. 
+    /// The arrows show the player the direction and force of the ball by listening to various pressing, shifting
+    /// and releasing events with corresponding animated the arrows.
+    /// 
+    /// </summary>
     public class ForceArrowRotater : MonoBehaviour
     {
-
-
-
         //public SpriteRenderer ArrowSpriteRenderer;
-
         public ForceArrowSprite[] ArrowLights;
-
-
         //private bool MainDirectionSelected = true;
-
         public float MaxFlickerInterval;
         public float MinFlickerInterval;
         private float currentFlickerInterval;
         public float MaxPullDistance;
-
         private Vector3 startLocation;
         private Vector3 currentLocation;
-
         private float lastFlickerTime = 0;
         private int lastFlickerSpriteNum = 0;
-
         public AnimationCurve SpeedCurve;
         private bool flickering;
 
-        // Use this for initialization
         void Start()
         {
-
             EventManager.ListenForEvent(AzumiEventType.GamePress, OnGamePress);
             EventManager.ListenForEvent(AzumiEventType.GameShift, OnGameShift);
             EventManager.ListenForEvent(AzumiEventType.GameRelease, OnGameRelease);
@@ -58,7 +52,6 @@ namespace com.dogonahorse
         }
         void Flicker()
         {
-
             if (Time.time > lastFlickerTime + currentFlickerInterval)
             {
                 ArrowLights[lastFlickerSpriteNum].StartFadeIn();
@@ -70,15 +63,11 @@ namespace com.dogonahorse
                 }
                 lastFlickerTime = lastFlickerTime + currentFlickerInterval;
             }
-
         }
-
         public void OnGamePress(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             startLocation = (Vector3)Param;
             lastFlickerTime = Time.time;
-
-
         }
         public void OnGameShift(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
@@ -89,9 +78,8 @@ namespace com.dogonahorse
             }
             SetMarkerRotation((Vector3)Param);
             CalculateFlickerInterval();
-
-
         }
+
         void SetMarkerRotation(Vector3 shiftLocation)
         {
             var newLocation = shiftLocation;
@@ -111,7 +99,6 @@ namespace com.dogonahorse
             }
             else
             {
-
                 if (newLocation.x < startLocation.x)
                 {
                     transform.rotation = Quaternion.Euler(0, 0, angle + 90);
@@ -120,9 +107,7 @@ namespace com.dogonahorse
                 {
                     transform.rotation = Quaternion.Euler(0, 0, -angle + 90);
                 }
-
             }
-
             currentLocation = newLocation;
         }
 
@@ -143,7 +128,6 @@ namespace com.dogonahorse
                 ArrowLights[i].AdjustFadeoutSpeed(forceNormal);
             }
             currentFlickerInterval = MaxFlickerInterval - ((MaxFlickerInterval - MinFlickerInterval) * forceNormal);
-
         }
 
         void HideArrow()
@@ -157,11 +141,8 @@ namespace com.dogonahorse
 
         public void OnGameRelease(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
-
             HideArrow();
-
         }
 
-
-    }
-}
+    }//end class
+}//end namespace
