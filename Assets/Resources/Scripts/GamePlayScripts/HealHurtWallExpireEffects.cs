@@ -9,22 +9,16 @@ namespace com.dogonahorse
     {
 
         public float fadeTime = 0.5f;
-
         public AzumiEventType eventType;
-
         public GameObject heartSpriteContainer;
-
         public int MaxParticles = 450;
         private MeshRenderer meshRenderer;
         public AnimationCurve fadeCurve;
         public AnimationCurve particleCurve;
         private WallBehavior myWall;
         private SpriteRenderer[] heartSprites;
-
         private ParticleSystem fadeParticles;
-        // Use this for initialization
         private bool notExpiredAlready = true;
-
         private ParticleSystem.EmissionModule emission;
 
         void Start()
@@ -38,7 +32,6 @@ namespace com.dogonahorse
             emission.enabled = false;
 
         }
-
 
         public void StartFade(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
@@ -54,7 +47,6 @@ namespace com.dogonahorse
 
         private IEnumerator FadeOut()
         {
-
             float currentTime = 0f;
             while (currentTime < fadeTime)
             {
@@ -93,8 +85,6 @@ namespace com.dogonahorse
                 heartSprites[i].material.color = color;
             }
         }
-
-
         void EmitParticles(float particleLevel)
         {
             // var em = fadeParticles.emission;
