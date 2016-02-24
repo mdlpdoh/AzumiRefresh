@@ -32,8 +32,22 @@ namespace com.dogonahorse
 
     }
     //-----------------------------------------------------------
-    //Singleton EventManager to send events to listeners
-    //Works with IListener implementations
+
+    //-----------------------------------------------------------
+    /// <summary>
+    /// Singleton EventManager to send events to listeners--specialized for music even†s
+    /// Works with IListener implementations
+    /// </summary>
+    /// <remarks>
+    /// Feeble attempt to decentralize event management.
+    /// A better implementation would add event handlers as a property of particular packages, or maybe classes, or more likely an interface.
+    /// 
+    /// The distinction between the class and instance methods should be cleaned up--both are not necessary 
+    /// Attached to GamesScripts gameObject
+    /// 
+    /// See Event manager remarks--all comments there apply here
+    /// </remarks>
+    
     public class AudioEventManager : MonoBehaviour
     {
         #region C# properties
