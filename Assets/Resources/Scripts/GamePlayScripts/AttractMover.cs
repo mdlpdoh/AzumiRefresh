@@ -2,13 +2,13 @@
 using System.Collections;
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script is attached to the Black hole type game object in game play area. Whe the ball gets too close it gets sucked into its center.
+    /// </summary>
     public class AttractMover : MonoBehaviour
     {
-
         // Use this for initialization
         public float attractStrength = 0.1f;
-
-        // Update is called once per frame
         private float startDistance = 0f;
         public float AttractRadius = 0f;
         public Rigidbody2D particleRotator;
@@ -26,7 +26,6 @@ namespace com.dogonahorse
                 startDistance = (col.transform.position - transform.position).magnitude;
             }
         }
-
         void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.name == "Ball")
@@ -39,5 +38,5 @@ namespace com.dogonahorse
                 col.attachedRigidbody.AddForce(AttractNormalVector * (attractStrength * (currentDistance)));
             }
         }
-    }
-}
+    }//end class
+}//end namespace

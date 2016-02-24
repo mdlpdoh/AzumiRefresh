@@ -3,14 +3,17 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script is for the GoDirectionMover, a game object that will move the ball in the direction that the arrow points.
+    /// The GoDirectionMover has 2 child sprite gameobjects, a directionalMover and a GoDirectionMoverGizmoArrow, this script
+    /// enables the level designer to also change direction of arrow.
+    /// </summary>
     public class GoDirectionMover : MonoBehaviour
     {
         public Transform DirectionalArrow;
         public Transform MoverIcon;
         public float transitionAmountPerFrame = 0.001f;
-
         private float currentAmount = 0f;
-
         private Vector2 TargetVector;
 
         void Start()
@@ -31,12 +34,10 @@ namespace com.dogonahorse
             }
         }
 
-
         void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.name == "Ball")
             {
-                           //     EventManager.PostEvent(AzumiEventType.inDirectionalMover, this);
                 AdjustVelocity(col);
             }
         }
@@ -69,5 +70,5 @@ namespace com.dogonahorse
             }
             MoverIcon.localPosition = new Vector2(0, 0);
         }
-    }
-}
+    }//end class
+}//end namespace

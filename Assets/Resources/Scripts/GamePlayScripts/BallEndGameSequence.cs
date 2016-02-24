@@ -2,9 +2,11 @@
 using System.Collections;
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script lives on the ball. It listens for AzumiEventType.StartEndGameSequence, and starts the animation of the ball going through the doors.
+    /// </summary>
     public class BallEndGameSequence : MonoBehaviour
     {
-
 
         public float translateTime1 = 0.5f;
 
@@ -39,7 +41,6 @@ namespace com.dogonahorse
             difference2 = endPosition2 - startPosition2;
         }
 
-        // Update is called once per frame
         void onStartEndGameSequence(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
             rb.isKinematic = true;

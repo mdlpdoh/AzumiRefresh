@@ -25,7 +25,7 @@ namespace com.dogonahorse
         public int CoinsInLevel = 0;
         private int coinsEarned = 0;
 
-        //        private bool playerActionsCostPoints = true;
+        //private bool playerActionsCostPoints = true;
         private bool exitedDoorSafely = false;
         private bool ranOutOfTime = false;
         public bool RanOutOfTime
