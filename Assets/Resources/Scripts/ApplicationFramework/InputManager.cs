@@ -7,15 +7,29 @@ using UnityEngine.UI;
 namespace com.dogonahorse
 {
     /**
-	 *  Manages all player input. InputManager controls any touch, keyboard or mouse input by the user, and passes it on to the current scene manager for interpretation.
+	 *  
 	 */
+    //-----------------------------------------------------------
+    /// <summary>
+    /// Singleton Manages all player input. 
+    /// InputManager controls any touch, keyboard or mouse input by the user, and passes it on to the  SceneManager for interpretation.
+    /// </summary>
+    /// <remarks>
+    /// Attached to GameScripts gameObject
+    /// Should be posting events, rather than calling methods in sceneScripts directly
+    /// </remarks>
     public class InputManager : MonoBehaviour
     {
         //public GameManager gameManager;
-        public SceneManager sceneManager;
-        public bool UIControlIsActive;
-
-
+        private SceneManager sceneManager;
+        private bool UIControlIsActive;
+      //-----------------------------------------------------------
+        /// <summary>
+        /// Flag as to whether level progress has been overridden 
+        /// </summary
+        /// <remarks>
+        /// Only used for development--prolly should not be public
+        /// </remarks>>
         public bool LevelProgressOverride = false;
 
         private bool InitialMouseDownIsValid = false;
@@ -25,14 +39,25 @@ namespace com.dogonahorse
         //Internal reference to Notifications Manager instance (singleton design pattern)
         private static InputManager instance = null;
 
+        //-----------------------------------------------------------
         //private  EventManager eventManager;
-
+        /// <summary>
+        /// Controls orientation of swipe
+        /// </summary>
+        /// <remarks>
+        /// Obsolete--should be eliminated
+        /// </remarks>
         public static bool MainDirectionSelected = false;
 
+
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Public access to instance
+        /// </summary>
+        /// <returns>unique instance of class</returns>
         public static InputManager Instance
         {
             // return public reference to private instance 
-
             get
             {
                 return instance;
@@ -124,15 +149,23 @@ namespace com.dogonahorse
                     }
                 }
             }
-
         }
 
-
+        //screenCoordinates start as a Vector2D, but need to be put into 3D worldspace 
         Vector3 FixCoordinates(Vector3 screenCoordinates)
         {
             return new Vector3(screenCoordinates.x, screenCoordinates.y, 10);
         }
 
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called whenever a main UI button other than a level button is tapped
+        /// </summary>
+        /// <param name="buttonID">ID of button (really of modal)</param>
+        /// <param name="buttonAction">Action dictated by button</param>
+        /// <remarks>
+        /// Called directly by buttons--should be event-driven
+        /// </remarks>
         #region Button Input
         public void MainButtonClicked(ButtonID buttonID, ButtonAction buttonAction)
         {
@@ -143,6 +176,15 @@ namespace com.dogonahorse
             }
         }
 
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called whenever a modal window  button  is tapped
+        /// </summary>
+        /// <param name="buttonID">ID of button (really of modal)</param>
+        /// <param name="buttonAction">Action dictated by button</param>
+        /// <remarks>
+        /// Called directly by buttons--should be event-driven
+        /// </remarks>
         public void ModalButtonClicked(ButtonID buttonID, ButtonAction buttonAction)
         {
             SceneState sceneState = sceneManager.GetCurrentState();
@@ -152,7 +194,15 @@ namespace com.dogonahorse
 
             }
         }
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called whenever a "select level"   button  is tapped
+        /// </summary>
+        /// <param name="levelNumber">level value for prospective level</param>
+        /// <param name="chapterNumber">chapter value for prospective level</param>
+        /// <remarks>
+        ///  Called directly by InputManager. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void LevelButtonClicked(int LevelNumber, int chapterNumber)
         {
             if (sceneManager.GetCurrentState() == SceneState.Ready)
@@ -161,13 +211,24 @@ namespace com.dogonahorse
 
             }
         }
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called by various controls to lock other button and other UI activity while a partiular control is active
+        /// </summary>
+        /// <remarks>
+        ///  Called directly by controls. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void ControlActive()
         {
             //print ("ControlActive");
             UIControlIsActive = true;
         }
-
+        /// <summary>
+        /// Called by various controls to unlock other button and other UI activity while a partiular control is active
+        /// </summary>
+        /// <remarks>
+        ///  Called directly by controls. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void ControlNotActive()
         {
             //print ("ControlNotActive");
@@ -175,15 +236,28 @@ namespace com.dogonahorse
         }
 
         #endregion
-
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called by level unlock override button to resume normal behavior
+        /// </summary>
+        /// <remarks>
+        /// Note: Only used during development 
+        ///  Called directly by controls. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void LockLevelButtons()
         {
             //print ("ControlActive");
             LevelProgressOverride = false;
             EventManager.PostEvent(AzumiEventType.RelockLevels, this);
         }
-
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Called by level unlock override button to artificially unlock all level button
+        /// </summary>
+        /// <remarks>
+        /// Note: Only used during development 
+        ///  Called directly by controls. Ought to be event-driven rather than called directly
+        /// </remarks>
         public void UnlockLevelButtons()
         {
             //print ("LevelProgressOverride");
