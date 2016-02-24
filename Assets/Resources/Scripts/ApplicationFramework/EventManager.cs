@@ -6,7 +6,7 @@ namespace com.dogonahorse
 {
     //-----------------------------------------------------------
     //Enum defining all possible game events
-    //More events should be added to the list
+    //List is excessively long and risky to edit
     public enum AzumiEventType
     {
 
@@ -68,13 +68,25 @@ namespace com.dogonahorse
 
     }
     //-----------------------------------------------------------
-    //Singleton EventManager to send events to listeners
-    //Works with IListener implementations
+    /// <summary>
+    /// Singleton EventManager to send events to listeners
+    /// Works with IListener implementations
+    /// </summary>
+    /// <remarks>
+    /// Event Handler is overloaded with custom events--adding new enumerated eventTypes, except to the very end, displaces all the subsequent events in the enum.
+    /// A better implementation would add event handlers as a property of particular packages, or maybe classes, or more likely an interface.
+    /// 
+    /// The distinction between the class and instance methods should be cleaned up--both are not necessary 
+    /// Attached to GamesScripts gameObject
+    /// </remarks>
     public class EventManager : MonoBehaviour
     {
         #region C# properties
         //-----------------------------------------------------------
-        //Public access to instance
+        /// <summary>
+        /// Public access to instance
+        /// </summary>
+        /// <returns>unique instance of class</returns>
         public static EventManager Instance
         {
             get
@@ -98,6 +110,8 @@ namespace com.dogonahorse
         //Array of listener objects (all objects registered to listen for events)
         private Dictionary<AzumiEventType, List<OnEvent>> Listeners = new Dictionary<AzumiEventType, List<OnEvent>>();
         #endregion
+
+
         //-----------------------------------------------------------
         #region methods
         //Called at start-up to initialize
@@ -112,12 +126,17 @@ namespace com.dogonahorse
             else //Instance already exists, so destroy this one. This should be a singleton object
                 DestroyImmediate(this);
         }
+
+
         //-----------------------------------------------------------
         /// <summary>
         /// Function to add specified listener-object to array of listeners
         /// </summary>
         /// <param name="AzumiEventType">Event to Listen for</param>
         /// <param name="Listener">Object to listen for event</param>
+        /// <remarks>
+        /// This is an instance method. that is somewhat redundant with the static method ListenForEvent 
+        /// </remarks>
         public void AddListener(AzumiEventType azumiEventType, OnEvent Listener)
         {
             //List of listeners for this event
@@ -136,24 +155,16 @@ namespace com.dogonahorse
             ListenList.Add(Listener);
             Listeners.Add(azumiEventType, ListenList); //Add to internal listeners list
         }
+
+
         //-----------------------------------------------------------
+
         /// <summary>
-        /// Function to post event to listeners
+        ///  Posts  event to listeners
         /// </summary>
-        /// <param name="AzumiEventType">Event to invoke</param>
-        /// <param name="Sender">Object invoking event</param>
-        /// <param name="Param">Optional argument</param>
-        /// 
-        public static void PostEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
-        {
-            Instance.PostNotification(azumiEventType, Sender, Param);
-        }
-
-        public static void ListenForEvent(AzumiEventType azumiEventType, OnEvent Listener)
-        {
-            Instance.AddListener(azumiEventType, Listener);
-        }
-
+        /// <param name="azumiEventType">Event to invoke of type AzumiEventType</param>
+        /// <param name="Sender">Object invoking event of type Component</param>
+        /// <param name="Param">Optional argument of type Object</param>
         public void PostNotification(AzumiEventType azumiEventType, Component Sender, object Param = null)
         {
             //Notify all listeners of an event
@@ -173,9 +184,48 @@ namespace com.dogonahorse
             }
         }
 
+        //-----------------------------------------------------------
+        /// <summary>
+        /// Adds a listener for a particular event
+        /// </summary>
+        /// <param name="AzumiEventType">Event to Listen for</param>
+        /// <param name="Listener">Object to listen for event</param>
+        /// <remarks>
+        /// This is an static method that is somewhat redundant with the instance method AddListener ( it just calls AddListener). 
+        /// </remarks>
+
+        public static void ListenForEvent(AzumiEventType azumiEventType, OnEvent Listener)
+        {
+            Instance.AddListener(azumiEventType, Listener);
+        }
+
+
+        //-----------------------------------------------------------
+        /// <summary>
+        ///  Posts  event to listeners
+        /// </summary>
+        /// <param name="azumiEventType">Event to invoke of type AzumiEventType</param>
+        /// <param name="Sender">Object invoking event of type Component</param>
+        /// <param name="Param">Optional argument of type Object</param>
+        /// <remarks>
+        /// This is a Static method that is somewhat redundant with the instance method PostNotification ( it just calls postEvent). 
+        /// </remarks>
+        public static void PostEvent(AzumiEventType azumiEventType, Component Sender, object Param = null)
+        {
+            Instance.PostNotification(azumiEventType, Sender, Param);
+        }
+
+
+        /// <summary>
+        /// Clears all listeners for certain events. 
+        /// </summary>
+        /// <remarks>
+        /// A poor implementation--overly specific and potentially confusing as it may cancel leisters that should persist 
+        /// </remarks>
+
         public static void ClearGameLevelListeners()
         {
-           // print("Clearing Game Listeners");
+            // print("Clearing Game Listeners");
 
             Instance.RemoveEvent(AzumiEventType.GameSwipe);
             Instance.RemoveEvent(AzumiEventType.SetCoins);
@@ -199,14 +249,28 @@ namespace com.dogonahorse
         }
 
         //---------------------------------------------------------
-        //Remove event type entry from dictionary, including all listeners
+        /// <summary>
+        /// Remove event type entry from dictionary, including all listeners
+        /// </summary>
+        /// <param name="azumiEventType">Event Type to remove</param>
+        /// <remarks>
+        /// kills all listeners for the designated type 
+        /// </remarks>
         public void RemoveEvent(AzumiEventType azumiEventType)
         {
-
             //Remove entry from dictionary
             Listeners.Remove(azumiEventType);
         }
 
+        //---------------------------------------------------------
+        /// <summary>
+        /// Remove a listener for a single type and target
+        /// </summary>
+        /// <param name="AzumiEventType">Event Type to remove</param>
+        /// <param name="Listener">Listening Object to remove</param>
+        /// <remarks>
+        /// kills only the event for designated listener, leaving others untouched
+        /// </remarks>
         public void RemoveListener(AzumiEventType azumiEventType, OnEvent Listener)
         {
             if (Listeners.ContainsKey(azumiEventType))
@@ -217,7 +281,6 @@ namespace com.dogonahorse
                     if (Listeners[azumiEventType][i] == Listener)
                     {
                         //do nothing--this is the listener we want to eliminate
-                        // print("Found one " + Listener);
                     }
                     else
                     {
@@ -230,7 +293,12 @@ namespace com.dogonahorse
             }
         }
         //-----------------------------------------------------------
-        //Remove all redundant entries from the Dictionary
+        /// <summary>
+        /// Remove all redundant entries from the Dictionary
+        /// </summary>
+        /// <remarks>
+        /// Not sure if this even works
+        /// </remarks>
         public void RemoveRedundancies()
         {
             //Create new dictionary
@@ -243,16 +311,13 @@ namespace com.dogonahorse
                 for (int i = Item.Value.Count - 1; i >= 0; i--)
                 {
                     //If null, then remove item
-
                     if (Item.Value[i].Equals(null))
                         Item.Value.RemoveAt(i);
                 }
-
                 //If items remain in list for this notification, then add this to tmp dictionary
                 if (Item.Value.Count > 0)
                     TmpListeners.Add(Item.Key, Item.Value);
             }
-
             //Replace listeners object with new, optimized dictionary
             Listeners = TmpListeners;
         }
@@ -260,7 +325,6 @@ namespace com.dogonahorse
         //Called on scene change. Clean up dictionary
         void OnLevelWasLoaded()
         {
-
             RemoveRedundancies();
         }
         //-----------------------------------------------------------
