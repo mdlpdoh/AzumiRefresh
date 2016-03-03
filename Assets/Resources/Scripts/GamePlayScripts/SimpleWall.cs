@@ -3,9 +3,11 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+	/// This script is on the SimpleWall_Quad prefab. It creates the ability to stretch, position and snap to a grid.
+	/// </summary>
 	public class SimpleWall : MonoBehaviour
 	{
-
 
 		public Transform handle01;
 		public Transform handle02;
@@ -17,8 +19,6 @@ namespace com.dogonahorse
 		public  bool DrawLines = false;
 		public  float LineLength = 1f;
 		public  Color LineColor = Color.red;
-
-
 
 		void OnDrawGizmos ()
 		{
@@ -63,8 +63,7 @@ namespace com.dogonahorse
 
 		void snapHandle (Transform handle)
 		{
-
-			
+		
 			float x = handle.transform.position.x;
 			float y = handle.transform.position.y;
 
@@ -91,5 +90,5 @@ namespace com.dogonahorse
 			}
 		
 		}
-	}
-}
+	}// end class
+}// end namespace

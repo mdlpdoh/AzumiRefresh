@@ -3,19 +3,20 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+	/// This script is on the ball and activates the particles animation that happens when ball collides with another gameobject.
+	/// </summary>
 	public class CollisionBall : MonoBehaviour
 	{
 		public bool particlesEnabled;
 		private GameObject hits;
-		// Use this for initialization
 	
 		void Start ()
 		{
-			// get the particle system child object of the ball
+			// get the particle system gameobject called "hitparticles" in the scene.
 			hits = GameObject.Find ("hitParticles");
 		}
 	
-		// Update is called once per frame
 		void emitParticleEffect (Collision2D coll)
 		{
 			// below is to give a nice particle effect when ball hits something.
@@ -37,9 +38,10 @@ namespace com.dogonahorse
 		// Particle Effect on Collision
 		void OnCollisionEnter2D (Collision2D coll)
 		{
-	
-			if (coll.transform.tag == "Wall") {
-				if (particlesEnabled){
+			if (coll.transform.tag == "Wall") 
+            {
+				if (particlesEnabled)
+                {
 					emitParticleEffect (coll);
 				}
 
@@ -48,4 +50,4 @@ namespace com.dogonahorse
 		}
 	
 	}//end class
-}
+}// end namespace

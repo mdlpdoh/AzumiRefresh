@@ -64,13 +64,12 @@ namespace com.dogonahorse
                 float normalizedTime = currentTime / effectTime;
                 float curveProgress = rotationCurve.Evaluate(normalizedTime);
                 transform.rotation = Quaternion.AngleAxis(curveProgress * MaxRotationAmount, angleAxis);
-              //  print ("transform.rotation " +  transform.rotation.eulerAngles);
+                // print ("transform.rotation " +  transform.rotation.eulerAngles);
+                currentTime += Time.deltaTime;
                 
-                 currentTime += Time.deltaTime;
-
                 yield return null;
+                
             }// end while
-
         }//end Ienumerator RotateEffect
 
         private IEnumerator ScaleEffect()

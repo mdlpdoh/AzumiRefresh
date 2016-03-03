@@ -16,27 +16,26 @@ namespace com.dogonahorse
 
 		void Awake ()
 		{
-
-
 			ArrowSpriteRenderer = GetComponent<SpriteRenderer>();
 		}
-			// Use this for initialization
+			
 		void Start ()
 		{
-
 			EventManager.ListenForEvent (AzumiEventType.GamePress, OnGamePress);
 			EventManager.ListenForEvent (AzumiEventType.GameShift, OnGameShift);
 			EventManager.ListenForEvent (AzumiEventType.GameRelease, OnGameRelease);
 			ArrowSpriteRenderer.enabled = false;
 		}
 	
-
 		public void OnGamePress (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 			//print ("ArrowPivot == " +;
-			if (InputManager.MainDirectionSelected){
+			if (InputManager.MainDirectionSelected)
+            {
 				ArrowSpriteRenderer.sprite = MainSprite;
-			} else {
+			} 
+            else 
+            {
 				ArrowSpriteRenderer.sprite = AltSprite;
 			}
 			startLocation =  Camera.main.ViewportToWorldPoint( FixCoordinates((Vector3)Param));
@@ -47,25 +46,31 @@ namespace com.dogonahorse
 		public void OnGameShift (AzumiEventType Event_Type, Component Sender, object Param = null)
 		{
 
-			if (!ArrowSpriteRenderer.enabled) {
+			if (!ArrowSpriteRenderer.enabled) 
+            {
 				ArrowSpriteRenderer.enabled = true;
 			}
 			var newLocation =  Camera.main.ViewportToWorldPoint( FixCoordinates((Vector3)Param));
 			Vector2 vectorDirection = Vector3.Normalize (newLocation - startLocation);
 			float angle = Vector3.Angle (vectorDirection, Vector2.up);
 		
-			if (newLocation.x < startLocation.x) {
+			if (newLocation.x < startLocation.x) 
+            {
 				transform.rotation = Quaternion.Euler (0, 0, angle - 90);
-			} else {
+			} 
+            else 
+            {
 				transform.rotation = Quaternion.Euler (0, 0, -angle - 90);
 			}
 
-			if (InputManager.MainDirectionSelected){
+			if (InputManager.MainDirectionSelected)
+            {
 				transform.localScale = new Vector2 ((newLocation - startLocation).magnitude * fudge, 1);
-			} else {
+			} 
+            else 
+            {
 				transform.localScale = new Vector2 ((newLocation - startLocation).magnitude * -fudge, 1);
 			}
-	
 		
 		}
 
@@ -76,8 +81,10 @@ namespace com.dogonahorse
 		}
 
 		//have to modify vector to include distance from camera. or 
-		Vector3 FixCoordinates (Vector3 screenCoordinates){
+		Vector3 FixCoordinates (Vector3 screenCoordinates)
+        {
 			return new Vector3(screenCoordinates.x, screenCoordinates.y, 10);
 		}
-	}
-}
+        
+	}// end class
+}// end namespace

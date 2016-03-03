@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script is on the hurt/healQuad that is a child of the AddPointsWall_quad or SubtractPoints_Quad gameobjects(Prefabs). 
+    /// and enables a special animated effect of the wall losing its heal/hurt property when it runs out of them.
+    /// Basically, it fades out the Sprite.
+    /// </summary>
     public class HealHurtWallExpireEffects : MonoBehaviour
     {
 
@@ -96,5 +101,5 @@ namespace com.dogonahorse
         {
             EventManager.Instance.RemoveEvent(eventType);
         }
-    }
-}
+    }//end class
+}//end namespace

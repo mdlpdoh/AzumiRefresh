@@ -6,7 +6,6 @@ namespace com.dogonahorse
 {
     public class WallBehavior : MonoBehaviour
     {
-        // Use this for initialization
 
         [SerializeField]
         private int WallScoreValue = 0;

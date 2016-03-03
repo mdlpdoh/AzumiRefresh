@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 namespace com.dogonahorse
 {
+    /// <summary>
+    /// This script is on the AddPointsWall_Quad and SubtractPointsWall_Quad prefab game objects.
+    /// It makes it possible to stretch, to position the walls and put an identifying sprite on it.
+    /// </summary>
     public class LayeredSpriteWall : MonoBehaviour
     {
-
 
         public Transform handle01;
         public Transform handle02;
@@ -32,7 +35,6 @@ namespace com.dogonahorse
 
         void OnDrawGizmos()
         {
-
             if (Snap)
             {
                 snapHandle(handle01);
@@ -115,7 +117,6 @@ namespace com.dogonahorse
         
         void adjustNumberOfSprites(int numberOfSprites)
         {
-
             int i;
             int difference = numberOfSprites - spritesInWall.Count;
             if (difference > 0)
@@ -157,15 +158,11 @@ namespace com.dogonahorse
 
         void snapHandle(Transform handle)
         {
-
-
             float x = handle.transform.position.x;
             float y = handle.transform.position.y;
 
             float remainderX = Mathf.Abs(x) % SnapValue;
             float remainderY = Mathf.Abs(y) % SnapValue;
-
-
 
             if (remainderX < SnapValue / 2)
             {
@@ -191,5 +188,5 @@ namespace com.dogonahorse
             }
 
         }
-    }
-}
+    }// end class
+}// end namespace
