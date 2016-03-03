@@ -129,9 +129,9 @@ namespace com.dogonahorse
 
 
 
-        //private float elapsedTime;
-        //        private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
-        //       private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
+        // private float elapsedTime;
+        // private Dictionary<PowerUpType, int> availablePowerUps = new Dictionary<PowerUpType, int>();
+        // private Dictionary<PowerUpType, int> powerUpsUsed = new Dictionary<PowerUpType, int>();
 
         private SceneManager sceneManager;
 
@@ -170,7 +170,8 @@ namespace com.dogonahorse
                 public void PlayerActionsCostPoints(bool newValue)
                 {
                     playerActionsCostPoints = newValue;
-                }*/
+                }
+         */
         public void OnHitWallEvent(AzumiEventType Event_Type, Component Sender, object Param = null)
         {
             if (sceneManager.GetCurrentState() == SceneState.Playing)

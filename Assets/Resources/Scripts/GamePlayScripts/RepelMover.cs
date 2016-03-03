@@ -4,8 +4,10 @@ namespace com.dogonahorse
 {
     public class RepelMover : MonoBehaviour
     {
-
-        // Use this for initialization
+        /// <summary>
+        /// This script is put on the Prefab called the RepelMover. When the ball collides with it, 
+        /// the RepelMover game object pushes the ball away.
+        /// </summary>
         public float RepelStrength = 0.1f;
 
         public float startDistance = 0f;
@@ -28,9 +30,6 @@ namespace com.dogonahorse
             rotIndex -= 0.3f;
             rotator.rotation = Quaternion.Euler(0, 0, rotIndex);
         }
-
-
-
 
         void OnTriggerEnter2D(Collider2D col)
         {
@@ -55,5 +54,6 @@ namespace com.dogonahorse
 
             }
         }
-    }
-}
+        
+    }// end class
+}//end namespace

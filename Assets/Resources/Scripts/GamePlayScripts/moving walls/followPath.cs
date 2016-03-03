@@ -7,9 +7,9 @@ namespace com.dogonahorse
     public class followPath : MonoBehaviour
     {
         /// <summary>
-        /// This script is used for the moving walls. It creates two points that you can position anywhere.
-        /// It is put on the Prefab called AutoMoveWallAlongAxis and the gameObject that has the wallMovePingPong script on it is
-        /// then dropped into the public 'Path' in the Inspector, so the wall can  ping pong between the points.
+        /// This script is used for the moving walls and is used with the wallMovePingPong script.
+        /// We put this script on the Prefab called AutoMoveWallAlongAxis. Now drop the Platform Path Object (or any game object that has
+        /// the wallMovePingPong script on it) onto the public 'Path' in the script component in the inspector.
         /// </summary>
 
         public enum FollowType

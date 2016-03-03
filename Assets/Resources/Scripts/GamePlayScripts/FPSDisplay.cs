@@ -3,7 +3,10 @@ using System.Collections;
 
 namespace com.dogonahorse
 {
-
+    /// <summary>
+    /// This script is used to know how many frames per second the game is running during a level. 
+    /// That way we can begin to know if something in the scene is slowing the game down.
+    /// </summary>
     public class FPSDisplay : MonoBehaviour
     {
         float deltaTime = 0.0f;

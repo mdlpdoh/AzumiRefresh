@@ -79,8 +79,7 @@ namespace com.dogonahorse
             transform.position = endPosition2;
             Invoke("EndSequence", pauseTime);
         }
-         
-        
+                
          void EndSequence()
         {
             EventManager.PostEvent(AzumiEventType.FinishEndGameSequence, this);
@@ -89,5 +88,5 @@ namespace com.dogonahorse
         {
             EventManager.Instance.RemoveEvent(AzumiEventType.StartEndGameSequence);
         }
-    }
-}
+    }//end class
+}//end namespace

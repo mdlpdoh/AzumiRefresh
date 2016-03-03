@@ -8,10 +8,10 @@ namespace com.dogonahorse
     public class wallMovePingPong : MonoBehaviour
     {
         /// <summary>
-        ///  1. Attach this script to an empty game object and the wall will ping pong back and forth along the path created by Follow Path script. 
-        ///     We have this script on a game object called Platform Path.
-        ///  2. Make sure to then add the wall, we use the prefab called AutoMoveWallAlongAxis and put it on the 'start' icon.
-        ///  3. drag the game object in the Hierarchy into inspector of the AutoMoveWallAlongAxis public 'Path' (in the Follow Path script component).   
+        /// This script works in unison with the FollowPath Script. This script creates a ping pong of the object, back and forth along the path that is created by the FollowPath script.
+        /// 1. We have this script on a game object called Platform Path with child objects called start and end, put an Icon on the start and end gameoobjects so you can see where they are.
+        /// 2. Make sure to then add a game object for a moving wall, we use the prefab called AutoMoveWallAlongAxis and put it on the 'start' icon add the Follow path script to it.
+        /// 3. drag the Platform Path in the Hierarchy into inspector of the AutoMoveWallAlongAxis public 'Path' (in the Follow Path script component).   
         /// </summary>
 
         public Transform[] Points;
@@ -47,6 +47,7 @@ namespace com.dogonahorse
 
         public void OnDrawGizmos()
         {
+            //This will draw the lines to show the path 
             //ensure that there are atleast 2 points to ensure there are enough points to make a line.points object will be null until list is created so use Points == null.
             if (Points == null || Points.Length < 2)
                 return;
